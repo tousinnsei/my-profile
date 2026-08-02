@@ -1,0 +1,1707 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>実績・プロジェクト | 鄧 信成 公式サイト</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ========== ページヘッダー ========== */
+    .page-hero {
+      padding: 60px 0 40px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 50%, #f0f9ff 100%);
+      border-radius: 0 0 24px 24px;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .page-hero__title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 12px;
+    }
+
+    .page-hero__title span {
+      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-hero__desc {
+      color: #64748b;
+      margin: 0;
+      font-size: 15px;
+    }
+
+    /* ========== 分類フィルター ========== */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 48px;
+      justify-content: center;
+    }
+
+    .filter-tab {
+      padding: 10px 22px;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      background: #fff;
+      color: #475569;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      font-weight: 500;
+    }
+
+    .filter-tab:hover {
+      border-color: #4a6cf7;
+      color: #4a6cf7;
+      transform: translateY(-1px);
+    }
+
+    .filter-tab.active {
+      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(74, 108, 247, 0.3);
+    }
+
+    /* ========== カード共通 スクロールアニメーション ========== */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #f1f5f9;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .project-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+      border-color: #e0e7ff;
+    }
+
+    .project-card__image {
+      width: 100%;
+      height: 200px;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .project-card__image_auto {
+      width: 100%;
+      height: auto;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-card__image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(74, 108, 247, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-card__image::after {
+      opacity: 1;
+    }
+
+.project-card__image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+    .project-card:hover .project-card__image img {
+      transform: scale(1.06);
+    }
+
+    .project-card__body {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-card__meta {
+      font-size: 12px;
+      color: #4a6cf7;
+      font-weight: 600;
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(74, 108, 247, 0.08);
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    .project-card__title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.5;
+      transition: color 0.3s ease;
+    }
+
+    .project-card:hover .project-card__title {
+      color: #4a6cf7;
+    }
+
+    .project-card__text {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.7;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== カテゴリ別 カードバリエーション ========== */
+    .project-card[data-category="research"] {
+      border-left: 4px solid #4a6cf7;
+    }
+
+    .project-card[data-category="company"] .project-card__image {
+      height: 220px;
+    }
+
+    .project-card[data-category="company"] .project-card__body {
+      padding: 24px;
+    }
+
+    .project-card[data-category="system"] .project-card__body::before {
+      content: "🛠️ システム開発";
+      font-size: 11px;
+      color: #0ea5e9;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .project-card[data-category="paper"] {
+      border-top: 3px solid #7c3aed;
+    }
+
+    .project-card[data-category="paper"] .project-card__meta {
+      color: #7c3aed;
+      background: rgba(124, 58, 237, 0.08);
+    }
+
+    .project-card[data-category="paper"]:hover .project-card__title {
+      color: #7c3aed;
+    }
+
+    /* ========== モーダル アニメーション強化 ========== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(7, 10, 24, 0.7);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal__dialog {
+      width: min(100%, 920px);
+      /* 👈 桌面端模态框宽度从默认760px加大到920px */
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
+      transform: scale(0.95) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .modal.show .modal__dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal__carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 460px;
+      /* 👈 轮播高度加大到460px，配合更宽的模态框整体变大 */
+      background: #f8fafc;
+      /* 图片留白时的背景色 */
+    }
+
+    .modal__section-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* 論文タイトルリンク */
+.modal__title-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+.modal__title-link:hover {
+  color: #4a6cf7;
+  border-bottom-color: #4a6cf7;
+}
+
+    .carousel__track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      transition: transform 0.35s ease;
+      height: 100%;
+    }
+
+    .carousel__slide {
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* 👈 完整显示整张图片，不裁剪；想填满就改成 cover */
+      display: block;
+    }
+
+    /* 移动端适配，防止超出屏幕 */
+    @media (max-width: 640px) {
+      .modal__dialog {
+        width: calc(100% - 32px);
+      }
+
+      .modal__carousel {
+        height: 260px;
+      }
+    }
+
+    .carousel__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: #4a6cf7;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .carousel__control:hover {
+      background: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel__control--prev {
+      left: 16px;
+    }
+
+    .carousel__control--next {
+      right: 16px;
+    }
+
+    .carousel__dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+    }
+
+    .carousel__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .carousel__dot.active {
+      background: #fff;
+      width: 24px;
+      border-radius: 999px;
+    }
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 20px 28px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .modal__title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .modal__close {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(74, 108, 247, 0.08);
+      color: #4a6cf7;
+      cursor: pointer;
+      font-size: 20px;
+      display: grid;
+      place-items: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .modal__close:hover {
+      background: rgba(74, 108, 247, 0.15);
+      transform: rotate(90deg);
+    }
+
+    .modal__body {
+      padding: 24px 28px;
+    }
+
+    .modal__tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: rgba(74, 108, 247, 0.1);
+      color: #4a6cf7;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .modal__section {
+      margin-bottom: 18px;
+    }
+
+    .modal__section:last-child {
+      margin-bottom: 0;
+    }
+
+    .modal__section-title {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .modal__overview,
+    .modal__research,
+    .modal__role,
+    .modal__results,
+    .modal__benefits {
+      margin: 0;
+      color: #475569;
+      line-height: 1.75;
+      font-size: 14.5px;
+    }
+
+    .modal__features {
+      margin: 0;
+      padding-left: 20px;
+      color: #475569;
+      line-height: 1.8;
+      font-size: 14.5px;
+    }
+
+    .modal__details {
+      margin: 0;
+      color: #475569;
+      font-size: 14.5px;
+    }
+
+    .modal__stack {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* ========== 下部CTA ========== */
+    .portfolio-cta {
+      margin-top: 64px;
+      background: linear-gradient(135deg, #4a6cf7 0%, #7c3aed 100%);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .portfolio-cta h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .portfolio-cta p {
+      margin: 0 0 20px;
+      opacity: 0.9;
+    }
+
+    .portfolio-cta .btn-white {
+      display: inline-block;
+      padding: 10px 28px;
+      background: #fff;
+      color: #4a6cf7;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .portfolio-cta .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========== 深色モード対応 ========== */
+    body.theme-dark .page-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #0b1220 50%, #0c1322 100%);
+    }
+
+    body.theme-dark .page-hero__title {
+      color: #f1f5f9;
+    }
+
+    body.theme-dark .filter-tab {
+      background: #1e293b;
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+
+    body.theme-dark .filter-tab:hover {
+      border-color: #4a6cf7;
+      color: #60a5fa;
+    }
+
+    body.theme-dark .filter-tab.active {
+      color: #fff;
+    }
+
+    body.theme-dark .project-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    body.theme-dark .project-card:hover {
+      border-color: #4a6cf780;
+    }
+
+    body.theme-dark .project-card__image {
+      background: #0f172a;
+    }
+
+    body.theme-dark .project-card__title {
+      color: #f1f5f9;
+    }
+
+    body.theme-dark .project-card__text {
+      color: #94a3b8;
+    }
+
+    body.theme-dark .modal__dialog {
+      background: #1e293b;
+    }
+
+    body.theme-dark .modal__header {
+      border-bottom-color: #334155;
+    }
+
+    body.theme-dark .modal__title {
+      color: #f1f5f9;
+    }
+
+    body.theme-dark .modal__section-title {
+      color: #f1f5f9;
+    }
+
+    body.theme-dark .modal__overview,
+    body.theme-dark .modal__research,
+    body.theme-dark .modal__role,
+    body.theme-dark .modal__results,
+    body.theme-dark .modal__benefits,
+    body.theme-dark .modal__features,
+    body.theme-dark .modal__details {
+      color: #cbd5e1;
+    }
+
+    body.theme-dark .modal__stack {
+      color: #f1f5f9;
+    }
+
+    /* ========== レスポンシブ ========== */
+    @media (max-width: 1024px) {
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .page-hero__title {
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+
+      .page-hero__title {
+        font-size: 24px;
+      }
+
+      .portfolio-cta {
+        padding: 32px 20px;
+      }
+
+      .modal {
+        padding: 1rem;
+      }
+
+      .modal__header,
+      .modal__body {
+        padding: 16px 20px;
+      }
+
+    }
+  </style>
+</head>
+
+<body data-page="portfolio">
+  <header class="page-header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__brand" aria-label="トップページへ">
+        <strong>鄧 信成 公式サイト</strong>
+        <span>教育AI研究者・起業家</span>
+      </a>
+      <nav class="nav" aria-label="メインナビゲーション">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">ホーム</a></li>
+          <li><a class="nav__link" href="about.html">私について</a></li>
+          <li><a class="nav__link is-active" href="portfolio.html">実績・プロジェクト</a></li>
+          <li><a class="nav__link" href="resume.html">経歴</a></li>
+          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
+      <button class="mobile-menu__toggle" aria-label="モバイルメニューを開く">☰</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu__overlay"></div>
+    <div class="mobile-menu__panel">
+      <a class="mobile-menu__link" href="index.html">ホーム</a>
+      <a class="mobile-menu__link" href="about.html">私について</a>
+      <a class="mobile-menu__link is-active" href="portfolio.html">実績・プロジェクト</a>
+      <a class="mobile-menu__link" href="resume.html">経歴</a>
+      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
+    </div>
+  </div>
+
+  <main class="main">
+    <!-- ページヘッダー -->
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero__title">
+          積み重ねてきた<span>実績</span>
+        </h1>
+        <p class="page-hero__desc">
+          研究課題・事業プロジェクト・開発システム・学術論文、全ての取り組みをカテゴリ別にご覧いただけます
+        </p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <!-- 分類フィルター -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">すべて</button>
+        <button class="filter-tab" data-filter="research">研究課題</button>
+        <button class="filter-tab" data-filter="company">企業プロジェクト</button>
+        <button class="filter-tab" data-filter="system">開発システム</button>
+        <button class="filter-tab" data-filter="paper">学術論文</button>
+      </div>
+
+      <!-- プロジェクトカード群 -->
+      <div class="project-grid" id="projectGrid">
+        <!-- 研究課題 -->
+        <article class="project-card" data-category="research" data-category-label="国家級課題（採択済）"
+          data-title="「時助助」タイムバンク —— タイムコインによる地域互助の新たなモデル"
+          data-description="タイムコインを中核とした新型地域互助モデル。デジタルプラットフォームで遊休時間資源を活用し、持続可能な地域互助エコシステムを構築。"
+          data-overview="少子高齢化と地域コミュニティ結束の低下に対応するため、「タイムバンク」の仕組みを設計した国家級の研究プロジェクト。住民がボランティアサービスを提供することでタイムコインを蓄え、将来に同等時間の支援サービスとして引き出すことができる循環型の互助体制を構築。"
+          data-research="デジタルマッチングプラットフォームを開発し、高齢者の生活支援、子育て世帯の相互扶助、地域イベントの共同運営など多シーンの互助モデルを構築。地域の人的・物的資源を可視化し、必要な支援を必要とする人に的確に届ける仕組みを実証。"
+          data-role="プロジェクト責任者"
+          data-results="互助プラットフォームのプロトタイプを開発し、実証地域で住民の互助参加率を約4割向上。高齢者の孤立率低減と地域コミュニティの活性化を定量的に実証し、複数自治体で導入が検討されている。"
+          data-stack="タイムバンクシステム開発・地域実証"
+          data-images="images/research1-1.png,images/research1-2.png,images/research1-3.png"
+          data-image="images/research1.png">
+          <div class="project-card__image_auto"><img src="images/research1.png" alt="「時助助」タイムバンクのビジュアル" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">国家級課題（採択済）</span>
+            <h3 class="project-card__title">「時助助」タイムバンク</h3>
+            <p class="project-card__text">タイムコインを活用し、地域の互助資源を循環させる新しいコミュニティモデル。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="research" data-category-label="省級課題（採択済）"
+          data-title="銀齢智社 —— AI によるスマート介護体系の構築"
+          data-description="高齢化に伴う介護人材不足と負担増に対し、AIと高齢者の知恵を融合するスマート介護体系を構築した省級研究課題です。"
+          data-overview="急速な高齢化に伴う介護人材不足と介護負担の増大という課題に対し、AIによる業務効率化と高齢者自身の知恵の活用を組み合わせた、新しい介護の形を模索する省レベルの研究課題。"
+          data-research="高齢者が長年培った生活知識・技能をAIでナレッジベース化し、後進への継承と介護現場での活用を実現。さらにAI見守りシステム、リハビリ補助ツール、地域ボランティア連携システムを統合し、「高齢者が支える側にもなる」介護体系を構築。"
+          data-role="企業指導者"
+          data-results="プロトタイプシステムを開発し、介護スタッフの業務負担を約25%削減する効果を確認。高齢者の社会参加機会の拡大と介護の質の向上を両立するモデルとして、省内複数自治体で導入検討が進む。"
+          data-stack="AI介護支援システム開発・現場導入"
+          data-images="images/research2-1.png,images/research2-2.png,images/research2-3.png"
+          data-image="images/research2.png">
+          <div class="project-card__image_auto"><img src="images/research2.png" alt="銀齢智社のスマート介護システム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">省級課題（採択済）</span>
+            <h3 class="project-card__title">銀齢智社 —— AI によるスマート介護体系の構築</h3>
+            <p class="project-card__text">AIと高齢者の知恵を融合し、介護業務の効率化と価値再創出を目指す研究プロジェクト。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="research" data-category-label="国家級課題（完了）"
+          data-title="「啓蒙導師」—— 保護者教育訓練プラットフォーム（学校・家庭共同教育分野）"
+          data-description="家庭教育と学校教育の連携不足に対応するため、保護者の教育力を段階的に高める体系的な訓練プラットフォームを設計した国家級研究です。"
+          data-overview="家庭教育と学校教育の連携不足、保護者の教育認識のばらつきに対応するため、保護者自身の教育能力を段階的に高めるための国家級研究開発プロジェクト。"
+          data-research="子どもの発達段階に応じた階層的教育講座体系を設計し、育児理念、親子コミュニケーション、人格形成、学習指導を含むカリキュラムと発達評価・相談機能を実装。" data-role="研究代表者"
+          data-results="プラットフォームと講座体系を完成し、複数提携校で実証導入。保護者の教育認知度と家校連携の満足度が大幅に向上しました。" data-stack="保護者教育プラットフォーム設計・実証"
+          data-images="images/research3-1.png,images/research3-2.png,images/research3-3.png"
+          data-image="images/research3.png">
+          <div class="project-card__image_auto"><img src="images/research3.png" alt="啓蒙導師プラットフォームのイメージ" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">国家級課題（完了）</span>
+            <h3 class="project-card__title">「啓蒙導師」保護者教育訓練プラットフォーム</h3>
+            <p class="project-card__text">学校と家庭を連携させ、保護者の教育力を体系的に高める教育支援プラットフォーム。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="research" data-category-label="国家級課題（完了）"
+          data-title="星辰智学 —— 郷村教育デジタル化発展のリーダーを支援（郷村教育分野）"
+          data-description="郷村教育のデジタル化支援を目的に、ツール提供と教師研修を両輪で推進する国家級教育支援プロジェクトです。"
+          data-overview="都市と郷村の教育資源格差、郷村部の教師のデジタル指導力不足を解決するため、ツール提供と人材育成を両輪で推進する国家級教育支援プロジェクト。"
+          data-research="軽量スマート授業ツールとデジタル教材ライブラリを整備し、郷村教師向けのデジタル教育能力研修プログラムを開発。持続的支援体制で現場の授業品質を高めました。"
+          data-role="企業側指導者・研究分担者" data-results="複数郷村学校へのプラットフォーム導入と100名以上の教師研修を実施し、授業効率化と教育内容充実を確認しました。"
+          data-stack="教育デジタル化支援・研修設計" data-images="images/research4-1.png,images/research4-2.png,images/research4-3.png"
+          data-image="images/research4.png">
+          <div class="project-card__image_auto"><img src="images/research4.png" alt="星辰智学支援プロジェクト" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">国家級課題（完了）</span>
+            <h3 class="project-card__title">星辰智学 —— 郷村教育デジタル化発展のリーダーを支援</h3>
+            <p class="project-card__text">郷村教育の質向上を目指し、デジタル教材と教師研修を組み合わせた支援モデル。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="research" data-category-label="国家級課題（完了）"
+          data-title="クラウド技術による郷村振興推進 —— 華山松の研究・生産・販売一体化モデル構築"
+          data-description="華山松の研究・生産・販売をクラウド技術で統合し、地域活性化につながる郷村振興モデルを構築する国家級プロジェクトです。"
+          data-overview="豊富な山林資源を低付加価値のまま活用してきた華山松産業を対象に、クラウド技術で全産業チェーンを再構築し、特色産業による郷村振興モデルケースを創出する国家級プロジェクト。"
+          data-research="品種改良・栽培技術・加工標準化・ブランド構築・クラウド販売基盤を統合して、品質管理と経営効率を両立する全産業チェーンを設計しました。" data-role="研究代表者"
+          data-results="高付加価値製品の開発と雇用創出により地域所得の向上を実現し、国家レベルで評価された郷村振興モデルを確立しました。" data-stack="クラウド産業連携・事業モデル構築"
+          data-images="images/research5-1.png,images/research5-2.png,images/research5-3.png"
+          data-image="images/research5.png">
+          <div class="project-card__image_auto"><img src="images/research5.png" alt="華山松の郷村振興プロジェクト" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">国家級課題（完了）</span>
+            <h3 class="project-card__title">クラウド技術による郷村振興推進</h3>
+            <p class="project-card__text">華山松の研究から生産・販売までをクラウドで統合し、地域振興に貢献するプロジェクト。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="research" data-category-label="国家級課題（完了）"
+          data-title="桜花咲日本語 —— 日本語を涼山に届ける日本語創業機構の設計"
+          data-description="涼山地域の若者の就業機会拡大を目指し、日本語スキルを核とした教育創業モデルを設計する国家級研究プロジェクトです。"
+          data-overview="涼山地域の若者の就業選択肢の拡大を目指し、日本語能力を核とした教育創業機構の運営モデルを設計する国家級研究プロジェクト。"
+          data-research="段階的日本語カリキュラム、就業ガイダンス、日系企業就業支援、労務派遣連携の仕組みを整備し、現地教育機関の持続可能な事業モデルを構築しました。" data-role="研究代表者"
+          data-results="パイロット拠点の開設と運営支援を完了し、多数の若者が日本語スキルを習得し関連分野で就業する地域人材振興モデルを形成しました。" data-stack="言語教育モデル・地域人材振興"
+          data-images="images/research6-1.png,images/research6-2.png,images/research6-3.png"
+          data-image="images/research6.png">
+          <div class="project-card__image_auto"><img src="images/research6.png" alt="桜花咲日本語プロジェクト" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">国家級課題（完了）</span>
+            <h3 class="project-card__title">桜花咲日本語 —— 日本語を涼山に届ける日本語創業機構の設計</h3>
+            <p class="project-card__text">日本語教育を通じて涼山地域の若者に新たな就業機会と地域振興を提供する研究事業。</p>
+          </div>
+        </article>
+
+       <!-- 企業プロジェクト -->
+        <article class="project-card" data-category="company" data-category-label="起業プロジェクト" data-title="宜賓拓科学研究科技有限公司" data-description="2023年設立。執行董事長として科研情報化と技術開発を主導し、学術研究成果を実用システム製品に転換。国家科技型中小企業に連続認定。" data-overview="2023年四川省宜賓市に設立。「科研の成果を社会に還元する」を経営理念に、学術研究と情報技術を融合させたソリューションを提供する科技企業です。" data-business="科研情報化システム開発、学術データプラットフォーム構築、政府・企業・大学向けカスタムシステム受託開発" data-achievements="華拓科研内部管理システム、中国留学者広報管理システム、連続国家科技型中小企業認定" data-contribution="地域中小企業のデジタル化支援、大学との共同研究、若手研究者向け技術研修を実施。研究の業務効率化をテクノロジーで解決し、研究活動の高速化と質の向上に貢献。" data-stack="科研情報化・学術データプラットフォーム・システム受託開発" data-images="images/company1-1.png,images/company1-2.jpg,images/company1-3.png" data-image="images/company1.png">
+          <div class="project-card__image"><img src="images/company1.png" alt="宜賓拓科学研究科技有限公司" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">起業プロジェクト</span><h3 class="project-card__title">宜賓拓科学研究科技有限公司</h3><p class="project-card__text">2023年設立。学術研究成果の実用化と技術開発を主導し、科研情報化を推進。</p></div>
+        </article>
+
+        <article class="project-card" data-category="company" data-category-label="起業プロジェクト" data-title="四川宜星辰教育科技有限公司" data-description="2024年設立。代表取締役として教育AIと家庭教育システムの研究開発全般を統括。「保教一体」「家校連携」をコンセプトに次世代教育ソリューションを開発。" data-overview="2024年設立の教育テック企業。AI技術と教育科学を融合させた次世代教育ソリューションを開発し、幼稚園・小中学校・家庭をつなぐ総合教育プラットフォーム構築をミッションとします。" data-business="幼児教育向け保教一体システム、教育AI支援プラットフォーム、家庭教育支援ツール" data-achievements="「啓蒙導師」保教システム、星辰智学-教育AI支援システム、保護者育児管理プラットフォーム" data-contribution="地方の教育格差是正に向け低価格で高品質な教育ツールを提供。教員の事務負担を軽減し、本来の教育活動に集中できる環境を整備し、教育の質の底上げと子どもの多様な成長を支援。" data-stack="教育AI・保教一体・家校連携" data-images="images/company2-1.jpg,images/company2-2.jpg,images/company2-3.jpg" data-image="images/company2.jpg">
+          <div class="project-card__image"><img src="images/company2.png"alt="四川宜星辰教育科技有限公司" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">起業プロジェクト</span><h3 class="project-card__title">四川宜星辰教育科技有限公司</h3><p class="project-card__text">2024年設立。教育AIと家庭教育システムの研究開発を統括し、次世代教育を創出。</p></div>
+        </article>
+
+        <article class="project-card" data-category="company" data-category-label="起業プロジェクト" data-title="四川禾芯田農業有限公司" data-description="2025年設立。代表取締役としてスマート農業と農産物高付加価値化を推進。AIとデータ技術を農業に活用し、地域特産品開発と農家所得向上、地方創生に貢献。" data-overview="2025年設立のアグリテック企業。四川省の豊かな農林資源を活かし、「テクノロジーで農業をアップデートする」をビジョンに、スマート農業実践と高付加価値農産品の開発・販売を手がけます。" data-business="スマート農業ソリューション、特産品深加工開発、農業データプラットフォーム" data-achievements="農作物生育・病害虫AI知覚分析システム、華山松研究・生産・販売一体化事業、草本植物由来オリジナル製品開発" data-contribution="地域農家と連携し、栽培技術研修と安定的販売ルートを提供。農業デジタル化による生産性向上と深加工による付加価値向上の両面から、農家所得安定と地域雇用創出を実現し、地方創生の実践モデルを構築。" data-stack="スマート農業・農産物高付加価値化・地域創生" data-images="images/company3-1.png,images/company3-2.png,images/company3-3.png" data-image="images/company3.png">
+          <div class="project-card__image"><img src="images/company3.png" alt="四川禾芯田農業有限公司" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">起業プロジェクト</span><h3 class="project-card__title">四川禾芯田農業有限公司</h3><p class="project-card__text">2025年設立。スマート農業と農産物高付加価値化を推進し、地域農業のDXを実践。</p></div>
+        </article>
+
+        <!-- 開発システム -->
+        <article class="project-card" data-category="system" data-category-label="科研管理" data-title="華拓科研内部管理システム"
+          data-description="研究機関向け内部統合管理システム。プロジェクト・成果・予算・事務手続きを一元化し、研究活動の効率化を実現します。"
+          data-overview="研究機関およびテクノロジー企業向けに開発された基幹管理システムです。プロジェクトの散在、成果の集約困難、事務手続きの煩雑さといった研究現場の課題を解消し、研究者が本来の研究活動に集中できる環境を構築します。"
+          data-features="研究プロジェクトの全ライフサイクルにわたる進捗・予算管理|学術論文・特許・ソフトウェア著作権などの成果物一元管理|内部文書・稟議申請の電子化ワークフロー|研究人員の業務量・パフォーマンスデータ集計"
+          data-stack="ワークフローエンジン、科研データマネジメント、権限制御システム"
+          data-benefits="研究機関の事務コストを削減し、成果管理の規範性を高めます。国家科技型中小企業の内部デジタル化運営を継続的に支えています。"
+          data-images="images/system-01-1.png,images/system-01-2.png,images/system-01-3.png"
+          data-image="images/system-01.png">
+          <div class="project-card__image"><img src="images/system-01.png" alt="華拓科研内部管理システム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">科研管理</span>
+            <h3 class="project-card__title">華拓科研内部管理システム</h3>
+            <p class="project-card__text">プロジェクト・成果・予算・事務手続きを一元化し、研究活動の効率化を実現。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="人材管理" data-title="中国留学者広報管理システム"
+          data-description="帰国留学人材の情報データベースと交流マッチングプラットフォーム。産学連携と人材活用を促進します。"
+          data-overview="海外帰国の高学歴人材を対象とした人材情報管理・交流プラットフォームです。留学人材の専門分野・研究成果・就業意向を集約し、企業や研究機関とのマッチングを支援する架け橋として機能します。"
+          data-features="留学人材の情報登録と多次元検索機能|専門分野・スキルに応じた高精度人材マッチング|交流イベント・学術サロンの募集・運営管理|産学連携プロジェクトの需給マッチング支援"
+          data-stack="人材データベース、タグ型マッチングシステム、イベント管理モジュール"
+          data-benefits="帰国留学人材のリソースを活性化し、地方産業や研究プロジェクトとの連携を促進し、産学融合の深化に貢献します。"
+          data-images="images/system-02-1.png,images/system-02-2.png,images/system-02-3.png"
+          data-image="images/system-02.png">
+          <div class="project-card__image"><img src="images/system-02.png" alt="中国留学者広報管理システム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">人材管理</span>
+            <h3 class="project-card__title">中国留学者広報管理システム</h3>
+            <p class="project-card__text">帰国留学人材の情報集約とマッチングにより、産学連携と人材活用を促進。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="農業テック"
+          data-title="農作物生育モニタリング・害虫検知プラットフォーム"
+          data-description="画像認識による農作物生育モニタリングと害虫早期警報プラットフォーム。圃場の状況をリアルタイムで把握し、病害リスクを事前に抑制します。"
+          data-overview="圃場に設置したカメラとAI画像認識技術を活用し、作物の生育状態を自動追跡するとともに、病害虫の初期兆候を自動検知して農家に的確な防除提案を提供するスマート農業プラットフォームです。"
+          data-features="作物生育周期のリアルタイム映像モニタリングと生育評価|代表的な病害虫のAI自動認識と警報プッシュ|病害発生範囲と拡散傾向の分析|対応する防除方法・薬剤提案の自動生成"
+          data-stack="コンピュータビジョン、ディープラーニング画像認識、圃場IoTデータ収集"
+          data-benefits="病害虫による収量損失を大幅に削減し、農薬使用量を適正化するとともに、農業生産の経験依存からデータドリブンへの転換を支えます。"
+          data-images="images/system-03-1.png,images/system-03-2.png,images/system-03-3.png"
+          data-image="images/system-03.png">
+          <div class="project-card__image"><img src="images/system-03.png" alt="農作物生育モニタリング・害虫検知プラットフォーム"
+              loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">農業テック</span>
+            <h3 class="project-card__title">農作物生育モニタリング・害虫検知プラットフォーム</h3>
+            <p class="project-card__text">画像認識による生育追跡と害虫早期警報で、病害リスクを事前に抑制。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="農業テック" data-title="農作物生育状態検知プラットフォーム"
+          data-description="作物の生育状態を定量化して検知する専用プラットフォーム。多角的なデータから作物の健全度と成熟度を高精度に評価します。"
+          data-overview="画像データ、環境センサー、土壌データなど多源の情報を融合し、草丈・葉面積・結実量といった作物の主要指標を自動で計測・評価する生育定量化プラットフォームです。"
+          data-features="作物主要生育指標の自動計測と履歴記録|作物健全度の総合スコアリングと異常通知|圃場ごとの生育状況比較分析|成熟期予測と収穫時期の提案"
+          data-stack="多源データフュージョン、生育モデルアルゴリズム、定量化指標算出"
+          data-benefits="人手による圃場巡回を代替し、生育評価の精度と効率を両立させ、精密栽培のためのデータ基盤を提供します。"
+          data-images="images/system-04-1.png,images/system-04-2.png,images/system-04-3.png"
+          data-image="images/system-04.png">
+          <div class="project-card__image"><img src="images/system-04.png" alt="農作物生育状態検知プラットフォーム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">農業テック</span>
+            <h3 class="project-card__title">農作物生育状態検知プラットフォーム</h3>
+            <p class="project-card__text">多角的データに基づき、作物の健全度と成熟度を高精度で評価。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="農業テック" data-title="動植物赤外線検知スマート分析システム"
+          data-description="赤外線サーモグラフィーを活用した動植物スマート分析システム。肉眼では見えない健康異常を早期に発見し、迅速な対応を可能にします。"
+          data-overview="赤外線熱画像技術を基盤とした動植物健康分析システムです。温度分布の違いから植物の潜在的な病害・水ストレス、家畜の体温異常を検知し、目に見える症状が現れる前に事前に対策を打てるよう支援します。"
+          data-features="赤外線サーモグラフィーデータの取得と温度分布解析|植物の潜在病害・水分ストレスの早期識別|家畜の体温異常の自動スクリーニングと個体特定|健康状態の推移トラッキングとレポート生成"
+          data-stack="赤外線サーモグラフィー、温度場解析、異常特徴抽出" data-benefits="可視光検知の限界を超え、動植物の健康異常の発見タイミングを大幅に前倒しし、大規模な病害発生のリスクを低減します。"
+          data-images="images/system-05-1.png,images/system-05-2.png,images/system-05-3.png"
+          data-image="images/system-05.png">
+          <div class="project-card__image"><img src="images/system-05.png" alt="動植物赤外線検知スマート分析システム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">農業テック</span>
+            <h3 class="project-card__title">動植物赤外線検知スマート分析システム</h3>
+            <p class="project-card__text">赤外線技術で潜在的健康異常を早期発見し、迅速な対応を実現。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="松果関連"
+          data-title="松かさ収穫スマート意思決定支援プラットフォーム"
+          data-description="松かさ収穫のスマート意思決定支援プラットフォーム。収量・天候・人員データを統合し、収穫計画と人員配置を最適化します。"
+          data-overview="松かさ収穫現場向けに開発された意思決定支援プラットフォームです。山林資源分布、過去の収量実績、気象予報、人員構成などのデータを統合し、最適な収穫順序・ルート・人員配置を導き出します。"
+          data-features="山林ごとの松かさ資源分布と収量予測|収穫ルートの最適化と作業割り当て|天候影響の評価と収穫適期の提案|収穫進捗のリアルタイム追跡とコスト算出"
+          data-stack="資源測量、経路計画アルゴリズム、多因子意思決定モデル"
+          data-benefits="収穫工程の人員と時間の配置を最適化し、収穫コストを削減するとともに、松かさ収穫全体の効率と経済効果を高めます。"
+          data-images="images/system-06-1.png,images/system-06-2.png,images/system-06-3.png"
+          data-image="images/system-06.png">
+          <div class="project-card__image"><img src="images/system-06.png" alt="松かさ収穫スマート意思決定支援プラットフォーム"
+              loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">松果関連</span>
+            <h3 class="project-card__title">松かさ収穫スマート意思決定支援プラットフォーム</h3>
+            <p class="project-card__text">多種データを統合し、収穫計画と人員配置の最適解を導出。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system" data-category-label="松果関連" data-title="松かさ収穫量統計分析プラットフォーム"
+          data-description="松かさ収量データの統計分析プラットフォーム。多次元のデータ分解で収量変動の法則を解明し、今後の生産計画の根拠とします。"
+          data-overview="松かさの収量データに特化した統計分析プラットフォームです。地区別・年度別・品種別の収量を集計して深度のある分析を行い、収量の推移傾向と影響要因を可視化します。"
+          data-features="多次元収量データの集計と可視化レポート|年度・四半期・月次の収量傾向比較分析|地区・樹齢による収量差異分析|収量と気象・管理措置の関連分析"
+          data-stack="データ可視化、統計分析モデル、多次元OLAP分析" data-benefits="収量変動の規則性を明らかにし、栽培管理・収穫計画・販売在庫計画のための精緻な意思決定データを提供します。"
+          data-benefits="収量変動の規則性を明らかにし、栽培管理・収穫計画・販売在庫計画のための精緻な意思決定データを提供します。"
+          data-images="images/system-07-1.png,images/system-07-2.png,images/system-07-3.png"
+          data-image="images/system-07.png">
+          <div class="project-card__image"><img src="images/system-07.png" alt="松かさ収穫量統計分析プラットフォーム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">松果関連</span>
+            <h3 class="project-card__title">松かさ収穫量統計分析プラットフォーム</h3>
+            <p class="project-card__text">多次元データ分析で収量変動の法則を解明し、生産計画の根拠に。</p>
+          </div>
+        </article>
+
+        <!-- 8号 松果データ分析 -->
+        <article class="project-card" data-category="system" data-category-label="松果関連" data-title="松かさ全産業チェーンデータ分析システム"
+          data-description="松かさ栽培・収穫・加工・販売の全行程を連携させ、産業全体の最適化と運用効率向上を実現する統合分析システムです。"
+          data-overview="松かさ産業全体を対象としたデータ分析システムです。栽培管理から収穫・加工・市場販売までの全リンクデータを統合し、生産側から市場側までの全体像を可視化して運用改善につなげます。"
+          data-features="産業全行程のデータ集約と統合ダッシュボード|各工程のコスト・収益構造分析|市場価格推移と需給バランスの予測|産業運営のボトルネック抽出と改善提案"
+          data-stack="全行程データ連携、ビジネスインテリジェンス、市場予測モデル" data-benefits="産業各段階のデータの断絶を解消し、松かさ産業全体の運用精緻度と市場リスク耐性を高めます。"
+          data-images="images/system-08-1.png,images/system-08-2.png,images/system-08-3.png"
+          data-image="images/system-08.png">
+          <div class="project-card__image"><img src="images/system-08.png" alt="松かさ全産業チェーンデータ分析システム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">松果関連</span>
+            <h3 class="project-card__title">松かさデータ分析システム</h3>
+            <p class="project-card__text">栽培・収穫・加工・販売を連携し、産業全体の最適化を実現。</p>
+          </div>
+        </article>
+
+        <!-- 9号 家庭教育 -->
+        <article class="project-card" data-category="system" data-category-label="家庭教育" data-title="保護者インタラクティブ育成システム"
+          data-description="双方向型保護者育成システム。講座・評価・コミュニティを通じて、保護者の育児能力を体系的に向上させます。"
+          data-overview="保護者向けの双方向型育児学習システムです。子どもの年齢に応じた科学的育児講座、発達評価、オンライン相談、保護者コミュニティを一体で提供し、正しい教育観と実践力を育みます。"
+          data-features="年齢別に構成された育児講座と学習進捗管理|子どもの発達度オンライン評価と成長レポート|育児専門家によるオンラインQ&Aと個別相談|保護者交流コミュニティと体験共有"
+          data-stack="eラーニングシステム、評価エンジン、コミュニティモジュール" data-benefits="家庭教育の情報格差を解消し、保護者に体系的な育児指導を提供することで、子どもの健やかな成長を支えます。"
+          data-images="images/system-09-1.png,images/system-09-2.png,images/system-09-3.png"
+          data-image="images/system-09.png">
+          <div class="project-card__image"><img src="images/system-09.png" alt="保護者インタラクティブ育成システム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">家庭教育</span>
+            <h3 class="project-card__title">保護者インタラクティブ育成システム</h3>
+            <p class="project-card__text">講座・評価・コミュニティを通じ、育児能力を体系的に向上。</p>
+          </div>
+        </article>
+
+        <!-- 10号 家庭教育管理 -->
+        <article class="project-card" data-category="system" data-category-label="家庭教育"
+          data-title="保護者育成クラウドプラットフォーム管理ソフトウェア"
+          data-description="プラットフォーム運営側向け管理ツール。コンテンツ運用・ユーザー管理・データ分析を一括して支え、大規模運用を可能にします。"
+          data-overview="プラットフォーム運営側が使用する保護者教育クラウドの管理ツールです。コンテンツの上架・審査、ユーザー管理、データモニタリングまで、運用に必要な機能を一式備えています。"
+          data-features="講座コンテンツのアップロード・審査・公開管理|ユーザーアカウント・権限・学習データの一括管理|プラットフォーム運営データの可視化とコンバージョン分析|プッシュ通知・キャンペーン設定管理"
+          data-stack="バックエンド管理フレームワーク、CMSコンテンツ管理、データ集計ダッシュボード"
+          data-benefits="保護者教育プラットフォームの運用管理効率を高め、大規模なユーザー運用とコンテンツの継続的な改善を支えます。"
+          data-images="images/system-10-1.png,images/system-10-2.png,images/system-10-3.png"
+          data-image="images/system-10.png">
+          <div class=".project-card__image_auto"><img src="images/system-10.png" alt="保護者育成クラウドプラットフォーム管理ソフトウェア"
+              loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">家庭教育</span>
+            <h3 class="project-card__title">保護者育成クラウド管理ソフト</h3>
+            <p class="project-card__text">コンテンツ・ユーザー・データを一括管理し、大規模運用を実現。</p>
+          </div>
+        </article>
+
+        <!-- 11号 郷村教育管理 -->
+        <article class="project-card" data-category="system" data-category-label="教育管理" data-title="郷村教育管理プラットフォーム"
+          data-description="郷村教育向け総合管理プラットフォーム。授業・教師・教育リソースを統括し、地域の教育格差是正と質の向上を推進します。"
+          data-overview="郷村の教育現場向けに構築された統合管理プラットフォームです。授業計画の実施管理、教師人材の配置・研修、教育リソースの配布、学習状況のモニタリングまでをカバーし、都市との教育格差の縮小を支援します。"
+          data-features="郷村学校の授業計画と実施状況の管理|教師人材の配置と研修進捗の管理|良質な教育リソースの一括配布と共有|郷村の児童生徒の学習状況追跡分析"
+          data-stack="教育リソースクラウド、多段階管理アーキテクチャ、学情データ収集"
+          data-benefits="郷村教育管理の精緻化を実現し、良質な教育リソースの地域への浸透を促し、郷村全体の教育水準向上に貢献します。"
+          data-images="images/system-11.jpg,images/system-11.jpg,images/system-11.jpg"
+          data-image="images/system-11.png">
+          <div class=".project-card__image_auto"><img src="images/system-11.jpg" alt="郷村教育管理プラットフォーム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">教育管理</span>
+            <h3 class="project-card__title">郷村教育管理プラットフォーム</h3>
+            <p class="project-card__text">授業・教師・リソースを統括し、教育格差是正と質の向上を推進。</p>
+          </div>
+        </article>
+
+        <!-- 12号 学生全面発展 -->
+        <article class="project-card" data-category="system" data-category-label="教育管理" data-title="学生全面発展管理システム"
+          data-description="徳育・知育・体育・美育・労働教育を網羅した総合成長管理システム。点数偏重の評価を超え、総合的な育成評価体系を構築します。"
+          data-overview="学生の全面的な成長を核とした総合評価管理システムです。成績だけでなく、品性・心身・芸術・実践など多角的な成長データを統合し、科学的で総合的な人材育成評価体系を実現します。"
+          data-features="多次元成長データの記録とアーカイブ|総合素質評価モデルによる自動スコアリング|個別の成長プロフィールと発展提案の生成|教師・保護者によるマルチデバイス共有確認"
+          data-stack="総合評価モデル、成長プロファイル、多端末データ同期" data-benefits="素質教育の理念を具体化し、学生の成長を全面的かつ客観的に評価することで、個性豊かな成長と人格形成を支援します。"
+          data-images="images/system-12.jpg,images/system-12.jpg,images/system-12.jpg"
+          data-image="images/system-12.png">
+          <div class=".project-card__image_auto"><img src="images/system-12.jpg" alt="学生全面発展管理システム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">教育管理</span>
+            <h3 class="project-card__title">学生全面発展管理システム</h3>
+            <p class="project-card__text">五育を網羅した総合評価体系で、点数偏重を超えた育成を実現。</p>
+          </div>
+        </article>
+
+        <!-- 13号 遠隔教育 -->
+        <article class="project-card" data-category="system" data-category-label="教育管理" data-title="郷村教育遠隔教育プラットフォーム"
+          data-description="郷村遠隔教育プラットフォーム。ライブ授業・録画講義・双方向教室で都市の優れた授業を郷村に届け、地域の壁を越えた教育を実現します。"
+          data-overview="郷部地域向けの遠隔教育共有プラットフォームです。ライブ双方向授業、録画講義ライブラリ、ダブルティーチャー授業などの形態を通じ、郷村の生徒が都市の優れた教師と教材にアクセスできる環境を整備します。"
+          data-features="リアルタイム双方向ライブ授業（発言・質問機能付き）|良質講義の録画ライブラリと繰り返し視聴|都市側講師＋郷村側補佐のダブルティーチャーモデル|授業後の課題提出と学習効果テスト"
+          data-stack="リアルタイム音声映像、ライブインタラクティブシステム、講座オンデマンド配信"
+          data-benefits="地域の制約を超え、郷村の生徒が良質な教育リソースを平等に享受できるようにし、都市と郷村の教育格差の縮小に寄与します。"
+          data-images="images/system-13-1.png,images/system-13-2.png,images/system-13-3.png"
+          data-image="images/system-13.png">
+          <div class="project-card__image"><img src="images/system-13.png" alt="郷村教育遠隔教育プラットフォーム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">教育管理</span>
+            <h3 class="project-card__title">郷村教育遠隔教育プラットフォーム</h3>
+            <p class="project-card__text">ライブ・録画・双方向教室で地域の壁を越えた教育を実現。</p>
+          </div>
+        </article>
+
+        <!-- 14号 大学生起業管理 -->
+        <article class="project-card" data-category="system" data-category-label="プロジェクト管理" data-title="大学生革新実践創業管理システム"
+          data-description="大学生の革新実践・起業プロジェクトの全行程管理システム。申請・審査・育成・成果化までを一貫して支え、イノベーション人材を育成します。"
+          data-overview="大学向けの学生起業・革新プロジェクト管理システムです。プロジェクト申請、専門家審査、進捗管理、成果検収、起業支援までの全プロセスをオンライン化し、イノベーション人材育成の体制を整備します。"
+          data-features="革新・起業プロジェクトのオンライン申請と資料提出|複数ラウンドの専門家オンライン審査と評点管理|プロジェクト実施進捗追跡と中間チェック|成果転換と起業インキュベーション支援"
+          data-stack="申請審査ワークフロー、専門家審査システム、プロジェクトライフサイクル管理"
+          data-benefits="大学における起業・革新プロジェクトの管理プロセスを標準化し、起業教育の運用効率と成果の社会実装率を高めます。"
+          data-images="images/system-14-1.png,images/system-14-2.png,images/system-14-3.png"
+          data-image="images/system-14.png">
+          <div class="project-card__image"><img src="images/system-14.png" alt="大学生革新実践創業管理システム" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">プロジェクト管理</span>
+            <h3 class="project-card__title">大学生革新実践創業管理システム</h3>
+            <p class="project-card__text">申請・審査・育成・成果化を一貫して支え、イノベーション人材を育成。</p>
+          </div>
+        </article>
+
+        <!-- 15号 プロジェクト全プロセス管理 -->
+        <article class="project-card" data-category="system" data-category-label="プロジェクト管理"
+          data-title="プロジェクト全プロセス一体化管理ソフトウェア"
+          data-description="プロジェクト全プロセス一体化管理ソフト。企画・実行・監視・総括をシームレスにつなぎ、全ライフサイクルの可視化と制御を実現します。"
+          data-overview="汎用的なプロジェクトライフサイクル管理ソフトです。企画立案、タスク実行、進捗監視、品質管理、結業アーカイブまでの全行程をオンライン化・一体化し、各段階の情報の断絶を解消します。"
+          data-features="プロジェクト企画とWBSタスク分解|タスク割り当て、進捗報告、マイルストーン管理|品質検査、リスク追跡、課題管理|プロジェクト結業、成果アーカイブ、ふりかえり分析"
+          data-stack="WBS分解、ガントチャート進捗管理、全プロセスクローズドループ" data-benefits="プロジェクト全体の可視化とトレーサビリティを実現し、プロジェクトの品質と期間遵守率を向上させます。"
+          data-images="images/system-15-1.png,images/system-15-2.png,images/system-15-3.png"
+          data-image="images/system-15.png">
+          <div class="project-card__image"><img src="images/system-15.png" alt="プロジェクト全プロセス一体化管理ソフトウェア"
+              loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">プロジェクト管理</span>
+            <h3 class="project-card__title">プロジェクト全プロセス一体化管理ソフト</h3>
+            <p class="project-card__text">企画から総括までシームレスにつなぎ、全ライフサイクルを可視化。</p>
+          </div>
+        </article>
+
+        <!-- 16号 多次元プロジェクト統括 -->
+        <article class="project-card" data-category="system" data-category-label="プロジェクト管理"
+          data-title="多次元プロジェクト統括管理プラットフォーム"
+          data-description="複数プロジェクトを多次元視点で統括管理するプラットフォーム。進捗・コスト・リソース・リスクを全局最適化し、組織レベルのマネジメントを支えます。"
+          data-overview="複数プロジェクトが並行する環境向けの組織級プロジェクト統括プラットフォームです。進捗、コスト、人員、リスクの複数の視点からプロジェクト全体を統制し、経営層によるリソース配分と戦略的意思決定を支援します。"
+          data-features="複数プロジェクトの全局進捗ダッシュボードとリスク一覧|人員リソースのプロジェクト横断配置と負荷分析|プロジェクト群の予算執行状況とコスト集計分析|戦略目標整合性に基づくプロジェクト優先順位調整"
+          data-stack="プロジェクトポートフォリオマネジメント、リソースプール制御、多次元データダッシュボード"
+          data-benefits="組織全体のプロジェクト統制力を高め、リソース配置の効率化を実現するとともに、全プロジェクトが全体戦略に沿って推進されることを保証します。"
+          data-images="images/system-16-1.png,images/system-16-2.png,images/system-16-3.png"
+          data-image="images/system-16.png">
+          <div class="project-card__image"><img src="images/system-16.png" alt="多次元プロジェクト統括管理プラットフォーム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">プロジェクト管理</span>
+            <h3 class="project-card__title">多次元プロジェクト統括管理プラットフォーム</h3>
+            <p class="project-card__text">進捗・コスト・リソース・リスクを全局最適化し、組織級マネジメントを支援。</p>
+          </div>
+        </article>
+
+        <!-- 17号 振興データ収集 -->
+        <article class="project-card" data-category="system" data-category-label="地域振興" data-title="振興発展データ収集プラットフォーム"
+          data-description="郷村振興発展データ収集プラットフォーム。産業・人材・生態・文化の多次元データを集約し、振興施策のデータ基盤を構築します。"
+          data-overview="郷村振興戦略を支えるデータ収集・集約プラットフォームです。産業発展、人材育成、生態環境、文化振興、基層ガバナンスなど多領域のデータを統一的に集積し、郷村振興のデジタル基盤を構築します。"
+          data-features="多様なデータソースからの振興データの標準化収集・報告|郷村振興指標体系の構築とデータ品質管理|振興成果データの可視化モニタリング|部門横断的なデータ共有と協働更新"
+          data-stack="多源データ収集、データ標準化ガバナンス、指標型モニタリング"
+          data-benefits="郷村振興における部門間のデータの壁を解消し、振興施策の意思決定と効果評価に対して、全面的かつ正確なデータ支援を提供します。"
+          data-images="images/system-17-1.png,images/system-17-2.png,images/system-17-3.png"
+          data-image="images/system-17.png">
+          <div class="project-card__image"><img src="images/system-17.png" alt="振興発展データ収集プラットフォーム" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">地域振興</span>
+            <h3 class="project-card__title">振興発展データ収集プラットフォーム</h3>
+            <p class="project-card__text">多次元データを集約し、郷村振興施策のデジタル基盤を構築。</p>
+          </div>
+        </article>
+
+        <!-- 18号 高齢者支援 -->
+        <article class="project-card" data-category="system" data-category-label="高齢者支援"
+          data-title="銀齢「智」社 —— O2Oモデルに基づく学校・地域連携スマート高齢者支援ソフト"
+          data-description="O2Oモデルに基づく学校・地域連携型スマート高齢者支援ソフト。学生ボランティアと地域資源をつなぎ、オンライン注文・オフライン訪問の一体的な見守り・支援を実現します。"
+          data-overview="「銀齢智社会」のコンセプトのもと、O2Oモデルで開発された学校・地域協働型スマート高齢者支援ソフトです。学校の若手ボランティア、地域のサービス拠点、高齢者をつなぎ、オンラインでのサービス申し込みからオフラインの訪問支援までを一貫して提供します。"
+          data-features="高齢者からのサービス需要のオンライン申込と受注マッチング|学生ボランティアの募集・研修・サービス時間記録|地域サービス拠点のリソース統括とスケジュール調整|サービス実施プロセスの追跡と満足度評価体系"
+          data-stack="O2Oサービスマッチング、ボランティア管理、サービス全行程トラッキング"
+          data-benefits="学校と地域の高齢者支援リソースを統合し、サービスの供給量を拡充するとともに、高齢者の生活の質と社会参加感の向上に貢献します。"
+          data-images="images/system-18-1.png,images/system-18-2.png,images/system-18-3.png"
+          data-image="images/system-18.png">
+          <div class="project-card__image"><img src="images/system-18.png" alt="銀齢「智」社スマート高齢者支援ソフト" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">高齢者支援</span>
+            <h3 class="project-card__title">銀齢「智」社 スマート高齢者支援ソフト</h3>
+            <p class="project-card__text">O2Oモデルで学校・地域を連携し、一体的な見守り・支援を実現。</p>
+          </div>
+        </article>
+
+        <!-- 19号 伝統文化教育 -->
+        <article class="project-card" data-category="system" data-category-label="文化教育" data-title="伝統人形芝居演技教育ソフトウェア"
+          data-description="伝統人形芝居の演技教育ソフト。匠の技をデジタルアーカイブ化し、動作解説・比較採点・段階的なカリキュラムで後継者育成を支援し、無形文化遺産の伝承に貢献します。"
+          data-overview="無形文化遺産である伝統人形芝居の技術継承のために開発されたデジタル教育ソフトです。名人の演技動作を高精細にデジタル保存し、動作の分解解説、練習動作の比較採点、段階的なカリキュラムを通じて、後継者の育成を体系的に支えます。"
+          data-features="名人演技の高精細動画ライブラリとスロー再生・分解解説|学習者の演技動画録画と模範動作の比較採点・フィードバック|レベル別教育カリキュラムと段階的な検定システム|台本・楽譜・演技記録のデジタルアーカイブ管理"
+          data-stack="動作比較解析、デジタル教育体系、無形文化遺産デジタルアーカイブ"
+          data-benefits="従来の口伝による伝承の限界を打ち破り、伝統技術の習得効率を大幅に高めるとともに、無形文化遺産のデジタル的な保存と普及に貢献します。"
+          data-images="images/system-19-1.png,images/system-19-2.png,images/system-19-3.png"
+          data-image="images/system-19.png">
+          <div class=".project-card__image_auto"><img src="images/system-19.png" alt="伝統人形芝居演技教育ソフトウェア" loading="lazy" />
+          </div>
+          <div class="project-card__body"><span class="project-card__meta">文化教育</span>
+            <h3 class="project-card__title">伝統人形芝居演技教育ソフトウェア</h3>
+            <p class="project-card__text">匠の技をデジタルアーカイブ化し、後継者育成と文化伝承を支援。</p>
+          </div>
+        </article>
+        <!-- 学術論文 -->
+       <!-- 学術論文 -->
+        <article class="project-card" data-category="paper" data-category-label="文化研究"
+          data-title="絹織物と切り紙芸術の融合発展における文化的価値とイノベーション経路"
+          data-paper-url="https://www.cqvip.com/doc/journal/7204020803?sign=3d4409f48ce85495439a61b4ef665d2d39dc94016d08acaca772d45ae370c883&expireTime=1801215431712&resourceId=7204020803&type=1"
+          data-description="伝統工芸の現代的再生をテーマに、絹織物の精緻な技法と切り紙芸術の民俗的表現を融合。伝統文化の保護と産業的活用の両立に向けた革新経路を提示します。"
+          data-overview="伝統工芸の現代的再生という課題のもと、中国の伝統的な絹織物技法と民俗芸能である切り紙芸術の融合発展をテーマに研究を行ったものです。両者の文化的価値を再評価するとともに、現代の生活様式や市場ニーズに適合した新たな表現形態と産業化の経路を探究し、無形文化遺産の持続可能な伝承モデルを構築することを目的としています。"
+          data-features="伝統絹織物と切り紙芸術の歴史的変遷と文化的価値体系の整理|両者を融合させた新たなデザイン表現と製品開発の可能性検討|現代の消費者と市場における受容性の調査と分析|文化伝承と産業活用を両立させた発展経路の具体的提案"
+          data-stack="文献研究、フィールド調査、デザイン実践、アンケート調査による実証分析"
+          data-benefits="伝統工芸文化の現代的意義を理論的に明らかにするとともに、具体的なイノベーションの道筋を提示します。無形文化遺産の保護と産業振興の両立に向けた実践的な指針を提供し、地域文化産業の発展に貢献します。"
+          data-images="images/paper-01-1.jpg,images/paper-01-2.jpg,images/paper-01-3.jpg"
+          data-image="images/paper-01.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-01.jpg" alt="絹織物と切り紙芸術の融合発展研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">文化研究</span>
+            <h3 class="project-card__title">絹織物と切り紙芸術の融合発展研究</h3>
+            <p class="project-card__text">伝統文化の保護と産業的活用の両立に向けた革新経路を提示。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="AI教育"
+          data-title="AIにより機能強化された切り紙図案のスマート設計システムと教育応用"
+          data-paper-url="https://www.cqvip.com/doc/journal/7204020802?sign=b10575713d28f2b679f4d64a5e89a1b095bf438e7981179e2c6105b46551f984&expireTime=1801215431712&resourceId=7204020802&type=1"
+          data-description="生成AIと画像認識を活用した切り紙図案設計システムを開発。美術教育現場での実証実験を通じ、伝統文化教育におけるAIツールの導入効果を検証します。"
+          data-overview="伝統切り紙芸術の教育的伝承をテーマに、AI技術により機能強化されたスマート設計システムを開発し、学校の美術教育現場への応用可能性と教育的効果を実証的に検討した研究です。伝統文化の学習におけるAIツールの役割と適切な活用方法を探り、次世代の伝統文化教育モデルを構築することを目的としています。"
+          data-features="生成AIによる切り紙図案の自動生成とカスタマイズ機能の開発|画像認識による手作り切り紙の評価・フィードバック機能の実装|小中学校の美術授業での実証実験と学習効果の定量分析|伝統文化教育へのAI導入に関するガイドラインの提案"
+          data-stack="生成AIモデル、画像認識アルゴリズム、教育実践研究、前後比較による効果検証"
+          data-benefits="伝統切り紙芸術の学習を支援するツールとしてのAIの可能性を実証的に明らかにします。教育現場での活用に向けた具体的な方針を示し、伝統文化教育の質の向上と普及に貢献します。"
+          data-images="images/paper-02-1.jpg,images/paper-02-2.jpg,images/paper-02-3.jpg"
+          data-image="images/paper-02.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-02.jpg" alt="AI強化切り紙設計システム研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">AI教育</span>
+            <h3 class="project-card__title">AI強化切り紙図案スマート設計システム研究</h3>
+            <p class="project-card__text">教育現場での実証実験を通じ、AI導入の教育的効果を検証。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="起業教育"
+          data-title="AI活用型大学生イノベーション起業教育プラットフォームの課題と改善方策"
+          data-paper-url="https://www.cqvip.com/doc/journal/7204020781?sign=6b1b241795f33cdb9e5a7ce10b56856b12dc11a7f135ef615d74799000b49154&expireTime=1801215431712&resourceId=7204020781&type=1"
+          data-description="大学生向け起業教育プラットフォームの実態を調査し、AI活用の課題を抽出。個別最適化された教育プログラムの実現に向けた改善方策を提言します。"
+          data-overview="急速なイノベーション環境の変化のもと、大学生向けの起業・イノベーション教育プラットフォームの現状と課題を多角的に調査分析し、AI技術を活用した質的向上の方策を提案する研究です。教育の個別最適化と実践的な能力育成を両立させる次世代の起業教育モデルを構築することを目的としています。"
+          data-features="全国の大学の起業教育プラットフォームの実態調査と課題の体系的抽出|AIによる個別カリキュラム生成と進捗評価モデルの構築|プロジェクト型学習におけるAI支援の具体的な応用場面の設計|教育プラットフォームの改善に向けた実践的な政策提言"
+          data-stack="アンケート調査、事例研究、モデル構築、専門家インタビューによる妥当性検証"
+          data-benefits="現在の起業教育プラットフォームの課題を明確にするとともに、AI活用による改善の道筋を具体的に示します。大学生のイノベーション能力育成の環境整備に資する理論的・実践的な知見を提供します。"
+          data-images="images/paper-03-1.jpg,images/paper-03-2.jpg,images/paper-03-3.jpg"
+          data-image="images/paper-03.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-03.jpg" alt="AI活用型起業教育プラットフォーム研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">起業教育</span>
+            <h3 class="project-card__title">AI活用型起業教育プラットフォーム研究</h3>
+            <p class="project-card__text">課題を体系的に整理し、質的向上に向けた改善方策を提言。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="教育学"
+          data-title="The role of parental education in children’s socialization"
+          data-paper-url="https://47.76.132.97/EG/eg250202.html"
+          data-description="教育学の基礎理論に立脚し、家庭教育が児童の社会化プロセスに与える影響メカニズムを多角的に解釈。家庭教育の重要性を理論的に裏付けます。"
+          data-overview="教育学の基礎理論枠組みに基づき、保護者による教育的関わりが児童の社会化プロセスにどのような役割を果たすかを多角的に解釈・検討した研究です。家庭という初期環境が児童の社会的適応能力、道徳性、対人関係能力の形成に与える影響を理論的に解明し、家庭教育の意義を学術的に再確認することを目的としています。"
+          data-features="児童社会化プロセスに関する教育学理論の体系的整理|保護者の教育態度・コミュニケーション様式と社会化の関連性の分析|価値観の伝達と社会的規範の内面化における家庭の役割の検討|家庭教育支援のあり方に関する理論的提言"
+          data-stack="文献研究、理論的分析、発達心理学と教育学の学際的考察"
+          data-benefits="家庭教育が児童の社会化に及ぼす影響のメカニズムを理論的に明らかにし、家庭教育の重要性を学術的に裏付けます。今後の家庭教育支援政策や親子教育プログラムの開発に向けた基礎的知見を提供します。"
+          data-images="images/paper-04-1.jpg,images/paper-04-2.jpg,images/paper-04-3.jpg"
+          data-image="images/paper-04.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-04.jpg" alt="Parental education and children’s socialization" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">教育学</span>
+            <h3 class="project-card__title">Parental education in children’s socialization</h3>
+            <p class="project-card__text">教育学理論に基づき、家庭教育の社会化における役割を解明。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="言語教育"
+          data-title="Strategies for Cultivating Intercultural Communicative Competence among English Learners"
+          data-paper-url="https://47.76.132.97/EG/eg250304.html"
+          data-description="英語学習者の異文化コミュニケーション能力を総合的に育成するための教育戦略を研究。言語能力に加え文化的感受性を高めるカリキュラム設計を提案します。"
+          data-overview="グローバル化が進展する現代において、英語学習者に求められるのは単なる言語運用能力だけでなく、異文化を理解し適切にコミュニケーションを図る総合的な能力です。本研究では、異文化コミュニケーション能力の構成要素を整理し、それを体系的に育成するための教育戦略とカリキュラム設計を提案します。"
+          data-features="異文化コミュニケーション能力の概念構造と構成要素の整理|現在の英語教育における異文化教育の現状と課題の抽出|言語能力と文化理解を統合した教授法とカリキュラムの開発|学習者の能力向上効果を検証するための評価枠組みの構築"
+          data-stack="文献分析、授業実践研究、質問紙調査による効果検証、比較教育研究"
+          data-benefits="英語教育における異文化コミュニケーション能力育成の体系的な方針を示します。国際的な場で活躍できる人材の育成に資する教育実践の改善に貢献し、言語教育の質的向上に寄与します。"
+          data-images="images/paper-05-1.jpg,images/paper-05-2.jpg,images/paper-05-3.jpg"
+          data-image="images/paper-05.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-05.jpg" alt="Intercultural communicative competence" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">言語教育</span>
+            <h3 class="project-card__title">Intercultural communicative competence</h3>
+            <p class="project-card__text">言語と文化を統合した育成戦略とカリキュラム設計を提案。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="林業研究"
+          data-title="A comparative study on Pinus armandii fruit harvesting tools"
+          data-paper-url="https://47.76.132.97/EG/eg250401.html"
+          data-description="華山松の果実収穫に用いる各種ツールと手法を多視点で比較評価。作業効率・安全性・コストの観点から最適な方式を選定するための判断基準を提示します。"
+          data-overview="華山松は中国南西部の重要な経済樹種であり、その果実の収穫作業は生産性と品質を左右する重要な工程です。本研究では、現在現場で使用されている各種収穫ツールと作業手法を対象に、複数の評価軸から比較分析を行い、栽培条件に応じた最適な収穫方式の選定指針を示すことを目的としています。"
+          data-features="各種収穫ツールの構造・機能の特徴整理と分類|作業効率、果実損傷率、作業者負担、コストの4軸による定量比較|地形・樹高・栽培規模と収穫方式の適合性分析|収穫方式選定のための意思決定フローの提案"
+          data-stack="フィールド実測調査、定量比較分析、多基準意思決定、現地ヒアリング調査"
+          data-benefits="華山松果実の収穫作業の合理化と生産性向上に向けた具体的な指針を提供します。林業従事者の作業負担の軽減と生産コストの削減に貢献し、地域の華山松産業の持続的発展を支えます。"
+          data-images="images/paper-06-1.jpg,images/paper-06-2.jpg,images/paper-06-3.jpg"
+          data-image="images/paper-06.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-06.jpg" alt="Pinus armandii harvesting tools study" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">林業研究</span>
+            <h3 class="project-card__title">Pinus armandii 収穫手法比較研究</h3>
+            <p class="project-card__text">多軸定量比較に基づき、最適な収穫方式の選定基準を提示。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="林業研究" 
+          data-title="Factors Affecting the Survival Rate of Pinus armandii Seedlings and Pest and Disease Control Strategies in Huidong County"
+          data-paper-url="https://47.76.132.97/EG/eg250501.html"
+          data-description="華山松実生を対象に生存率の影響要因を分析。主要な病害虫の発生パターンを整理し、総合的な防除戦略を構築します。"
+          data-overview="華山松の主要栽培地域において、実生の生存率のばらつきや病害虫の発生が産業の安定的発展の課題となっています。本研究では、現地調査に基づき実生生存率に影響を与える主要因を解明するとともに、病害虫の総合的な防除戦略を構築することを目的としています。"
+          data-features="栽培地における実生生存率の実態調査とばらつき要因の抽出|土壌・気候・管理方法などの影響要因の多変量解析|主要な病害虫の種類・発生パターン・被害状況の体系的整理|環境配慮型の総合病害虫防除戦略の提案"
+          data-stack="現地調査、多変量統計解析、病害虫標本同定、防除実験による効果検証"
+          data-benefits="華山松実生の生存率向上のための具体的な管理指針を示すとともに、持続可能な病害虫防除体系を構築します。地域の華山松栽培の安定化と生産性向上に資する実践的な技術的知見を提供します。"
+          data-images="images/paper-07-1.jpg,images/paper-07-2.jpg,images/paper-07-3.jpg"
+          data-image="images/paper-07.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-07.jpg" alt="Pinus armandii seedling survival study" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">林業研究</span>
+            <h3 class="project-card__title">実生生存率と防除戦略研究</h3>
+            <p class="project-card__text">影響要因を解明し、総合的な病害虫防除戦略を構築。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="農業DX"
+          data-title="スマート収穫ドローンの技術現状と今後の発展展望"
+          data-paper-url="https://www.cqvip.com/doc/journal/1000004006351?sign=f582bc14021e7ee5534ddb2329cd2ab9453d09c9007a961f4096190887508669&expireTime=1801215431712&resourceId=1000004006351&type=1"
+          data-description="スマート制御収穫ドローンの技術現状と応用動向を整理。技術的課題と法規制上の論点を抽出し、今後の発展方向性と普及シナリオを展望します。"
+          data-overview="農林業のスマート化が進む中、収穫作業の自動化を担うドローン技術の開発が加速しています。本研究では、インテリジェント制御システムを搭載した収穫型ドローンの技術現状と産業応用の実態を調査し、課題を整理した上で今後の発展見通しと政策的示唆を提示します。"
+          data-features="収穫型ドローンの技術体系と制御方式の整理|国内外の研究開発動向と実用化事例の比較分析|技術的課題、法規制上の課題、社会的受容性の課題の抽出|今後5～10年の技術発展シナリオと普及見通しの予測"
+          data-stack="文献調査、技術トレンド分析、専門家インタビュー、シナリオプランニング"
+          data-benefits="収穫ドローン技術の全体像と発展の方向性を明確にし、技術開発の指針と政策立案の基礎資料を提供します。農林業のスマート化と生産性革命に向けた戦略的な展望を提示します。"
+          data-images="images/paper-08-1.jpg,images/paper-08-2.jpg,images/paper-08-3.jpg"
+          data-image="images/paper-08.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-08.jpg" alt="収穫ドローン発展展望" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">農業DX</span>
+            <h3 class="project-card__title">スマート収穫ドローン発展展望研究</h3>
+            <p class="project-card__text">技術・法規制・社会受容性の観点から普及シナリオを展望。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="教育学"
+          data-title="児童社会化プロセスにおける保護者教育の役割 — 認知発達理論に基づく解釈"
+          data-paper-url="https://www.cqvip.com/doc/journal/1000004193788?sign=236b1e07883684c85a453dbebfb778d2583da67a71dad23fd22f883c64836669&expireTime=1801215431712&resourceId=1000004193788&type=1"
+          data-description="認知発達理論を枠組みとし、保護者の関わりが児童の社会化に作用するメカニズムを解明。発達段階に応じた具体的な関わり方を示します。"
+          data-overview="ピアジェの認知発達段階理論とヴィゴツキーの発達の最近接領域の概念を枠組みとし、保護者の教育的関わりが児童の社会化プロセスにどのように影響を与えるかを理論的に解明した研究です。発達段階ごとの適切な関わり方のあり方を具体的に提示し、家庭教育支援のための基礎理論を構築します。"
+          data-features="認知発達理論の主要な概念と社会化研究との関連の整理|発達段階別に見た保護者の関わりと社会化の対応関係の分析|保護者の言語的相互作用が社会的認知形成に及ぼす影響の検討|発達段階に応じた家庭教育支援プログラムの設計指針"
+          data-stack="理論的研究、発達心理学と教育学の学際的分析、事例による検証"
+          data-benefits="認知発達の視点から家庭教育の社会化機能を学術的に裏付け、具体的な実践指針を提供します。保護者向けの育児支援や家庭教育講座のプログラム開発に有用な基礎的知見をもたらします。"
+          data-images="images/paper-09-1.jpg,images/paper-09-2.jpg,images/paper-09-3.jpg"
+          data-image="images/paper-09.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-09.jpg" alt="保護者教育と社会化研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">教育学</span>
+            <h3 class="project-card__title">認知発達理論に基づく保護者教育研究</h3>
+            <p class="project-card__text">発達段階に応じた適切な関わり方の具体的指針を提示。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="比較文化"
+          data-title="中日妖怪文化の比較研究 — 大衆メディアにおける再生産を通じて"
+          data-paper-url="https://oversea.cnki.net/kcms2/article/abstract?v=8usEsk9d4UmAQ1U0vjHTBAOtbfyJ39hYl8SmWpMRdWUu6bLaGDJzjFpm8bhFHTQ-GY5mFx9IGfvlrNwGJvKxTpN_WkO6tOvRS8iFj5E7Zo5volIen9HxUdTiqTfdY6-lMBGQR-alOT0-tzIQ4D6IUb5_vdSpt6u5mtMNyqZAUfj0m9CRv5ByIA==&uniplatform=OVERSEA&language=EN"
+          data-description="中日の人気作品を事例に妖怪像の特徴と文化的背景を比較考察。伝承文化が現代メディアで再生産されるメカニズムを解明します。"
+          data-overview="妖怪文化は中日両国の民俗文化の重要な構成要素であり、現代の大衆メディア作品を通じて新たな形で受容されています。本研究では、中日両国の代表的な人気作品を比較対象とし、両作品に描かれた妖怪像の特徴、文化的淵源、現代的な再解釈の様相を比較分析します。"
+          data-features="中日両国の伝統妖怪文化の歴史的源流と特徴の比較整理|両国作品に登場する妖怪像の設定と表現様式の比較分析|現代大衆文化における妖怪文化の再構築のメカニズムの解明|両国における伝承文化の現代的伝承様式の共通性と相違点の抽出"
+          data-stack="比較文化研究、テキスト分析、民俗学的考察、受容者分析"
+          data-benefits="中日の妖怪文化の共通性と文化的個性を明らかにし、東アジア民俗文化の比較研究に新たな知見を加えます。現代メディアを通じた伝統文化の再生産の論理を解明し、文化コンテンツの創作にも示唆を与えます。"
+          data-images="images/paper-10-1.jpg,images/paper-10-2.jpg,images/paper-10-3.jpg"
+          data-image="images/paper-10.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-10.jpg" alt="中日妖怪文化比較研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">比較文化</span>
+            <h3 class="project-card__title">中日妖怪文化の比較研究</h3>
+            <p class="project-card__text">人気作品を事例に伝統文化の現代的再構築のメカニズムを解明。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="民俗学"
+          data-title="鍾馗信仰とその東アジアにおける異文化伝播に関する研究"
+          data-paper-url="https://oversea.cnki.net/kcms2/article/abstract?v=8usEsk9d4UlgoQVGzqJQtpDhX3OIax_LLUEttamcq6DjY6Sb81zEm4jh55Pam3lucnjw6vGbT6hh3ncGE5etCCCSF5vzGxHyifQ0auUNB6jE94u7EOKj5v5oWQ_N62JjUyXS0tVbUhO44r7A_AjwposwLK6tsGYLh2JvP1p_wGU=&uniplatform=OVERSEA"
+          data-description="鍾馗信仰の起源と変遷を整理し、東アジア地域への伝播と変容のプロセスを追跡。民俗信仰の文化伝播の法則性を明らかにします。"
+          data-overview="鍾馗信仰は中国で生まれた代表的な民俗信仰の一つであり、長い歴史の中で日本、朝鮮半島など東アジア全域に伝播し、それぞれの地域文化の中で独特の変容を遂げてきました。本研究では、鍾馗信仰の起源から現代までの展開を追跡し、異文化間での伝播と受容の様相を比較分析します。"
+          data-features="中国における鍾馗信仰の起源と歴史的変遷の体系的整理|日本・朝鮮半島への伝播経路と受容様式の比較考察|各地域における信仰の変容と地域文化との融合様式の分析|民俗信仰の異文化伝播における一般的法則の抽出"
+          data-stack="歴史文献研究、比較民俗学、文化伝播理論、フィールド調査"
+          data-benefits="鍾馗信仰という民俗文化事象の全体像を明らかにするとともに、東アジア文化交流の歴史的実態を解明します。民俗信仰の伝播と変容の法則性を理論化し、比較民俗学研究の発展に貢献します。"
+          data-images="images/paper-11-1.jpg,images/paper-11-2.jpg,images/paper-11-3.jpg"
+          data-image="images/paper-11.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-11.jpg" alt="鍾馗信仰と異文化影響研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">民俗学</span>
+            <h3 class="project-card__title">鍾馗信仰と異文化伝播研究</h3>
+            <p class="project-card__text">東アジアへの伝播と変容を追跡し、文化伝播の法則性を抽出。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="文学研究"
+          data-title="The Evolutionary Characteristics and Internal Tensions of Utopian Literature in Modern and Contemporary China"
+          data-paper-url="https://47.76.132.97/EG/eg240404.html"
+          data-description="中国近現代ユートピア文学の発展特徴と時代的変遷を整理。理想と現実の間の内在的緊張関係を分析し、文学の社会的機能を考察します。"
+          data-overview="中国近現代の社会的激動の中で、ユートピア文学は常に時代の理想と苦悩を映し出す鏡でした。本研究では、清末から現代までの中国ユートピア文学の発展の軌跡をたどり、各時期の特徴とテーマの変遷を整理するとともに、作品に内在する理想と現実の緊張関係を読み解きます。"
+          data-features="中国近現代ユートピア文学の時代区分と各期の特徴整理|社会的背景と文学表現の対応関係の分析|作品に内在する理想社会の構想と現実制約の緊張関係の解明|ユートピア文学の現代における意義と社会的機能の考察"
+          data-stack="文学史研究、テキスト批評、社会歴史的分析、比較文学研究"
+          data-benefits="中国近現代ユートピア文学の全体的な発展軌跡を体系的に描き出し、その文学的価値と社会的意義を再評価します。現代中国文学研究の視野を広げるとともに、理想社会をめぐる思想の変遷を理解するための文学的証言を提示します。"
+          data-images="images/paper-12-1.jpg,images/paper-12-2.jpg,images/paper-12-3.jpg"
+          data-image="images/paper-12.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-12.jpg" alt="中国ユートピア文学研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">文学研究</span>
+            <h3 class="project-card__title">ユートピア文学の発展と内在的緊張</h3>
+            <p class="project-card__text">発展特徴と緊張関係を分析し、文学的意義を再評価。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="文学研究"
+          data-title="On the Warmth in Yu Hua’s"
+          data-paper-url="https://47.76.132.97/EG/eg240202.html"
+          data-description="余華『兄弟』に流れる「温かさ」の表現様式と文学的意義を読み解く。荒々しい生の描写の奥にある人道主義的本質を明らかにします。"
+          data-overview="余華の代表作『兄弟』は、激動の時代を生きる二人の兄弟の運命を荒々しくユーモラスに描いた作品として知られますが、その根底には人間への深い共感に根ざした「温かさ」が流れています。本研究では、この「温かさ」という視点から作品を再読し、余華文学の人道主義的本質を新たな角度から明らかにします。"
+          data-features="作品における「温かさ」の表現形態と場面の分類整理|人物関係と物語展開の中での温かさの機能の分析|過酷な時代描写と人間的温かさの対比構造の解釈|余華の他作品との比較を通じた文学的特質の抽出"
+          data-stack="テキスト詳読、人物論、比較文学分析、作家研究"
+          data-benefits="『兄弟』という作品の新たな読み方を提示し、余華文学の多面的な魅力を明らかにします。過酷な現実を描きながらもなお人間を肯定する作家の姿勢を解明し、現代中国文学の人道主義伝統の理解を深めます。"
+          data-images="images/paper-13-1.jpg,images/paper-13-2.jpg,images/paper-13-3.jpg"
+          data-image="images/paper-13.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-13.jpg" alt="余華『兄弟』の温かさ研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">文学研究</span>
+            <h3 class="project-card__title">『兄弟』における温かさと人道主義</h3>
+            <p class="project-card__text">作品の根底に流れる人道主義的本質を読み解き再評価。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="教育政策"
+          data-title="中国における日本語大学入試教育の現状と標準化対策"
+          data-paper-url="https://www.cqvip.com/doc/journal/VDPUB20240920094604484?sign=b94efa3fda9203368998a94738586066025a76bedeff041de83b28e0e1657755&expireTime=1801215431712&resourceId=VDPUB20240920094604484&type=1"
+          data-description="中国における日本語大学入試教育の全国的実態を調査し、課題を抽出。教育内容と評価の標準化に向けた具体的方策を提言します。"
+          data-overview="中国の大学入試外国語科目において、日本語は英語に次ぐ主要な選択科目ですが、地域間の教育格差や評価基準の不統一などの課題が指摘されています。本研究では、全国規模の実態調査に基づき日本語入試教育の現状と問題点を体系的に整理し、標準化に向けた具体的な改善方策を提案します。"
+          data-features="全国の地域別・学校別の日本語入試教育の実態調査|教育内容・教材・教員の質の地域格差の実態と要因分析|入試問題の評価基準の妥当性と公平性の検討|教育内容・評価体系・教員研修の標準化方策の提案"
+          data-stack="全国規模のアンケート調査、統計分析、専門家会議による方策検討"
+          data-benefits="少数言語としての日本語入試教育の現状と課題を客観的に明らかにし、公平で質の高い教育実現に向けた具体的な指針を提示します。大学入試制度の改善と日本語教育の健全な発展に貢献します。"
+          data-images="images/paper-14-1.jpg,images/paper-14-2.jpg,images/paper-14-3.jpg"
+          data-image="images/paper-14.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-14.jpg" alt="日本語入試教育の現状と標準化" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">教育政策</span>
+            <h3 class="project-card__title">日本語入試教育の現状と標準化対策</h3>
+            <p class="project-card__text">全国調査に基づき、公平性と質の向上に向けた方策を提言。</p>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="paper" data-category-label="農業経済"
+          data-title="新農村建設背景下における農業経済管理研究 — 新龍県を事例として"
+          data-paper-url="https://www.cqvip.com/doc/journal/VDPUB20240429114205646?sign=c2d9cdb4f0ed014ed4e7b761dbc4162b20432c8fe28c704d697adaa6540f7cc3&expireTime=1801215431712&resourceId=VDPUB20240429114205646&type=1"
+          data-description="新龍県を事例に新農村建設下の農業経済管理の課題を実証分析。地域特性に応じた改善モデルを構築し政策的提言を行います。"
+          data-overview="新農村建設は中国の農村振興をめぐる重要な国家戦略であり、農業経済管理のあり方がその成否を左右します。本研究では、新龍県を具体的な事例地域として、現地の農業経済の構造と管理体制の現状を調査し、課題を抽出した上で、地域の実情に適合した改善モデルを構築し政策的提言を行います。"
+          data-features="新龍県の農業経済の構造と発展実態の詳細調査|農業経済管理体制の現状と問題点の体系的抽出|産業構造・経営規模・流通・資金の各側面からの深堀り分析|地域振興に資する農業経済管理の改善モデルと政策提言"
+          data-stack="事例研究、現地ヒアリング調査、経済統計分析、政策分析"
+          data-benefits="地域レベルでの農業経済管理の課題を具体的に明らかにし、実効性のある改善方策を提示します。新農村建設政策の地域レベルでの定着と農村振興の推進に資する実践的な知見を提供します。"
+          data-images="images/paper-15-1.jpg,images/paper-15-2.jpg,images/paper-15-3.jpg"
+          data-image="images/paper-15.jpg">
+          <div class=".project-card__image_auto"><img src="images/paper-15.jpg" alt="新農村建設における農業経済管理研究" loading="lazy" /></div>
+          <div class="project-card__body"><span class="project-card__meta">農業経済</span>
+            <h3 class="project-card__title">新農村建設における農業経済管理研究</h3>
+            <p class="project-card__text">新龍県の事例から改善モデルを構築し政策提言を実施。</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- 下部CTA -->
+      <div class="portfolio-cta">
+        <h3>共同研究・事業提携のご相談を承ります</h3>
+        <p>各分野の専門性を活かした協働プロジェクトを随時募集しています。</p>
+        <a href="contact.html" class="btn-white">お問い合わせはこちら</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© 2026 鄧 信成 All Rights Reserved.</p>
+      <div class="footer__social">
+        <a class="footer__link" href="mailto:toushinsei@example.com" title="メール">✉︎</a>
+        <a class="footer__link" href="#" title="GitHub">GitHub</a>
+        <a class="footer__link" href="#" title="LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+
+  <!-- プロジェクト詳細モーダル -->
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__dialog">
+      <div class="modal__carousel">
+        <div class="carousel__track"></div>
+        <button class="carousel__control carousel__control--prev" type="button" aria-label="前へ">‹</button>
+        <button class="carousel__control carousel__control--next" type="button" aria-label="次へ">›</button>
+        <div class="carousel__dots"></div>
+      </div>
+      <div class="modal__header">
+        <h3 class="modal__title">プロジェクト詳細</h3>
+        <button class="modal__close" type="button" aria-label="閉じる">×</button>
+      </div>
+      <div class="modal__body">
+        <span class="modal__tag"></span>
+
+        <div class="modal__section">
+          <h4 class="modal__section-title">概要</h4>
+          <p class="modal__overview"></p>
+        </div>
+
+        <div class="modal__section">
+          <h4 class="modal__section-title">主な内容</h4>
+          <p class="modal__research"></p>
+        </div>
+
+        <div class="modal__section modal__role-section">
+          <h4 class="modal__section-title">担当役割</h4>
+          <p class="modal__role"></p>
+        </div>
+
+        <div class="modal__section modal__results-section">
+          <h4 class="modal__section-title">主な成果</h4>
+          <p class="modal__results"></p>
+        </div>
+
+        <div class="modal__section modal__features-section">
+          <h4 class="modal__section-title">主な機能</h4>
+          <ul class="modal__features"></ul>
+        </div>
+
+        <p class="modal__details"><strong>技術スタック</strong> <span class="modal__stack"></span></p>
+
+        <div class="modal__section modal__benefits-section">
+          <h4 class="modal__section-title">導入効果</h4>
+          <p class="modal__benefits"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // ========== スクロール出現アニメーション ==========
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.project-card').forEach(function (card) {
+        revealObserver.observe(card);
+      });
+
+      // ========== カテゴリーフィルター ==========
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const projectCards = document.querySelectorAll('.project-card');
+      const projectGrid = document.getElementById('projectGrid');
+
+      filterTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          const category = this.getAttribute('data-filter');
+
+          filterTabs.forEach(function (t) { t.classList.remove('active'); });
+          this.classList.add('active');
+
+          projectGrid.style.opacity = '0';
+          setTimeout(function () {
+            projectCards.forEach(function (card) {
+              const cardCategory = card.getAttribute('data-category');
+              card.style.display = (category === 'all' || cardCategory === category) ? 'flex' : 'none';
+            });
+            projectGrid.style.opacity = '1';
+
+            // 再出現アニメーション
+            projectCards.forEach(function (card, index) {
+              if (card.style.display !== 'none') {
+                card.classList.remove('is-visible');
+                setTimeout(function () { card.classList.add('is-visible'); }, index * 40);
+              }
+            });
+          }, 200);
+        });
+      });
+
+      // ========== モーダル制御 ==========
+      const modal = document.querySelector('.modal');
+      const modalClose = document.querySelector('.modal__close');
+      let currentSlideIndex = 0;
+      let slideImageList = [];
+
+      // カテゴリ別セクションタイトルマップ
+      const sectionTitleMap = {
+        research: ['研究概要', '研究内容', '担当役割', '主な成果'],
+        company: ['事業概要', '事業内容', '主な実績', '社会的貢献'],
+        system: ['システム概要', '主な機能', '技術スタック', '導入効果'],
+        paper: ['研究概要', '主な研究内容', '研究手法', '研究の意義']
+      };
+
+      function updateModalSections(category) {
+        const titles = sectionTitleMap[category] || sectionTitleMap.system;
+        const sectionTitles = document.querySelectorAll('.modal__section-title');
+
+        if (sectionTitles.length >= 4) {
+          sectionTitles[0].textContent = titles[0];
+          sectionTitles[1].textContent = titles[1];
+          sectionTitles[2].textContent = titles[2];
+          sectionTitles[3].textContent = titles[3];
+        }
+
+        // 各セクションの表示制御（要素が存在する場合のみ操作）
+        const roleSection = document.querySelector('.modal__role-section');
+        const resultsSection = document.querySelector('.modal__results-section');
+        const featuresSection = document.querySelector('.modal__features-section');
+        const benefitsSection = document.querySelector('.modal__benefits-section');
+
+        if (category === 'paper') {
+          if (roleSection) roleSection.style.display = 'none';
+          if (resultsSection) resultsSection.style.display = 'none';
+          if (featuresSection) featuresSection.style.display = 'none';
+          if (benefitsSection) benefitsSection.style.display = 'block';
+        } else if (category === 'research') {
+          if (roleSection) roleSection.style.display = 'block';
+          if (resultsSection) resultsSection.style.display = 'block';
+          if (featuresSection) featuresSection.style.display = 'none';
+          if (benefitsSection) benefitsSection.style.display = 'none';
+        } else if (category === 'company') {
+          if (roleSection) roleSection.style.display = 'none';
+          if (resultsSection) resultsSection.style.display = 'none';
+          if (featuresSection) featuresSection.style.display = 'none';
+          if (benefitsSection) benefitsSection.style.display = 'block';
+        } else {
+          if (roleSection) roleSection.style.display = 'none';
+          if (resultsSection) resultsSection.style.display = 'none';
+          if (featuresSection) featuresSection.style.display = 'block';
+          if (benefitsSection) benefitsSection.style.display = 'block';
+        }
+      }
+
+      function renderCarousel(images) {
+        const track = document.querySelector('.carousel__track');
+        const dots = document.querySelector('.carousel__dots');
+        if (!track || !dots) return;
+
+        track.innerHTML = '';
+        dots.innerHTML = '';
+        slideImageList = images;
+        currentSlideIndex = 0;
+
+        images.forEach(function (src, index) {
+          const slide = document.createElement('div');
+          slide.className = 'carousel__slide';
+          slide.innerHTML = '<img src="' + src + '" alt="プロジェクト画像' + (index + 1) + '" loading="lazy">';
+          track.appendChild(slide);
+
+          const dot = document.createElement('button');
+          dot.className = 'carousel__dot' + (index === 0 ? ' active' : '');
+          dot.type = 'button';
+          dot.setAttribute('aria-label', 'スライド' + (index + 1));
+          dot.addEventListener('click', function () {
+            goToSlide(index);
+          });
+          dots.appendChild(dot);
+        });
+
+        updateCarouselView();
+      }
+
+      function updateCarouselView() {
+        const track = document.querySelector('.carousel__track');
+        const dots = document.querySelectorAll('.carousel__dot');
+        if (!track) return;
+
+        track.style.transform = 'translateX(' + (currentSlideIndex * -100) + '%)';
+        dots.forEach(function (dot, index) {
+          dot.classList.toggle('active', index === currentSlideIndex);
+        });
+      }
+
+      function goToSlide(index) {
+        currentSlideIndex = index;
+        updateCarouselView();
+      }
+
+      // カルーセル操作
+      const prevBtn = document.querySelector('.carousel__control--prev');
+      const nextBtn = document.querySelector('.carousel__control--next');
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          if (slideImageList.length === 0) return;
+          currentSlideIndex = (currentSlideIndex - 1 + slideImageList.length) % slideImageList.length;
+          updateCarouselView();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          if (slideImageList.length === 0) return;
+          currentSlideIndex = (currentSlideIndex + 1) % slideImageList.length;
+          updateCarouselView();
+        });
+      }
+
+            // カードクリックでモーダルオープン
+      projectCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          const category = card.getAttribute('data-category') || 'system';
+          const label = card.getAttribute('data-category-label') || '';
+          const title = card.getAttribute('data-title') || '';
+          const paperUrl = card.getAttribute('data-paper-url') || '';
+          const overview = card.getAttribute('data-overview') || card.getAttribute('data-description') || '';
+          const research = card.getAttribute('data-research') || card.getAttribute('data-business') || card.getAttribute('data-features') || '';
+          const role = card.getAttribute('data-role') || '';
+          const results = card.getAttribute('data-results') || card.getAttribute('data-achievements') || '';
+          const features = card.getAttribute('data-features') || '';
+          const stack = card.getAttribute('data-stack') || '';
+          const benefits = card.getAttribute('data-benefits') || card.getAttribute('data-contribution') || '';
+          const images = card.getAttribute('data-images') ? card.getAttribute('data-images').split(',') : [];
+
+          // セクションタイトル更新
+          updateModalSections(category);
+
+          // 安全に値をセット
+          const safeSet = function(selector, value) {
+            const el = document.querySelector(selector);
+            if (el) el.textContent = value;
+          };
+
+          safeSet('.modal__tag', label);
+          safeSet('.modal__title', title);
+          safeSet('.modal__overview', overview);
+          safeSet('.modal__research', research);
+          safeSet('.modal__role', role);
+          safeSet('.modal__results', results);
+          safeSet('.modal__stack', stack);
+          safeSet('.modal__benefits', benefits);
+
+          // 機能リスト
+          const featuresList = document.querySelector('.modal__features');
+          if (featuresList) {
+            featuresList.innerHTML = '';
+            if (features) {
+              features.split('|').forEach(function(item) {
+                if (item.trim()) {
+                  const li = document.createElement('li');
+                  li.textContent = item.trim();
+                  featuresList.appendChild(li);
+                }
+              });
+            }
+          }
+
+          // カルーセル描画
+          renderCarousel(images.length > 0 ? images : [card.getAttribute('data-image') || '']);
+
+          // モーダル表示
+          modal.classList.add('show');
+          document.body.style.overflow = 'hidden';
+
+          // ===== 核心：延迟10ms强制替换标题，覆盖main.js的渲染结果 =====
+          setTimeout(function() {
+            const titleElement = document.querySelector('.modal__title');
+            if (titleElement && category === 'paper' && paperUrl && paperUrl !== '#') {
+              titleElement.innerHTML = `<a href="${paperUrl}" target="_blank" rel="noopener noreferrer" class="modal__title-link">${title}</a>`;
+            }
+          }, 10);
+        });
+      });
+
+      // モーダルを閉じる
+      function closeModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+
+      if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+      }
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+          closeModal();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

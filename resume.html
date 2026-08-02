@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>経歴 | 鄧 信成 公式サイト</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ========== ページヒーロー ========== */
+    .page-hero {
+      padding: 70px 0 50px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 50%, #f0f9ff 100%);
+      border-radius: 0 0 28px 28px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(74, 108, 247, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .page-hero__title {
+      font-size: 40px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 12px;
+    }
+    .page-hero__title span {
+      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-hero__desc {
+      color: #64748b;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    /* ========== ステータスカウンター ========== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.03);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .stat-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(74, 108, 247, 0.1);
+      border-color: #e0e7ff;
+    }
+    .stat-card__num {
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card__label {
+      color: #64748b;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* ========== レイアウト全体 ========== */
+    .resume-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 22px;
+      background: linear-gradient(180deg, #4a6cf7, #7c3aed);
+      border-radius: 2px;
+    }
+
+    /* ========== インタラクティブタイムライン ========== */
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, #4a6cf7 0%, #e2e8f0 100%);
+      border-radius: 1px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .timeline-item.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-item__dot {
+      position: absolute;
+      left: -36px;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #4a6cf7;
+      box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.15);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    .timeline-item.is-open .timeline-item__dot {
+      background: #4a6cf7;
+      box-shadow: 0 0 0 8px rgba(74, 108, 247, 0.2);
+    }
+    .timeline-item__header {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 14px;
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .timeline-item__header:hover {
+      border-color: #e0e7ff;
+      box-shadow: 0 8px 20px rgba(74, 108, 247, 0.08);
+      transform: translateX(4px);
+    }
+    .timeline-item__year {
+      font-size: 18px;
+      font-weight: 700;
+      color: #4a6cf7;
+      margin: 0 0 4px;
+    }
+    .timeline-item__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+    }
+    .timeline-item__toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+    .timeline-item.is-open .timeline-item__toggle {
+      background: #4a6cf7;
+      color: #fff;
+      transform: rotate(45deg);
+    }
+    .timeline-item__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      margin-top: 0;
+    }
+    .timeline-item.is-open .timeline-item__body {
+      max-height: 500px;
+      margin-top: 12px;
+    }
+    .timeline-item__content {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid #f1f5f9;
+    }
+    .timeline-item__content ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #475569;
+      line-height: 1.8;
+      font-size: 14.5px;
+    }
+    .timeline-item__content li {
+      margin-bottom: 4px;
+    }
+    .timeline-item__content li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ========== サイドバー 共通 ========== */
+    .sidebar-section {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.03);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .sidebar-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .sidebar-section:hover {
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+    }
+    .sidebar-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 20px;
+    }
+
+    /* ========== 栄誉 アコーディオン ========== */
+    .honor-item {
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 0;
+    }
+    .honor-item:last-child {
+      border-bottom: none;
+    }
+    .honor-item__header {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .honor-item__header:hover {
+      color: #4a6cf7;
+    }
+    .honor-item__title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s ease;
+    }
+    .honor-item__header:hover .honor-item__title {
+      color: #4a6cf7;
+    }
+    .honor-item__title::before {
+      content: "🏆";
+      font-size: 16px;
+    }
+    .honor-item__icon {
+      color: #94a3b8;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .honor-item.is-open .honor-item__icon {
+      transform: rotate(180deg);
+      color: #4a6cf7;
+    }
+    .honor-item__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .honor-item.is-open .honor-item__body {
+      max-height: 200px;
+    }
+    .honor-item__desc {
+      padding: 0 0 14px 24px;
+      color: #64748b;
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ========== スキルレーダーチャート ========== */
+    .radar-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+    }
+    .radar-chart {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+    }
+    .radar-polygon {
+      fill: url(#radarGradient);
+      stroke: #4a6cf7;
+      stroke-width: 2;
+      fill-opacity: 0.3;
+      transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .radar-grid line {
+      stroke: #e2e8f0;
+      stroke-width: 1;
+    }
+    .radar-grid circle {
+      stroke: #e2e8f0;
+      stroke-width: 1;
+      fill: none;
+    }
+    .radar-label {
+      font-size: 11px;
+      fill: #475569;
+      font-weight: 500;
+    }
+
+    /* ========== CTAカード ========== */
+    .cta-card {
+      background: linear-gradient(135deg, #4a6cf7 0%, #7c3aed 100%);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    .cta-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cta-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-card__title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      position: relative;
+    }
+    .cta-card__desc {
+      font-size: 13.5px;
+      opacity: 0.9;
+      margin: 0 0 20px;
+      position: relative;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: #fff;
+      color: #4a6cf7;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .btn-download:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ========== レスポンシブ ========== */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .resume-layout { grid-template-columns: 1fr; }
+      .page-hero__title { font-size: 32px; }
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .stat-card { padding: 16px; }
+      .stat-card__num { font-size: 28px; }
+      .page-hero { padding: 50px 0 40px; }
+      .page-hero__title { font-size: 26px; }
+      .timeline { padding-left: 30px; }
+      .timeline-item__header { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body data-page="resume">
+  <header class="page-header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__brand" aria-label="ホームへ戻る">
+        <strong>鄧信成 公式サイト</strong>
+        <span>教育AI研究者・起業家</span>
+      </a>
+      <nav class="nav" aria-label="ページナビゲーション">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">ホーム</a></li>
+          <li><a class="nav__link" href="about.html">私について</a></li>
+          <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
+          <li><a class="nav__link is-active" href="resume.html">経歴</a></li>
+          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
+      <button class="mobile-menu__toggle" aria-label="メニューを開く">☰</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu__overlay"></div>
+    <div class="mobile-menu__panel">
+      <a class="mobile-menu__link" href="index.html">ホーム</a>
+      <a class="mobile-menu__link" href="about.html">私について</a>
+      <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
+      <a class="mobile-menu__link is-active" href="resume.html">経歴</a>
+      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
+    </div>
+  </div>
+
+  <main class="main">
+    <!-- ヒーローエリア -->
+    <section class="page-hero">
+      <div class="container page-hero__inner">
+        <h1 class="page-hero__title">
+          歩んできた<span>軌跡</span>
+        </h1>
+        <p class="page-hero__desc">
+          時間軸で紡ぐキャリア・受賞歴・スキルの全貌
+        </p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <!-- 実績サマリー -->
+      <div class="stats-grid">
+        <div class="stat-card" data-target="6">
+          <div class="stat-card__num">0</div>
+          <p class="stat-card__label">国家級研究課題</p>
+        </div>
+        <div class="stat-card" data-target="3">
+          <div class="stat-card__num">0</div>
+          <p class="stat-card__label">起業・社長就任</p>
+        </div>
+        <div class="stat-card" data-target="19">
+          <div class="stat-card__num">0</div>
+          <p class="stat-card__label">ソフトウェア著作権</p>
+        </div>
+        <div class="stat-card" data-target="15">
+          <div class="stat-card__num">0</div>
+          <p class="stat-card__label">学術論文発表</p>
+        </div>
+      </div>
+
+      <!-- メインレイアウト -->
+      <div class="resume-layout">
+        <!-- 左：タイムライン -->
+        <div class="timeline-section">
+          <h2 class="section-title">キャリア軌跡</h2>
+          <div class="timeline">
+            <!-- 2026 -->
+            <article class="timeline-item is-open">
+              <div class="timeline-item__dot"></div>
+              <div class="timeline-item__header">
+                <div>
+                  <p class="timeline-item__year">2026年</p>
+                  <h3 class="timeline-item__title">教育と社会貢献を深耕</h3>
+                </div>
+                <span class="timeline-item__toggle">+</span>
+              </div>
+              <div class="timeline-item__body">
+                <div class="timeline-item__content">
+                  <ul>
+                    <li>中央青年表彰など複数の栄誉を受賞</li>
+                    <li>国家級研究課題「時代に適応した互助システムと地域互助新モデル」に企業指導者として参画</li>
+                    <li>伝統文化・教育分野のシステム開発を推進</li>
+                    <li>中央放送総合「開拓者」番組特別招待ゲストとして出演</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2025 -->
+            <article class="timeline-item">
+              <div class="timeline-item__dot"></div>
+              <div class="timeline-item__header">
+                <div>
+                  <p class="timeline-item__year">2025年</p>
+                  <h3 class="timeline-item__title">分野を超えた創業とスマート介護実践</h3>
+                </div>
+                <span class="timeline-item__toggle">+</span>
+              </div>
+              <div class="timeline-item__body">
+                <div class="timeline-item__content">
+                  <ul>
+                    <li>四川禾芯田農業有限公司を設立、代表取締役に就任</li>
+                    <li>農業デジタル化分野で深耕し、情報技術を活用した効率的農業生産を実現</li>
+                    <li>省級課題「高齢知恵社会-AI介護体系」に企業指導者として参画</li>
+                    <li>教育管理・プロジェクト管理分野の著作権を複数取得</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2024 -->
+            <article class="timeline-item">
+              <div class="timeline-item__dot"></div>
+              <div class="timeline-item__header">
+                <div>
+                  <p class="timeline-item__year">2024年</p>
+                  <h3 class="timeline-item__title">教育と農業の融合発展</h3>
+                </div>
+                <span class="timeline-item__toggle">+</span>
+              </div>
+              <div class="timeline-item__body">
+                <div class="timeline-item__content">
+                  <ul>
+                    <li>四川宜星辰教育科技有限公司を設立、代表取締役に就任</li>
+                    <li>家庭教育体系・教育AI製品の研究開発全般を担当</li>
+                    <li>国家級課題2件に研究代表者・企業指導者として参画、いずれも完了</li>
+                    <li>農業AI知覚分析・家庭教育システム関連の著作権を取得</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2023 -->
+            <article class="timeline-item">
+              <div class="timeline-item__dot"></div>
+              <div class="timeline-item__header">
+                <div>
+                  <p class="timeline-item__year">2023年</p>
+                  <h3 class="timeline-item__title">革新創業を起点に科研情報化を探求</h3>
+                </div>
+                <span class="timeline-item__toggle">+</span>
+              </div>
+              <div class="timeline-item__body">
+                <div class="timeline-item__content">
+                  <ul>
+                    <li>宜賓拓科学研究科技有限公司を設立、代表取締役に就任</li>
+                    <li>研究に専念し、革新創業の技術基盤とプロジェクト管理ノウハウを蓄積</li>
+                    <li>国家級・省級課題をそれぞれ1件完了、研究代表者を務める</li>
+                    <li>連続で国家科技型中小企業に認定</li>
+                    <li>学術論文2編を発表</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 右：サイドバー -->
+        <div class="sidebar">
+          <!-- 受賞栄誉 -->
+          <div class="sidebar-section">
+            <h3>受賞・栄誉</h3>
+            <div class="honor-list">
+              <div class="honor-item is-open">
+                <button class="honor-item__header" type="button">
+                  <span class="honor-item__title">中央放送総合「開拓者」番組 特別招待ゲスト</span>
+                  <span class="honor-item__icon">▾</span>
+                </button>
+                <div class="honor-item__body">
+                  <p class="honor-item__desc">番組出演により教育・研究成果を広く社会発信し、業界内外での認知度を拡大しました。</p>
+                </div>
+              </div>
+              <div class="honor-item">
+                <button class="honor-item__header" type="button">
+                  <span class="honor-item__title">国家科技型中小企業 認定（連続）</span>
+                  <span class="honor-item__icon">▾</span>
+                </button>
+                <div class="honor-item__body">
+                  <p class="honor-item__desc">技術開発力と研究型経営モデルが継続的に評価され、複数年にわたり認定を取得しています。</p>
+                </div>
+              </div>
+              <div class="honor-item">
+                <button class="honor-item__header" type="button">
+                  <span class="honor-item__title">中央青年表彰</span>
+                  <span class="honor-item__icon">▾</span>
+                </button>
+                <div class="honor-item__body">
+                  <p class="honor-item__desc">若手研究者としてのリーダーシップと社会貢献実績が国レベルで評価されました。</p>
+                </div>
+              </div>
+              <div class="honor-item">
+                <button class="honor-item__header" type="button">
+                  <span class="honor-item__title">共産主義青年団口コミ大使</span>
+                  <span class="honor-item__icon">▾</span>
+                </button>
+                <div class="honor-item__body">
+                  <p class="honor-item__desc">若世代向けの情報発信と交流促進を担う役割を務め、青少年の成長支援に貢献しました。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- スキルレーダー -->
+          <div class="sidebar-section">
+            <h3>スキル・特性</h3>
+            <div class="radar-container">
+              <svg class="radar-chart" viewBox="0 0 300 300">
+                <defs>
+                  <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#4a6cf7" />
+                    <stop offset="100%" stop-color="#7c3aed" />
+                  </linearGradient>
+                </defs>
+                <g class="radar-grid">
+                  <circle cx="150" cy="150" r="30" />
+                  <circle cx="150" cy="150" r="60" />
+                  <circle cx="150" cy="150" r="90" />
+                  <circle cx="150" cy="150" r="120" />
+                  <line x1="150" y1="30" x2="150" y2="270" />
+                  <line x1="45" y1="87" x2="255" y2="213" />
+                  <line x1="45" y1="213" x2="255" y2="87" />
+                </g>
+                <!-- 8軸ラベル -->
+                <text class="radar-label" x="150" y="20" text-anchor="middle">戦略的思考</text>
+                <text class="radar-label" x="260" y="60" text-anchor="middle">課題解決力</text>
+                <text class="radar-label" x="270" y="155" text-anchor="middle">実行力</text>
+                <text class="radar-label" x="240" y="250" text-anchor="middle">データ志向</text>
+                <text class="radar-label" x="150" y="290" text-anchor="middle">教育志向</text>
+                <text class="radar-label" x="40" y="250" text-anchor="middle">柔軟な発想</text>
+                <text class="radar-label" x="20" y="155" text-anchor="middle">グローバル視点</text>
+                <text class="radar-label" x="40" y="60" text-anchor="middle">協調型リーダー</text>
+                
+                <!-- レーダーポリゴン（初期値0、アニメーションで描画） -->
+                <polygon class="radar-polygon" 
+                  points="150,150 150,150 150,150 150,150 150,150 150,150 150,150 150,150" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="cta-card">
+            <h4 class="cta-card__title">フル履歴書をダウンロード</h4>
+            <p class="cta-card__desc">詳細な経歴・スキル・実績をまとめたPDF版をご用意しています</p>
+            <a href="#" class="btn-download">
+              <span>📄</span> PDFをダウンロード
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container page-footer">
+    <div class="footer__inner">
+      <p>© 2026 鄧信成 All Rights Reserved.</p>
+      <div class="footer__social" aria-label="ソーシャルリンク">
+        <a class="footer__link" href="mailto:tousinnsei@gmail.com" title="メール">✉️</a>
+        <a class="footer__link" href="#" title="GitHub">🐙</a>
+        <a class="footer__link" href="#" title="LinkedIn">🔗</a>
+        <a class="footer__link" href="http://www.ybhtk.cn" target="_blank" rel="noreferrer" title="公式サイト">🌐</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ========== スクロール出現アニメーション ==========
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('is-visible');
+            }, index * 80);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.stat-card, .timeline-item, .sidebar-section, .cta-card').forEach(el => {
+        revealObserver.observe(el);
+      });
+
+      // ========== 数字カウントアニメーション ==========
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = parseInt(entry.target.getAttribute('data-target'));
+            const numEl = entry.target.querySelector('.stat-card__num');
+            let current = 0;
+            const duration = 1500;
+            const step = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              numEl.textContent = Math.floor(current);
+            }, 16);
+            
+            statObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.stat-card').forEach(card => statObserver.observe(card));
+
+      // ========== タイムライン開閉 ==========
+      document.querySelectorAll('.timeline-item__header').forEach(header => {
+        header.addEventListener('click', function() {
+          const item = this.closest('.timeline-item');
+          item.classList.toggle('is-open');
+        });
+      });
+
+      // ========== 栄誉アコーディオン ==========
+      document.querySelectorAll('.honor-item__header').forEach(header => {
+        header.addEventListener('click', function() {
+          const item = this.closest('.honor-item');
+          // 同時に一つだけ開く仕様
+          document.querySelectorAll('.honor-item').forEach(i => {
+            if (i !== item) i.classList.remove('is-open');
+          });
+          item.classList.toggle('is-open');
+        });
+      });
+
+      // ========== レーダーチャート アニメーション ==========
+      const radarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 8軸のスコア(0-120) 中心150,150
+            const scores = [95, 90, 92, 88, 95, 85, 82, 90];
+            const centerX = 150;
+            const centerY = 150;
+            const maxRadius = 120;
+            
+            let progress = 0;
+            const duration = 1200;
+            
+            function animate() {
+              progress += 16 / duration;
+              if (progress > 1) progress = 1;
+              
+              const points = scores.map((score, i) => {
+                const angle = (Math.PI * 2 / 8) * i - Math.PI / 2;
+                const r = (score / 100) * maxRadius * progress;
+                const x = centerX + Math.cos(angle) * r;
+                const y = centerY + Math.sin(angle) * r;
+                return `${x},${y}`;
+              }).join(' ');
+              
+              document.querySelector('.radar-polygon').setAttribute('points', points);
+              
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            }
+            
+            setTimeout(() => requestAnimationFrame(animate), 200);
+            radarObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const radarEl = document.querySelector('.radar-chart');
+      if (radarEl) radarObserver.observe(radarEl);
+    });
+  </script>
+</body>
+</html>
