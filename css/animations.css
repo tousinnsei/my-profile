@@ -1,0 +1,151 @@
+/* ============================================================
+   my-profile — Motion System
+   ============================================================ */
+
+/* ---- Scroll Reveal Variants ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  will-change: opacity, transform;
+}
+
+.reveal[data-reveal="fade"] {
+  transform: none;
+}
+
+.reveal[data-reveal="left"] {
+  transform: translateX(-28px);
+}
+
+.reveal[data-reveal="right"] {
+  transform: translateX(28px);
+}
+
+.reveal[data-reveal="scale"] {
+  transform: scale(0.96);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger helpers are applied via inline transition-delay (JS) */
+
+/* ---- Text reveal (split chars) ---- */
+.text-reveal {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.text-reveal .text-reveal__inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.8s var(--ease);
+}
+
+.text-reveal.is-visible .text-reveal__inner,
+.is-visible .text-reveal .text-reveal__inner {
+  transform: translateY(0);
+}
+
+/* ---- Page transition overlay ---- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--bg);
+  transform: translateY(100%);
+  transition: transform 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.page-transition.active {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ---- Hero entrance ---- */
+.hero-enter {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroUp 0.8s var(--ease) forwards;
+}
+
+@keyframes heroUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Scroll indicator bounce ---- */
+@keyframes scrollPulse {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(10px); opacity: 0.4; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.scroll-indicator {
+  width: 26px;
+  height: 44px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.scroll-indicator::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  animation: scrollPulse 2s infinite;
+}
+
+/* ---- Counters ---- */
+.count-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Divider / process line ---- */
+.process-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.process-line__node {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid var(--primary);
+  flex-shrink: 0;
+}
+
+.process-line__bar {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+}
+
+/* ---- Gradient light blobs (hero bg) ---- */
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora { animation: none !important; }
+}

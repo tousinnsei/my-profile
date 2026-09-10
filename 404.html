@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ページが見つかりません | 鄧信成</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .error-wrap { min-height: calc(100vh - var(--header-h)); display: flex; align-items: center; justify-content: center; text-align: center; padding-block: var(--space-6); }
+    .error-code { font-size: clamp(6rem, 22vw, 12rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; }
+    .error-title { font-size: 1.6rem; font-weight: 700; margin: var(--space-3) 0 0.5rem; }
+    .error-desc { color: var(--muted); line-height: 1.8; max-width: 42ch; margin: 0 auto var(--space-4); }
+    .error-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body data-page="404">
+  <header class="page-header">
+    <div class="container header__inner">
+      <a href="index.html" class="brand" aria-label="ホームへ">
+        <span class="brand__name">鄧信成</span>
+        <span class="brand__sub">教育AI研究者・起業家</span>
+      </a>
+      <nav class="nav" aria-label="メインナビゲーション">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">ホーム</a></li>
+          <li><a class="nav__link" href="about.html">私について</a></li>
+          <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
+          <li><a class="nav__link" href="resume.html">経歴</a></li>
+          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+        </ul>
+        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu__overlay"></div>
+    <div class="mobile-menu__panel">
+      <div class="mobile-menu__head">
+        <span class="brand__name">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+      </div>
+      <a class="mobile-menu__link" href="index.html">ホーム</a>
+      <a class="mobile-menu__link" href="about.html">私について</a>
+      <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
+      <a class="mobile-menu__link" href="resume.html">経歴</a>
+      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="error-wrap">
+      <div>
+        <div class="error-code grad-text">404</div>
+        <h1 class="error-title">ページが見つかりません</h1>
+        <p class="error-desc">お探しのページは移動したか、存在しない可能性があります。以下のリンクから目的のページにお進みください。</p>
+        <div class="error-actions">
+          <a class="btn btn--primary" href="index.html">ホームへ戻る</a>
+          <a class="btn btn--ghost" href="portfolio.html">実績を見る</a>
+          <a class="btn btn--ghost" href="contact.html">お問い合わせ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+  <script src="js/main.js"></script>
+</body>
+</html>

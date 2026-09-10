@@ -1,0 +1,23 @@
+{
+  "name": "鄧信成 | 教育AI研究者・起業家",
+  "short_name": "鄧信成",
+  "description": "教育AI研究者・起業家 鄧信成の公式サイト。研究と事業で社会課題の解決に取り組みます。",
+  "lang": "ja",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f5",
+  "theme_color": "#4a6cf7",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "images/photo-1.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

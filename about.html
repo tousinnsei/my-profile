@@ -1,579 +1,115 @@
 <!DOCTYPE html>
-<html lang="ja">
-
+<html lang="ja" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>私について | 鄧 信成</title>
+  <title>私について | 鄧信成（教育AI研究者・起業家・文化伝承支援）</title>
+  <meta name="description" content="教育AI研究者・起業家の鄧信成（トウ シンセイ）について。研究者・経営者・文化伝承者の3つの視点から、教育とテクノロジーで社会に持続可能な価値を創造する活動を紹介します。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.ybhtkj.cn/about.html" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="私について | 鄧信成" />
+  <meta property="og:description" content="研究者・経営者・文化伝承者の3つの視点。生涯をかけた研究と起業の軌跡。" />
+  <link rel="icon" href="favicon.ico" />
   <link rel="stylesheet" href="css/style.css" />
- <style>
-    /* ========== ヒーローエリア 简洁左右布局 ========== */
-    .hero {
-      padding: 80px 0;
-      background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 100%);
-      border-radius: 20px;
-      margin-bottom: 56px;
-      position: relative;
-      overflow: hidden;
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    /* About specific */
+    .about-hero { position: relative; padding-block: var(--space-6); }
+    .about-hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-6); align-items: center; }
+    .about-hero__eyebrow { color: var(--primary); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .about-hero__title { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; margin: 0.8rem 0 1rem; }
+    .about-hero__name { font-weight: 600; color: var(--text-soft); margin-bottom: 0.6rem; }
+    .about-hero__desc { color: var(--muted); line-height: 1.85; max-width: 54ch; }
+    .about-hero__tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.4rem; }
+    .about-hero__tag { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-pill); color: var(--text-soft); }
+    .about-hero__avatar { position: relative; display: flex; justify-content: center; }
+    .about-hero__avatar .frame {
+      position: relative; width: min(320px, 80vw); aspect-ratio: 1; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      padding: 8px; box-shadow: var(--shadow-lg);
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(74, 108, 247, 0.06), transparent 70%);
-      pointer-events: none;
-    }
+    .about-hero__avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-    .hero__inner {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      align-items: center;
-      padding: 0 56px;
-      position: relative;
-      z-index: 1;
+    /* Perspectives */
+    .tabs-wrap { margin-top: var(--space-5); }
+    .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: 1.6rem; padding-bottom: 0; }
+    .tab {
+      padding: 0.9rem 1.4rem; background: none; border: none; border-bottom: 2px solid transparent;
+      font-weight: 600; font-size: 0.95rem; color: var(--muted); cursor: pointer; transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
     }
+    .tab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .tab.is-active { color: var(--primary); border-bottom-color: var(--primary); }
+    .tab-panel { display: none; animation: tabIn 0.4s var(--ease); }
+    .tab-panel.is-active { display: block; }
+    @keyframes tabIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .perspective {
+      border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.2rem;
+      background: var(--surface);
+    }
+    .perspective__num { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--primary); text-transform: uppercase; }
+    .perspective h3 { font-size: 1.4rem; font-weight: 700; margin: 0.5rem 0 1rem; }
+    .perspective > p { color: var(--muted); line-height: 1.85; max-width: 60ch; }
+    .perspective ul { list-style: none; padding: 0; margin: 1.4rem 0 0; display: flex; flex-direction: column; gap: 0.7rem; }
+    .perspective li { position: relative; padding-left: 1.4rem; color: var(--text-soft); line-height: 1.75; }
+    .perspective li::before { content: "▸"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .perspective li strong { color: var(--text); }
 
-    /* 左侧文字区 */
-    .hero__content {
-      min-width: 0;
-    }
-    .hero__eyebrow {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(74, 108, 247, 0.08);
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #4a6cf7;
-      margin-bottom: 20px;
-    }
-    .hero__title {
-      font-size: 42px;
-      font-weight: 700;
-      color: #1f2328;
-      margin: 0 0 16px;
-      line-height: 1.4;
-    }
-    .hero__title span {
-      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero__name {
-      font-size: 18px;
-      color: #4a5568;
-      font-weight: 500;
-      margin: 0 0 12px;
-    }
-    .hero__desc {
-      font-size: 15px;
-      color: #656d76;
-      line-height: 1.8;
-      margin: 0 0 24px;
-    }
-    .hero__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-    .hero__tag {
-      padding: 6px 14px;
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 20px;
-      font-size: 13px;
-      color: #4a6cf7;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    .hero__tag:hover {
-      border-color: #4a6cf7;
-      transform: translateY(-1px);
-    }
-    .hero__btn-group {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 28px;
-      background: linear-gradient(90deg, #4a6cf7, #7c3aed);
-      color: #fff;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.25);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(74, 108, 247, 0.35);
-    }
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      padding: 12px 28px;
-      background: #fff;
-      color: #4a6cf7;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.25s ease;
-    }
-    .btn-ghost:hover {
-      border-color: #4a6cf7;
-      background: #f8faff;
-      transform: translateY(-2px);
-    }
+    /* Timeline */
+    .timeline { position: relative; max-width: 760px; margin: var(--space-4) auto 0; }
+    .timeline::before { content: ""; position: absolute; left: 30px; top: 0; bottom: 0; width: 2px; background: var(--border-strong); }
+    .timeline-item { position: relative; padding-left: 76px; margin-bottom: 1.6rem; }
+    .timeline-year { position: absolute; left: 0; top: 0; width: 52px; text-align: right; font-family: var(--font-mono); font-weight: 700; color: var(--primary); line-height: 1.6; }
+    .timeline-dot { position: absolute; left: 23px; top: 8px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 3px solid var(--primary); }
+    .timeline-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.5rem; }
+    .timeline-card h4 { font-size: 1.08rem; margin: 0 0 0.35rem; }
+    .timeline-card > p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .timeline-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease), margin-top 0.35s var(--ease); margin-top: 0; }
+    .timeline-item.is-open .timeline-detail { max-height: 500px; margin-top: 0.9rem; }
+    .timeline-detail ul { margin: 0; padding-left: 1.2rem; color: var(--text-soft); font-size: 0.88rem; line-height: 1.85; }
+    .timeline-card { cursor: pointer; }
 
-    /* 右侧头像区 */
-    .hero__avatar-wrap {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero__avatar-bg {
-      position: absolute;
-      width: 380px;
-      height: 380px;
-      border-radius: 62% 38% 33% 67% / 55% 62% 38% 45%;
-      background: linear-gradient(135deg, #7dd3fc 0%, #4a6cf7 50%, #a78bfa 100%);
-      transform: rotate(12deg);
-      opacity: 0.85;
-      filter: blur(2px);
-      box-shadow: 0 20px 60px rgba(74, 108, 247, 0.25);
-      z-index: 1;
-      animation: avatarFloat 8s ease-in-out infinite;
-    }
-    @keyframes avatarFloat {
-      0%, 100% { border-radius: 62% 38% 33% 67% / 55% 62% 38% 45%; }
-      50% { border-radius: 38% 62% 67% 33% / 45% 38% 62% 55%; }
-    }
-    .hero__avatar-img {
-      position: relative;
-      z-index: 2;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 8px solid #fff;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    }
+    /* Domains */
+    .domain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: var(--space-4); }
+    .domain-card { text-align: center; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem 1.4rem; background: var(--surface); text-decoration: none; color: inherit; transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+    .domain-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: var(--shadow-md); }
+    .domain-card__icon { font-size: 2rem; margin-bottom: 0.9rem; }
+    .domain-card h3 { font-size: 1.05rem; margin: 0 0 0.5rem; }
+    .domain-card p { margin: 0; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
 
-    /* ========== 実績データパネル ========== */
-    .stats-panel {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 64px;
-    }
-    .stat-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-    }
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-    }
-    .stat-card__num {
-      font-size: 36px;
-      font-weight: 700;
-      color: #4a6cf7;
-      margin-bottom: 8px;
-      line-height: 1;
-    }
-    .stat-card__label {
-      font-size: 14px;
-      color: #656d76;
-    }
+    /* Principles */
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-top: var(--space-4); }
+    .principle { border-top: 1px solid var(--border-strong); padding-top: 1.2rem; }
+    .principle__num { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; color: var(--primary); }
+    .principle h3 { font-size: 1.15rem; margin: 0.45rem 0 0.55rem; }
+    .principle p { font-size: 0.92rem; line-height: 1.85; }
 
-    /* ========== 3つの視点 タブ ========== */
-    .view-tabs {
-      margin-bottom: 64px;
+    @media (max-width: 900px) {
+      .about-hero__grid { grid-template-columns: 1fr; }
+      .about-hero__avatar { order: -1; }
+      .domain-grid { grid-template-columns: repeat(2, 1fr); }
+      .principle-grid { grid-template-columns: 1fr; }
     }
-    .view-tabs__head {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 32px;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 0;
-    }
-    .view-tab {
-      padding: 14px 28px;
-      background: none;
-      border: none;
-      font-size: 15px;
-      color: #656d76;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s ease;
-      font-weight: 500;
-    }
-    .view-tab.is-active {
-      color: #4a6cf7;
-    }
-    .view-tab.is-active::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #4a6cf7;
-      border-radius: 2px;
-    }
-    .view-panel {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-    .view-panel.is-visible {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .view-content {
-      background: #fff;
-      border-radius: 12px;
-      padding: 32px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      line-height: 1.8;
-      color: #334155;
-    }
-    .view-content h3 {
-      font-size: 20px;
-      margin: 0 0 16px;
-      color: #1f2328;
-      border-left: 4px solid #4a6cf7;
-      padding-left: 12px;
-    }
-    .view-list {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0 0;
-    }
-    .view-list li {
-      padding: 10px 0;
-      border-bottom: 1px dashed #e2e8f0;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .view-list li:last-child {
-      border-bottom: none;
-    }
-    .view-list li::before {
-      content: "▸";
-      color: #4a6cf7;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    /* ========== 年表キャリア ========== */
-    .timeline-section {
-      margin-bottom: 64px;
-    }
-    .section-heading {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .section-heading h2 {
-      font-size: 28px;
-      margin: 0 0 8px;
-      color: #1f2328;
-    }
-    .section-heading p {
-      color: #656d76;
-      margin: 0;
-    }
-    .timeline {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 80px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: #e2e8f0;
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 24px;
-      padding-left: 120px;
-    }
-    .timeline-year {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 60px;
-      text-align: right;
-      font-size: 18px;
-      font-weight: 700;
-      color: #4a6cf7;
-      line-height: 32px;
-    }
-    .timeline-dot {
-      position: absolute;
-      left: 73px;
-      top: 8px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #fff;
-      border: 3px solid #4a6cf7;
-      z-index: 1;
-    }
-    .timeline-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 20px 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .timeline-card:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    }
-    .timeline-card h4 {
-      margin: 0 0 6px;
-      font-size: 16px;
-      color: #1f2328;
-    }
-    .timeline-card p {
-      margin: 0;
-      color: #656d76;
-      font-size: 13px;
-    }
-    .timeline-detail {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      margin-top: 0;
-      padding-top: 0;
-      border-top: 1px dashed transparent;
-    }
-    .timeline-item.is-open .timeline-detail {
-      max-height: 300px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed #e2e8f0;
-    }
-    .timeline-detail ul {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 13px;
-      color: #475569;
-      line-height: 1.8;
-    }
-
-    /* ========== 専門領域カード ========== */
-    .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 64px;
-    }
-    .domain-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-    }
-    .domain-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(74, 108, 247, 0.12);
-    }
-    .domain-card__icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin: 0 auto 16px;
-    }
-    .domain-card h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      color: #1f2328;
-    }
-    .domain-card p {
-      margin: 0;
-      font-size: 13px;
-      color: #656d76;
-      line-height: 1.6;
-    }
-
-    /* ========== CTA ========== */
-    .cta-section {
-      background: linear-gradient(135deg, #4a6cf7 0%, #7c3aed 100%);
-      border-radius: 16px;
-      padding: 48px;
-      text-align: center;
-      color: #fff;
-      margin-bottom: 40px;
-    }
-    .cta-section h2 {
-      margin: 0 0 12px;
-      font-size: 26px;
-    }
-    .cta-section p {
-      margin: 0 0 24px;
-      opacity: 0.9;
-    }
-    .cta-section .btn-primary {
-      background: #fff;
-      color: #4a6cf7;
-    }
-    .cta-section .btn-primary:hover {
-      background: #f8fafc;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    /* 深色模式适配 */
-    [data-theme="dark"] .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    }
-    [data-theme="dark"] .hero__title {
-      color: #f1f5f9;
-    }
-    [data-theme="dark"] .hero__name {
-      color: #cbd5e1;
-    }
-    [data-theme="dark"] .hero__desc {
-      color: #94a3b8;
-    }
-    [data-theme="dark"] .hero__tag {
-      background: #1e293b;
-      border-color: #334155;
-      color: #93c5fd;
-    }
-    [data-theme="dark"] .btn-ghost {
-      background: #1e293b;
-      border-color: #334155;
-      color: #93c5fd;
-    }
-    [data-theme="dark"] .btn-ghost:hover {
-      border-color: #4a6cf7;
-      background: #1e293b;
-    }
-    [data-theme="dark"] .hero__avatar-img {
-      border-color: #1e293b;
-    }
-
-    /* レスポンシブ */
-    @media (max-width: 1024px) {
-      .hero__inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 48px;
-        padding: 0 40px;
-      }
-      .hero__tags,
-      .hero__btn-group {
-        justify-content: center;
-      }
-      .hero__avatar-bg {
-        width: 320px;
-        height: 320px;
-      }
-      .hero__avatar-img {
-        width: 260px;
-        height: 260px;
-      }
-
-      .stats-panel,
-      .domain-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .timeline::before {
-        left: 40px;
-      }
-      .timeline-item {
-        padding-left: 80px;
-      }
-      .timeline-year {
-        width: 30px;
-        font-size: 14px;
-      }
-      .timeline-dot {
-        left: 33px;
-      }
-    }
-
     @media (max-width: 640px) {
-      .hero {
-        padding: 48px 0;
-        border-radius: 16px;
-      }
-      .hero__inner {
-        padding: 0 24px;
-      }
-      .hero__title {
-        font-size: 28px;
-      }
-      .hero__avatar-bg {
-        width: 260px;
-        height: 260px;
-      }
-      .hero__avatar-img {
-        width: 220px;
-        height: 220px;
-      }
-
-      .stats-panel,
-      .domain-grid {
-        grid-template-columns: 1fr;
-      }
-      .view-tabs__head {
-        overflow-x: auto;
-        justify-content: flex-start;
-      }
-      .cta-section {
-        padding: 32px 20px;
-      }
+      .domain-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 20px; }
+      .timeline-item { padding-left: 58px; }
+      .timeline-year { width: 40px; font-size: 0.85rem; }
+      .timeline-dot { left: 13px; }
+      .perspective { padding: 1.5rem; }
     }
-</style>
+  </style>
 </head>
-
 <body data-page="about">
+  <!-- Header -->
   <header class="page-header">
     <div class="container header__inner">
-      <a href="index.html" class="header__brand" aria-label="ホームへ戻る">
-        <strong>鄧信成 公式サイト</strong>
-        <span>教育AI研究者・起業家</span>
+      <a href="index.html" class="brand" aria-label="ホームへ">
+        <span class="brand__name">鄧信成</span>
+        <span class="brand__sub">教育AI研究者・起業家</span>
       </a>
-      <nav class="nav" aria-label="ページナビゲーション">
+      <nav class="nav" aria-label="メインナビゲーション">
         <ul class="nav__list">
           <li><a class="nav__link" href="index.html">ホーム</a></li>
           <li><a class="nav__link is-active" href="about.html">私について</a></li>
@@ -581,424 +117,194 @@
           <li><a class="nav__link" href="resume.html">経歴</a></li>
           <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
         </ul>
+        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
       </nav>
-      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
-      <button class="mobile-menu__toggle" aria-label="メニューを開く">☰</button>
     </div>
   </header>
 
+  <!-- Mobile menu -->
   <div class="mobile-menu" aria-hidden="true">
     <div class="mobile-menu__overlay"></div>
     <div class="mobile-menu__panel">
+      <div class="mobile-menu__head">
+        <span class="brand__name">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+      </div>
       <a class="mobile-menu__link" href="index.html">ホーム</a>
       <a class="mobile-menu__link is-active" href="about.html">私について</a>
       <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
       <a class="mobile-menu__link" href="resume.html">経歴</a>
       <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
-      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
     </div>
   </div>
 
-  <main class="main">
-    <div class="container">
-      <!-- ヒーローエリア 简洁左右布局版 -->
-<section class="hero fade-up fade-in-onload">
-  <div class="hero__inner">
-    <!-- 左侧文字区 -->
-    <div class="hero__content">
-      <span class="hero__eyebrow">教育AI研究者 / 起業家 / 無形文化遺産伝承支援</span>
-      <h1 class="hero__title">
-        教育とテクノロジーで<br />
-        <span>社会に持続可能な価値を</span>
-      </h1>
-      <p class="hero__name">鄧 信成（トウ シンセイ）</p>
-      <p class="hero__desc">
-        学術研究と事業経営の両輪で、教育・農業・福祉・文化の分野に持続可能な価値を創造。最先端の技術を現場に届け、社会課題の解決と文化の次世代伝承を推進します。
-      </p>
-      <div class="hero__tags">
-        <span class="hero__tag">教育AI</span>
-        <span class="hero__tag">スマート農業</span>
-        <span class="hero__tag">地域福祉</span>
-        <span class="hero__tag">文化伝承</span>
-        <span class="hero__tag">日中交流</span>
+  <main>
+    <!-- About hero -->
+    <section class="about-hero container">
+      <div class="about-hero__grid">
+        <div class="hero-enter">
+          <span class="about-hero__eyebrow">教育AI研究者・起業家・文化伝承支援</span>
+          <h1 class="about-hero__title">教育とテクノロジーで<br /><span class="grad-text">社会に持続可能な価値を</span></h1>
+          <p class="about-hero__name">鄧 信成（トウ シンセイ）</p>
+          <p class="about-hero__desc">学術研究と事業経営の両輪で、教育・農業・福祉・文化の分野に持続可能な価値を創造。最先端の技術を現場に届け、社会課題の解決と文化の次世代伝承を推進します。</p>
+          <div class="about-hero__tags">
+            <span class="about-hero__tag">教育AI</span>
+            <span class="about-hero__tag">スマート農業</span>
+            <span class="about-hero__tag">地域福祉</span>
+            <span class="about-hero__tag">文化伝承DX</span>
+            <span class="about-hero__tag">日中交流</span>
+          </div>
+          <div style="display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:1.6rem;">
+            <a href="portfolio.html" class="btn btn--primary">実績を見る</a>
+            <a href="contact.html" class="btn btn--ghost">お問い合わせ</a>
+          </div>
+        </div>
+        <div class="about-hero__avatar hero-enter">
+          <div class="frame"><img src="images/profile.jpg" alt="鄧信成のプロフィール写真" /></div>
+        </div>
       </div>
-      <div class="hero__btn-group">
-        <a href="portfolio.html" class="btn-primary">実績を見る</a>
-        <a href="contact.html" class="btn-ghost">お問い合わせ</a>
+    </section>
+
+    <!-- WHY: THREE PERSPECTIVES -->
+    <section class="section container tabs-wrap" aria-labelledby="persp-heading">
+      <div class="sec-head" id="persp-heading">
+        <span class="sec-head__eyebrow label">なぜ、この道を歩むのか</span>
+        <h2 class="h2">3つの視点がつくる原動力</h2>
+        <p>研究者・経営者・文化伝承者。3つのまなざしが、私の活動の「なぜ」をつくっています。</p>
       </div>
-    </div>
+      <div class="tabs" role="tablist" aria-label="3つの視点">
+        <button class="tab is-active" data-tab="researcher" role="tab" aria-selected="true">研究者として</button>
+        <button class="tab" data-tab="manager" role="tab">経営者として</button>
+        <button class="tab" data-tab="culture" role="tab">文化伝承者として</button>
+      </div>
+      <div id="about-tabs">
 
-    <!-- 右侧头像区 -->
-    <div class="hero__avatar-wrap">
-      <div class="hero__avatar-bg"></div>
-      <img src="images/photo-1.jpg" alt="プロフィール写真" class="hero__avatar-img" />
-    </div>
-  </div>
-</section>
-
-      <!-- 実績データパネル -->
-      <section class="stats-panel fade-up" id="statsPanel">
-        <div class="stat-card">
-          <div class="stat-card__num" data-target="13">0</div>
-          <div class="stat-card__label">学術論文</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__num" data-target="6">0</div>
-          <div class="stat-card__label">研究課題（国家級4 / 省級2）</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__num" data-target="26">0</div>
-          <div class="stat-card__label">ソフトウェア著作権</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card__num" data-target="3">0</div>
-          <div class="stat-card__label">創業企業（代表取締役）</div>
-        </div>
-      </section>
-
-      <!-- 3つの視点 タブ -->
-      <section class="view-tabs fade-up">
-        <div class="section-heading">
-          <h2>3つの視点で読み解くパーソナリティ</h2>
-          <p>研究者・経営者・文化伝承者、それぞれの立場からの活動と思想</p>
-        </div>
-
-        <div class="view-tabs__head">
-          <button class="view-tab is-active" data-view="researcher">研究者として</button>
-          <button class="view-tab" data-view="manager">経営者として</button>
-          <button class="view-tab" data-view="culture">文化伝承者として</button>
-        </div>
-
-        <div class="view-panel is-visible" data-panel="researcher">
-          <div class="view-content">
+        <div class="tab-panel is-active" id="researcher" role="tabpanel">
+          <div class="perspective reveal">
+            <span class="perspective__num">視点 01 — 研究者</span>
             <h3>教育工学を基盤とした実証研究</h3>
-            <p>
-              教育学と情報技術の学際的視点から、教育現場の課題を解決するシステムと手法を研究しています。
-              特にAI技術を活用した個別最適化学習、遠隔教育の質の向上、保護者教育の体系化に力を入れています。
-            </p>
-            <ul class="view-list">
-              <li>国家級研究課題4件・省級課題2件に参加、プロジェクト責任者・研究分担者として研究を主導</li>
-              <li>教育AI・言語教育・林業工学など多分野にわたり学術論文13編を発表</li>
+            <p>教育学と情報技術の学際的視点から、教育現場の課題を解決するシステムと手法を研究しています。特にAI技術を活用した個別最適化学習、遠隔教育の質の向上、保護者教育の体系化に力を入れています。</p>
+            <ul>
+              <li>国家級研究課題4件・省級課題2件に参加。プロジェクト責任者・研究分担者として研究を主導</li>
+              <li>教育AI・言語教育・林業工学など多分野にわたり学術論文15編を発表</li>
               <li>教育システム関連のソフトウェア著作権を多数取得し、研究成果の実用化を推進</li>
               <li>中国中央放送テレビ局の番組に特別招待ゲストとして出演し、教育研究の成果を紹介</li>
             </ul>
           </div>
         </div>
 
-        <div class="view-panel" data-panel="manager">
-          <div class="view-content">
+        <div class="tab-panel" id="manager" role="tabpanel">
+          <div class="perspective reveal">
+            <span class="perspective__num">視点 02 — 経営者</span>
             <h3>研究成果を社会実装する起業家精神</h3>
-            <p>
-              研究室の成果を現場で活用するため、3社の企業を創業し、教育・農業・福祉の分野で事業を展開しています。
-              「技術で現場の課題を解く」をモットーに、持続可能な事業モデルで地域社会に貢献します。
-            </p>
-            <ul class="view-list">
-              <li>宜賓拓科学研究科技有限公司：科研情報化・プロジェクト管理システムの開発提供</li>
-              <li>四川宜星辰教育科技有限公司：保護者教育・郷村遠隔教育プラットフォームの運営</li>
-              <li>四川禾芯田農業有限公司：AIを活用したスマート農業と華山松産業の振興</li>
+            <p>研究室の成果を現場で活用するため、3社の企業を創業し、教育・農業・福祉の分野で事業を展開。「技術で現場の課題を解く」をモットーに、持続可能な事業モデルで地域社会に貢献します。</p>
+            <ul>
+              <li><strong>宜賓拓科学研究科技有限公司</strong>：科研情報化・プロジェクト管理システムの開発提供</li>
+              <li><strong>四川宜星辰教育科技有限公司</strong>：保護者教育・郷村遠隔教育プラットフォームの運営</li>
+              <li><strong>四川禾芯田農業有限公司</strong>：AIを活用したスマート農業と華山松産業の振興</li>
               <li>国家科技型中小企業に認定されるなど、技術力と事業性が公的に評価</li>
             </ul>
           </div>
         </div>
 
-        <div class="view-panel" data-panel="culture">
-          <div class="view-content">
+        <div class="tab-panel" id="culture" role="tabpanel">
+          <div class="perspective reveal">
+            <span class="perspective__num">視点 03 — 文化伝承者</span>
             <h3>デジタル技術で無形文化遺産を未来へ</h3>
-            <p>
-              伝統文化のデジタルアーカイブと教育システム化に取り組み、次世代への伝承を技術面から支援しています。
-              匠の技を高精細に記録し、誰でも・どこでも学べる環境を構築することで、文化の持続的発展を目指します。
-            </p>
-            <ul class="view-list">
-              <li>伝統人形芝居演技教育ソフトの開発：名人技のデジタル保存と習得支援システム</li>
+            <p>伝統文化のデジタルアーカイブと教育システム化に取り組み、次世代への伝承を技術面から支援。匠の技を高精細に記録し、誰でも・どこでも学べる環境を構築することで、文化の持続的発展を目指します。</p>
+            <ul>
+              <li>伝統人形芝居演技教育ソフト開発：名人技のデジタル保存と習得支援システム</li>
               <li>切り紙芸術と絹織物の融合研究：伝統工芸の現代的イノベーション経路を探究</li>
               <li>中日妖怪文化比較研究：東アジア民俗文化の比較を通じ文化交流に貢献</li>
               <li>鍾馗信仰の異文化伝播研究：民俗信仰の伝播と変容の歴史的解明</li>
             </ul>
           </div>
         </div>
-      </section>
 
-      <!-- 年表キャリアストーリー -->
-      <section class="timeline-section fade-up">
-        <div class="section-heading">
-          <h2>歩んできた道のり</h2>
-          <p>各年の代表的な出来事。カードをクリックで詳細が開きます。</p>
-        </div>
+      </div>
+    </section>
 
-        <div class="timeline">
-          <!-- 2026 -->
-          <div class="timeline-item">
-            <div class="timeline-year">2026</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <h4>教育と福祉の分野で更なる事業深化</h4>
-              <p>TDCソフト株式会社・第一生命保険株式会社に勤務。日本での事業基盤を強化。</p>
-              <div class="timeline-detail">
-                <ul>
-                  <li>「時助助」タイムバンク国家級研究課題：企業指導者として参加</li>
-                  <li>伝統人形芝居演技教育ソフトウェアを開発、文化遺産デジタル化を推進</li>
-                  <li>学術論文3編を発表、AI教育・文化融合研究の成果を公開</li>
-                  <li>中国農業電影テレビセンター関連事業に参画</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2025 -->
-          <div class="timeline-item">
-            <div class="timeline-year">2025</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <h4>四川禾芯田農業有限公司 設立</h4>
-              <p>農業分野に進出。IT技術で農業生産の高度化と地域振興を推進。</p>
-              <div class="timeline-detail">
-                <ul>
-                  <li>銀齢智社・O2O高齢者支援国家級課題：企業指導者として参加</li>
-                  <li>農作物生育モニタリング・害虫検知プラットフォームなど農業テックシステムを複数開発</li>
-                  <li>学術論文4編を国際誌に発表、教育学・林業学分野で研究成果を公開</li>
-                  <li>宜賓学院日本語専攻を卒業</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2024 -->
-          <div class="timeline-item">
-            <div class="timeline-year">2024</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <h4>四川宜星辰教育科技有限公司 設立</h4>
-              <p>教育テクノロジー事業を本格化。家庭教育と郷村教育を軸に事業展開。</p>
-              <div class="timeline-detail">
-                <ul>
-                  <li>国家級研究課題2件が完了：「啓蒙導師」保護者教育、「星辰智学」郷村教育DX</li>
-                  <li>保護者育成システム・郷村遠隔教育プラットフォームなど教育系システムを多数開発</li>
-                  <li>学術論文6編を発表、教育学・比較文化・文学研究など多分野で成果</li>
-                  <li>ソフトウェア著作権を相次いで取得、プロダクト化を加速</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2023 -->
-          <div class="timeline-item">
-            <div class="timeline-year">2023</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <h4>宜賓拓科学研究科技有限公司 設立</h4>
-              <p>初の起業。科研情報化を起点に、革新創業支援事業をスタート。</p>
-              <div class="timeline-detail">
-                <ul>
-                  <li>国家級課題「華拓科研-華山松研究生産プラットフォーム」研究代表者</li>
-                  <li>省級課題「桜花日本語-日本語創業教育プロジェクト」研究代表者</li>
-                  <li>華拓科研内部管理システム・中国留学者広報管理システムを開発</li>
-                  <li>国家科技型中小企業に認定</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2022 -->
-          <div class="timeline-item">
-            <div class="timeline-year">2022</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <h4>研究活動のスタート</h4>
-              <p>新農村建設をテーマに農業経済管理研究を実施。研究の基礎を構築。</p>
-              <div class="timeline-detail">
-                <ul>
-                  <li>新龍県を事例とした農業経済管理研究を発表</li>
-                  <li>日本語教育分野の研究を開始、大学入試教育の標準化課題を探究</li>
-                  <li>地域課題解決に向けた研究姿勢を確立</li>
-                </ul>
-              </div>
-            </div>
+    <!-- Principles: why -->
+    <section class="section section--invert" aria-labelledby="principles-heading">
+      <div class="container">
+        <div class="jp-sec-head" id="principles-heading">
+          <span class="jp-sec-head__num" style="color: var(--primary);">信条</span>
+          <div>
+            <h2 class="jp-light-title">研究の知を、社会の実践へ。</h2>
+            <p class="jp-muted">3つの約束を胸に、活動を続けています。</p>
           </div>
         </div>
-      </section>
-
-      <!-- 専門領域カード -->
-      <section class="fade-up">
-        <div class="section-heading">
-          <h2>専門領域</h2>
-          <p>4つの分野を軸に研究と事業を展開</p>
+        <div class="principle-grid">
+          <div class="principle reveal">
+            <span class="principle__num">01</span>
+            <h3 class="jp-light-title">教育の可能性を広げる</h3>
+            <p class="jp-muted">個別最適化学習・家庭教育・遠隔教育を通じて、学ぶ機会と質を、地域や環境を問わず届ける。</p>
+          </div>
+          <div class="principle reveal">
+            <span class="principle__num">02</span>
+            <h3 class="jp-light-title">研究を現場で実証する</h3>
+            <p class="jp-muted">研究室で生まれた知見は、システムに、事業に、そして地域の実践として形にする。</p>
+          </div>
+          <div class="principle reveal">
+            <span class="principle__num">03</span>
+            <h3 class="jp-light-title">文化を次世代へつなぐ</h3>
+            <p class="jp-muted">デジタル技術で無形文化遺産を保存し、誰もが学び・継承できる土壌をつくる。</p>
+          </div>
         </div>
-        <div class="domain-grid">
-          <a href="portfolio.html?cat=research" class="domain-card">
-            <div class="domain-card__icon">🎓</div>
-            <h3>教育AI研究</h3>
-            <p>個別最適化学習と遠隔教育の質的向上をテクノロジーで実現</p>
-          </a>
-          <a href="portfolio.html?cat=system" class="domain-card">
-            <div class="domain-card__icon">🌱</div>
-            <h3>スマート農業</h3>
-            <p>画像認識とIoTで栽培管理を高度化、地域農業の生産性を革新</p>
-          </a>
-          <a href="portfolio.html?cat=company" class="domain-card">
-            <div class="domain-card__icon">🤲</div>
-            <h3>地域福祉</h3>
-            <p>O2Oモデルで高齢者支援を拡充、持続可能な互助社会を構築</p>
-          </a>
-          <a href="portfolio.html?cat=paper" class="domain-card">
-            <div class="domain-card__icon">🎎</div>
-            <h3>文化伝承DX</h3>
-            <p>デジタルアーカイブで伝統文化を未来へ、次世代育成を支援</p>
-          </a>
-        </div>
-      </section>
+        <p class="jp-muted reveal" style="margin-top: var(--space-4); font-size: 0.85rem;">
+          研究から起業までの歩みは <a href="resume.html" style="color: var(--primary);">経歴</a> をご覧ください。
+        </p>
+      </div>
+    </section>
 
-      <!-- CTA -->
-      <section class="cta-section fade-up">
-        <h2>プロジェクトのご相談・共同研究のお問い合わせ</h2>
-        <p>教育・農業・福祉・文化の各分野で、ぜひお気軽にご連絡ください。</p>
-        <a href="contact.html" class="btn-primary">お問い合わせページへ</a>
-      </section>
-    </div>
+    <!-- CTA -->
+    <section class="section container">
+      <div class="cta-band reveal">
+        <div>
+          <h2>共同研究・事業連携について</h2>
+          <p>教育・農業・福祉・文化の各分野で、ぜひお気軽にご連絡ください。</p>
+        </div>
+        <a href="contact.html" class="btn btn--light">お問い合わせ →</a>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer container page-footer">
-    <div class="footer__inner">
-      <p>© 2026 鄧信成 All Rights Reserved.</p>
-      <div class="footer__social" aria-label="ソーシャルリンク">
-        <a class="footer__link" href="mailto:tousinnsei@gmail.com" title="メール">✉️</a>
-        <a class="footer__link" href="#" title="GitHub">🐙</a>
-        <a class="footer__link" href="#" title="LinkedIn">🔗</a>
-        <a class="footer__link" href="http://www.ybhtk.cn" target="_blank" rel="noreferrer" title="公式サイト">🌐</a>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="brand"><span class="brand__name">鄧信成</span><span class="brand__sub">教育AI研究者・起業家</span></div>
+          <p class="footer__desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
+        </div>
+        <div>
+          <h4>ナビゲーション</h4>
+          <a class="footer__link" href="index.html">ホーム</a>
+          <a class="footer__link" href="about.html">私について</a>
+          <a class="footer__link" href="portfolio.html">実績・プロジェクト</a>
+          <a class="footer__link" href="resume.html">経歴</a>
+          <a class="footer__link" href="contact.html">お問い合わせ</a>
+        </div>
+        <div>
+          <h4>お問い合わせ</h4>
+          <a class="footer__link" href="mailto:tousinnsei@gmail.com">tousinnsei@gmail.com</a>
+          <a class="footer__link" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer">www.ybhtkj.cn</a>
+          <a class="footer__link" href="tel:+819088526444">090-8852-6444</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 鄧信成</span>
+        <div class="footer__social">
+          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール">✉</a>
+          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト">🌐</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <button class="back-to-top" aria-label="トップへ戻る">↑</button>
 
-   <script src="js/main.js"></script>
-  <script>
-    // ========== 3視点タブ切り替え ==========
-    const viewTabs = document.querySelectorAll('.view-tab');
-    const viewPanels = document.querySelectorAll('.view-panel');
-    viewTabs.forEach(tab => {
-      tab.addEventListener('click', function () {
-        const target = this.getAttribute('data-view');
-        viewTabs.forEach(t => t.classList.remove('is-active'));
-        viewPanels.forEach(p => p.classList.remove('is-visible'));
-        this.classList.add('is-active');
-        document.querySelector(`[data-panel="${target}"]`).classList.add('is-visible');
-      });
-    });
-
-    // ========== 年表 開閉アニメーション ==========
-    const timelineCards = document.querySelectorAll('.timeline-card');
-    timelineCards.forEach(card => {
-      card.addEventListener('click', function () {
-        const item = this.closest('.timeline-item');
-        item.classList.toggle('is-open');
-      });
-    });
-
-    // ========== 数字カウントアップアニメーション ==========
-    function animateCount(el) {
-      const target = parseInt(el.getAttribute('data-target'));
-      const duration = 1500;
-      const step = target / (duration / 16);
-      let current = 0;
-      const timer = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          el.textContent = target;
-          clearInterval(timer);
-        } else {
-          el.textContent = Math.floor(current);
-        }
-      }, 16);
-    }
-
-    // スクロールで発火
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const nums = entry.target.querySelectorAll('.stat-card__num');
-          nums.forEach(num => animateCount(num));
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    const statsPanel = document.getElementById('statsPanel');
-    if (statsPanel) statsObserver.observe(statsPanel);
-
-    // ========== スムーズスクロールフェードイン ==========
-    const fadeElements = document.querySelectorAll('.fade-up');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeElements.forEach(el => fadeObserver.observe(el));
-
-    // ========== ヒーロー写真カルーセル（类名完全匹配） ==========
-    (function() {
-      const mainPhoto = document.querySelector('.hero-main-photo');
-      if (!mainPhoto) return;
-
-      const slides = mainPhoto.querySelectorAll('.main-photo-slide');
-      const dots = mainPhoto.querySelectorAll('.photo-dot');
-      const prevBtn = mainPhoto.querySelector('.photo-btn--prev');
-      const nextBtn = mainPhoto.querySelector('.photo-btn--next');
-
-      let currentIndex = 0;
-      let autoTimer = null;
-      const interval = 4000;
-
-      function goTo(index) {
-        slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
-        dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
-        currentIndex = index;
-      }
-
-      function next() {
-        goTo((currentIndex + 1) % slides.length);
-      }
-
-      function prev() {
-        goTo((currentIndex - 1 + slides.length) % slides.length);
-      }
-
-      function startAuto() {
-        stopAuto();
-        autoTimer = setInterval(next, interval);
-      }
-
-      function stopAuto() {
-        if (autoTimer) {
-          clearInterval(autoTimer);
-          autoTimer = null;
-        }
-      }
-
-      prevBtn.addEventListener('click', () => {
-        prev();
-        startAuto();
-      });
-
-      nextBtn.addEventListener('click', () => {
-        next();
-        startAuto();
-      });
-
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          goTo(i);
-          startAuto();
-        });
-      });
-
-      mainPhoto.addEventListener('mouseenter', stopAuto);
-      mainPhoto.addEventListener('mouseleave', startAuto);
-
-      startAuto();
-    })();
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

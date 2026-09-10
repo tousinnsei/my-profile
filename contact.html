@@ -1,118 +1,229 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>お問い合わせ | 鄧 信成</title>
+  <title>お問い合わせ | 鄧信成（ご相談・お問い合わせ）</title>
+  <meta name="description" content="教育AI研究者・起業家の鄧信成へのお問い合わせ。共同研究、事業提携、教育AI、メディアに関するご相談を承ります。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.ybhtkj.cn/contact.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="お問い合わせ | 鄧信成" />
+  <meta property="og:description" content="共同研究・事業提携・メディアに関するご相談を承ります。" />
+  <link rel="icon" href="favicon.ico" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    /* Contact specific */
+    .contact-layout { display: grid; grid-template-columns: 0.9fr 1.3fr; gap: var(--space-5); align-items: start; margin-top: var(--space-4); }
+
+    .contact-card { display: flex; gap: 1rem; align-items: flex-start; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.3rem; background: var(--surface); margin-bottom: 1rem; }
+    .contact-card__icon { width: 44px; height: 44px; border-radius: var(--radius); background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; font-size: 1.2rem; flex-shrink: 0; }
+    .contact-card__title { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+    .contact-card__text { font-weight: 600; color: var(--text); }
+    .contact-card__text a { color: var(--primary); }
+    .contact-card__sub { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+
+    .contact-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; }
+    .form-head h2 { font-size: 1.4rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .form-head p { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .form-control { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-control label { font-size: 0.85rem; font-weight: 600; }
+    .form-control label .req { color: var(--accent); }
+    .form-control input, .form-control textarea, .form-control select {
+      padding: 0.75rem 0.9rem; border-radius: var(--radius); border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-size: 0.95rem; transition: border-color var(--dur) var(--ease);
+      width: 100%;
+    }
+    .form-control input:focus, .form-control textarea:focus, .form-control select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+    .form-control.has-error input, .form-control.has-error textarea, .form-control.has-error select { border-color: #e11d48; }
+    .form-control__msg { font-size: 0.78rem; color: #e11d48; min-height: 1em; }
+    .form-control--full { grid-column: 1 / -1; }
+    .form-actions { display: flex; align-items: center; gap: 1rem; margin-top: 1.2rem; }
+    .form-status { font-size: 0.9rem; color: var(--primary); min-height: 1.2em; }
+
+    .contact-note { margin-top: 1.5rem; padding: 1.1rem 1.3rem; border-left: 3px solid var(--primary); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .contact-form-card { padding: 1.4rem; }
+    }
+  </style>
 </head>
 <body data-page="contact">
+  <!-- Header -->
   <header class="page-header">
     <div class="container header__inner">
-      <a href="index.html" class="header__brand" aria-label="ホームへ戻る">
-        <strong>鄧信成 公式サイト</strong>
-        <span>教育AI研究者・起業家</span>
+      <a href="index.html" class="brand" aria-label="ホームへ">
+        <span class="brand__name">鄧信成</span>
+        <span class="brand__sub">教育AI研究者・起業家</span>
       </a>
-      <nav class="nav" aria-label="ページナビゲーション">
+      <nav class="nav" aria-label="メインナビゲーション">
         <ul class="nav__list">
           <li><a class="nav__link" href="index.html">ホーム</a></li>
           <li><a class="nav__link" href="about.html">私について</a></li>
           <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
           <li><a class="nav__link" href="resume.html">経歴</a></li>
-          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+          <li><a class="nav__link is-active" href="contact.html">お問い合わせ</a></li>
         </ul>
+        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
       </nav>
-      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
-      <button class="mobile-menu__toggle" aria-label="メニューを開く">☰</button>
     </div>
   </header>
 
+  <!-- Mobile menu -->
   <div class="mobile-menu" aria-hidden="true">
     <div class="mobile-menu__overlay"></div>
     <div class="mobile-menu__panel">
+      <div class="mobile-menu__head">
+        <span class="brand__name">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+      </div>
       <a class="mobile-menu__link" href="index.html">ホーム</a>
       <a class="mobile-menu__link" href="about.html">私について</a>
       <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
       <a class="mobile-menu__link" href="resume.html">経歴</a>
-      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
-      <button class="theme-switch" aria-label="テーマ切り替え">🌙</button>
+      <a class="mobile-menu__link is-active" href="contact.html">お問い合わせ</a>
     </div>
   </div>
 
-  <main class="main">
-    <section class="section container fade-up fade-in-onload">
-      <div class="section__header">
-        <div>
-          <h1 class="section__title">お問い合わせ</h1>
-          <p class="section__subtitle">共同研究、事業提携、メディア取材などお気軽にご相談ください。</p>
-        </div>
+  <main>
+    <!-- Page hero -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="page-hero__eyebrow label">お問い合わせ</span>
+        <h1 class="h1 display">お気軽に<span class="grad-text">ご連絡ください</span></h1>
+        <p class="page-hero__lead">共同研究・事業提携・教育AI・講演・メディア取材に関するご相談を承ります。</p>
       </div>
-      <div class="profile-section">
-        <div class="contact-grid">
-          <article class="contact-card">
-            <h3 class="contact-card__title">住所</h3>
-            <p class="contact-card__text">東京都足立区</p>
-          </article>
-          <article class="contact-card">
-            <h3 class="contact-card__title">電話</h3>
-            <p class="contact-card__text">090-8852-6444</p>
-          </article>
-          <article class="contact-card">
-            <h3 class="contact-card__title">メール</h3>
-            <p class="contact-card__text">tousinnsei@gmail.com</p>
-          </article>
-          <article class="contact-card">
-            <h3 class="contact-card__title">公式サイト</h3>
-            <p class="contact-card__text">www.ybhtk.cn</p>
-          </article>
-          <article class="contact-card" style="grid-column: span 2;">
-            <h3 class="contact-card__title">メッセージ</h3>
-            <p class="contact-card__text">共同研究、事業提携、メディア取材など、お気軽にご連絡ください。</p>
-          </article>
+    </section>
+
+    <section class="section container">
+      <div class="contact-layout">
+        <!-- Info -->
+        <div>
+          <div class="contact-card reveal" data-reveal="left">
+            <div class="contact-card__icon">📍</div>
+            <div>
+              <div class="contact-card__title">所在地</div>
+              <div class="contact-card__text">東京都足立区</div>
+              <div class="contact-card__sub">日本・東京を拠点に活動</div>
+            </div>
+          </div>
+          <div class="contact-card reveal" data-reveal="left">
+            <div class="contact-card__icon">📞</div>
+            <div>
+              <div class="contact-card__title">電話番号</div>
+              <div class="contact-card__text"><a href="tel:+819088526444">090-8852-6444</a></div>
+            </div>
+          </div>
+          <div class="contact-card reveal" data-reveal="left">
+            <div class="contact-card__icon">✉️</div>
+            <div>
+              <div class="contact-card__title">メール</div>
+              <div class="contact-card__text"><a href="mailto:tousinnsei@gmail.com">tousinnsei@gmail.com</a></div>
+              <div class="contact-card__sub">通常2営業日以内にご返信します</div>
+            </div>
+          </div>
+          <div class="contact-card reveal" data-reveal="left">
+            <div class="contact-card__icon">🌐</div>
+            <div>
+              <div class="contact-card__title">ウェブサイト</div>
+              <div class="contact-card__text"><a href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer">www.ybhtkj.cn</a></div>
+            </div>
+          </div>
+
+          <div class="contact-note reveal" data-reveal="left">
+            <strong>お問い合わせの前に</strong><br />
+            共同研究・事業連携・教育AIプロジェクト・講演・取材など、内容に応じて最適な窓口をご案内します。
+          </div>
         </div>
-        <form class="contact-form" novalidate>
-          <div class="form-control">
-            <input class="form-control__input" type="text" id="name" name="name" required />
-            <label class="form-control__label" for="name">お名前（必須）</label>
-            <span class="form-control__status"></span>
-            <span class="form-control__feedback"></span>
+
+        <!-- Form -->
+        <div class="contact-form-card reveal" data-reveal="right">
+          <div class="form-head">
+            <h2>メッセージを送る</h2>
+            <p><span class="req" style="color:var(--accent);">*</span> は必須項目です。</p>
           </div>
-          <div class="form-control">
-            <input class="form-control__input" type="email" id="email" name="email" required />
-            <label class="form-control__label" for="email">メールアドレス（必須）</label>
-            <span class="form-control__status"></span>
-            <span class="form-control__feedback"></span>
-          </div>
-          <div class="form-control">
-            <input class="form-control__input" type="text" id="subject" name="subject" />
-            <label class="form-control__label" for="subject">件名</label>
-            <span class="form-control__status"></span>
-            <span class="form-control__feedback"></span>
-          </div>
-          <div class="form-control">
-            <textarea class="form-control__textarea" id="message" name="message" rows="5" required></textarea>
-            <label class="form-control__label" for="message">メッセージ（必須）</label>
-            <span class="form-control__status"></span>
-            <span class="form-control__feedback"></span>
-          </div>
-          <div class="form-actions">
-            <button class="button" type="submit">送信する</button>
-          </div>
-        </form>
+          <form class="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="form-control">
+                <label for="type">ご用件の種類</label>
+                <select id="type" name="type">
+                  <option value="">選択してください</option>
+                  <option value="共同研究について">共同研究について</option>
+                  <option value="事業提携について">事業提携について</option>
+                  <option value="教育AI・テクノロジーについて">教育AI・テクノロジーについて</option>
+                  <option value="講演・取材について">講演・取材について</option>
+                  <option value="その他お問い合わせ">その他お問い合わせ</option>
+                </select>
+                <span class="form-control__msg"></span>
+              </div>
+              <div class="form-control">
+                <label for="subject">件名 <span class="req">*</span></label>
+                <input type="text" id="subject" name="subject" required />
+                <span class="form-control__msg"></span>
+              </div>
+              <div class="form-control">
+                <label for="name">お名前 <span class="req">*</span></label>
+                <input type="text" id="name" name="name" required autocomplete="name" />
+                <span class="form-control__msg"></span>
+              </div>
+              <div class="form-control">
+                <label for="email">メールアドレス <span class="req">*</span></label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+                <span class="form-control__msg"></span>
+              </div>
+              <div class="form-control form-control--full">
+                <label for="message">メッセージ <span class="req">*</span></label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <span class="form-control__msg"></span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn--primary" type="submit">送信する →</button>
+              <span class="form-status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <div class="form-status" role="status"></div>
-
-  <footer class="footer container page-footer">
-    <div class="footer__inner">
-      <p>© 2026 鄧信成 All Rights Reserved.</p>
-      <div class="footer__social" aria-label="ソーシャルリンク">
-        <a class="footer__link" href="mailto:tousinnsei@gmail.com" title="メール">✉️</a>
-        <a class="footer__link" href="#" title="GitHub">🐙</a>
-        <a class="footer__link" href="#" title="LinkedIn">🔗</a>
-        <a class="footer__link" href="http://www.ybhtk.cn" target="_blank" rel="noreferrer" title="公式サイト">🌐</a>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="brand"><span class="brand__name">鄧信成</span><span class="brand__sub">教育AI研究者・起業家</span></div>
+          <p class="footer__desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
+        </div>
+        <div>
+          <h4>ナビゲーション</h4>
+          <a class="footer__link" href="index.html">ホーム</a>
+          <a class="footer__link" href="about.html">私について</a>
+          <a class="footer__link" href="portfolio.html">実績・プロジェクト</a>
+          <a class="footer__link" href="resume.html">経歴</a>
+          <a class="footer__link" href="contact.html">お問い合わせ</a>
+        </div>
+        <div>
+          <h4>お問い合わせ</h4>
+          <a class="footer__link" href="mailto:tousinnsei@gmail.com">tousinnsei@gmail.com</a>
+          <a class="footer__link" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer">www.ybhtkj.cn</a>
+          <a class="footer__link" href="tel:+819088526444">090-8852-6444</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 鄧信成</span>
+        <div class="footer__social">
+          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール">✉</a>
+          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト">🌐</a>
+        </div>
       </div>
     </div>
   </footer>
