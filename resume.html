@@ -11,7 +11,6 @@
         var lang = null;
         if (m) lang = norm(decodeURIComponent(m[1]));
         if (!lang) { try { lang = norm(localStorage.getItem('preferredLanguage')); } catch (e) {} }
-        if (!lang) { try { lang = norm((navigator.language || '').split('-')[0]); } catch (e) {} }
         if (!lang) lang = 'ja';
         window.__AILANG__ = lang;
         document.documentElement.setAttribute('data-lang', lang);

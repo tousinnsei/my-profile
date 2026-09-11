@@ -35,8 +35,6 @@
       const stored = normalize(localStorage.getItem(STORE_KEY));
       if (stored) return stored;
     } catch (e) {}
-    const nav = normalize((navigator.language || navigator.userLanguage || '').split('-')[0]);
-    if (nav) return nav;
     return 'ja';
   }
 
