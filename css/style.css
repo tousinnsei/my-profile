@@ -1391,3 +1391,53 @@ ol {
   .career-line { grid-template-columns: 1fr; }
   .aurora-a, .aurora-b { width: 260px; height: 260px; }
 }
+
+/* ============================================================
+   Internationalization — FOWL gate, language switcher, CJK fonts
+   ============================================================ */
+html.pre-i18n body { visibility: hidden; }
+
+.lang-switch { position: relative; display: inline-flex; align-items: center; margin-right: 0.5rem; }
+.lang-switch__btn {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.4rem 0.75rem; border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill); background: var(--surface);
+  color: var(--text-soft); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+  cursor: pointer; transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.lang-switch__btn:hover { border-color: var(--primary); color: var(--primary); }
+.lang-switch__arrow { font-size: 0.62rem; line-height: 1; color: var(--muted); }
+.lang-switch__menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  min-width: 150px; margin: 0; padding: 0.4rem; list-style: none;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-md);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur) var(--ease);
+}
+.lang-switch.is-open .lang-switch__menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.lang-switch__link {
+  display: block; width: 100%; padding: 0.5rem 0.75rem; border: 0; background: none;
+  color: var(--text-soft); font-size: 0.85rem; text-align: left; cursor: pointer;
+  border-radius: calc(var(--radius) - 6px); transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.lang-switch__link:hover, .lang-switch__link.is-active { background: var(--primary-soft); color: var(--primary); }
+.lang-switch__link.is-active { font-weight: 700; }
+
+.lang-switch--mobile { position: static; margin: 0; padding: 0.5rem var(--space-3) 0; width: 100%; flex-wrap: wrap; }
+.lang-switch--mobile .lang-switch__label { margin: 0.6rem 0 0.4rem; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+.lang-switch--mobile .lang-switch__mobile-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.lang-switch--mobile .lang-switch__link {
+  width: auto; padding: 0.35rem 0.85rem; border: 1px solid var(--border);
+  border-radius: var(--radius-pill); text-align: center; font-size: 0.8rem;
+}
+.lang-switch--mobile .lang-switch__link.is-active { border-color: var(--primary); color: var(--primary); }
+
+html[data-lang="zh"],
+html[data-lang="ko"] {
+  --font-sans: "Inter", "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+    "Apple SD Gothic Neo", "Malgun Gothic", "Yu Gothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+}
+html[data-lang="en"] {
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, "Yu Gothic", "Meiryo", sans-serif;
+}

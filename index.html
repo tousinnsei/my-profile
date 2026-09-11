@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja" data-theme="light">
 <head>
+  <script>
+    (function () {
+      try {
+        function norm(s) { if (!s) return null; s = String(s).toLowerCase();
+          if (s.indexOf('zh') === 0) return 'zh'; if (s.indexOf('ja') === 0) return 'ja';
+          if (s.indexOf('ko') === 0) return 'ko'; if (s.indexOf('en') === 0) return 'en'; return null; }
+        var m = /[?&]lang=([^&]+)/.exec(location.search);
+        var lang = null;
+        if (m) lang = norm(decodeURIComponent(m[1]));
+        if (!lang) { try { lang = norm(localStorage.getItem('preferredLanguage')); } catch (e) {} }
+        if (!lang) { try { lang = norm((navigator.language || '').split('-')[0]); } catch (e) {} }
+        if (!lang) lang = 'ja';
+        window.__AILANG__ = lang;
+        document.documentElement.setAttribute('data-lang', lang);
+      } catch (e) {}
+      document.documentElement.classList.add('pre-i18n');
+    })();
+  </script>
+  <script src="i18n/ja.js"></script>
+  <script src="i18n/zh.js"></script>
+  <script src="i18n/en.js"></script>
+  <script src="i18n/ko.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>鄧信成｜教育AI研究者・起業家</title>
@@ -49,20 +71,32 @@
   <!-- Header -->
   <header class="page-header">
     <div class="container header__inner">
-      <a href="index.html" class="brand" aria-label="ホームへ">
-        <span class="brand__name">鄧信成</span>
-        <span class="brand__sub">教育AI研究者・起業家</span>
+      <a href="index.html" class="brand" aria-label="ホームへ" data-i18n-attr="ui.homeAria|aria-label">
+        <span class="brand__name" data-i18n="brand">鄧信成</span>
+        <span class="brand__sub" data-i18n="brandSub">教育AI研究者・起業家</span>
       </a>
-      <nav class="nav" aria-label="メインナビゲーション">
+      <nav class="nav" aria-label="メインナビゲーション" data-i18n-attr="ui.navAria|aria-label">
         <ul class="nav__list">
-          <li><a class="nav__link is-active" href="index.html">ホーム</a></li>
-          <li><a class="nav__link" href="about.html">私について</a></li>
-          <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
-          <li><a class="nav__link" href="resume.html">経歴</a></li>
-          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+          <li><a class="nav__link is-active" href="index.html" data-i18n="nav.home">ホーム</a></li>
+          <li><a class="nav__link" href="about.html" data-i18n="nav.about">私について</a></li>
+          <li><a class="nav__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a></li>
+          <li><a class="nav__link" href="resume.html" data-i18n="nav.resume">経歴</a></li>
+          <li><a class="nav__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
         </ul>
-        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
-        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
+        <div class="lang-switch" role="group">
+          <button type="button" class="lang-switch__btn" aria-haspopup="true" aria-expanded="false" data-i18n-attr="ui.langAria|aria-label">
+            <span class="lang-switch__current">日本語</span>
+            <span class="lang-switch__arrow" aria-hidden="true">▾</span>
+          </button>
+          <ul class="lang-switch__menu" role="menu">
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ja">日本語</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="zh">简体中文</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="en">English</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ko">한국어</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" aria-label="テーマ切替" data-i18n-attr="ui.theme|aria-label">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く" data-i18n-attr="ui.openMenu|aria-label">☰</button>
       </nav>
     </div>
   </header>
@@ -72,14 +106,23 @@
     <div class="mobile-menu__overlay"></div>
     <div class="mobile-menu__panel">
       <div class="mobile-menu__head">
-        <span class="brand__name">メニュー</span>
-        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+        <span class="brand__name" data-i18n="ui.menu">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる" data-i18n-attr="ui.close|aria-label">×</button>
       </div>
-      <a class="mobile-menu__link is-active" href="index.html">ホーム</a>
-      <a class="mobile-menu__link" href="about.html">私について</a>
-      <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
-      <a class="mobile-menu__link" href="resume.html">経歴</a>
-      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+      <a class="mobile-menu__link is-active" href="index.html" data-i18n="nav.home">ホーム</a>
+      <a class="mobile-menu__link" href="about.html" data-i18n="nav.about">私について</a>
+      <a class="mobile-menu__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a>
+      <a class="mobile-menu__link" href="resume.html" data-i18n="nav.resume">経歴</a>
+      <a class="mobile-menu__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
+      <div class="lang-switch lang-switch--mobile" role="group">
+        <p class="lang-switch__label" data-i18n="ui.langName">言語</p>
+        <div class="lang-switch__mobile-list">
+          <button type="button" class="lang-switch__link" data-lang="ja">日本語</button>
+          <button type="button" class="lang-switch__link" data-lang="zh">简体中文</button>
+          <button type="button" class="lang-switch__link" data-lang="en">English</button>
+          <button type="button" class="lang-switch__link" data-lang="ko">한국어</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -91,29 +134,29 @@
       <div class="container">
         <div class="editorial-hero__grid">
           <div class="editorial-hero__content">
-            <span class="editorial-hero__top hero-enter"><span class="line"></span>研究 × 技術 × 社会実装</span>
-            <h1 class="hero__title hero-enter">鄧 信成</h1>
-            <p class="hero__name hero-enter">教育AI研究者・起業家</p>
-            <p class="hero__desc hero-enter">学術研究と事業経営の両輪で、教育AIを核に教育・農業・福祉・文化の現場へ。研究室の知を、社会の実践として届けます。</p>
+            <span class="editorial-hero__top hero-enter" data-i18n="home.hero.eyebrow"><span class="line"></span>研究 × 技術 × 社会実装</span>
+            <h1 class="hero__title hero-enter" data-i18n="home.hero.displayName">鄧 信成</h1>
+            <p class="hero__name hero-enter" data-i18n="home.hero.name">教育AI研究者・起業家</p>
+            <p class="hero__desc hero-enter" data-i18n="home.hero.desc">学術研究と事業経営の両輪で、教育AIを核に教育・農業・福祉・文化の現場へ。研究室の知を、社会の実践として届けます。</p>
             <div class="hero__actions hero-enter">
-              <a href="portfolio.html" class="btn btn--primary">実績を見る →</a>
-              <a href="contact.html" class="btn btn--ghost">お問い合わせ</a>
+              <a href="portfolio.html" class="btn btn--primary" data-i18n="home.hero.primary">実績を見る →</a>
+              <a href="contact.html" class="btn btn--ghost" data-i18n="home.hero.secondary">お問い合わせ</a>
             </div>
             <div class="editorial-index hero-enter">
-              <a class="editorial-index__item" href="#focus"><span class="editorial-index__num">01</span><span class="editorial-index__label">研究</span></a>
-              <a class="editorial-index__item" href="#featured"><span class="editorial-index__num">02</span><span class="editorial-index__label">事業</span></a>
-              <a class="editorial-index__item" href="#story"><span class="editorial-index__num">03</span><span class="editorial-index__label">社会実装</span></a>
+              <a class="editorial-index__item" href="#focus"><span class="editorial-index__num">01</span><span class="editorial-index__label" data-i18n="home.indexNav.0.label">研究</span></a>
+              <a class="editorial-index__item" href="#featured"><span class="editorial-index__num">02</span><span class="editorial-index__label" data-i18n="home.indexNav.1.label">事業</span></a>
+              <a class="editorial-index__item" href="#story"><span class="editorial-index__num">03</span><span class="editorial-index__label" data-i18n="home.indexNav.2.label">社会実装</span></a>
             </div>
           </div>
           <div class="hero-photo hero-enter">
-            <div class="hero-photo__frame"><img src="images/photo-3.jpg" alt="鄧信成（教育AI研究者・起業家）" fetchpriority="high" /></div>
-            <span class="hero-photo__label">教育AI研究者・起業家</span>
+            <div class="hero-photo__frame"><img src="images/photo-3.jpg" alt="鄧信成（教育AI研究者・起業家）" fetchpriority="high" data-i18n-attr="home.hero.photoAlt|alt" /></div>
+            <span class="hero-photo__label" data-i18n="home.hero.photoLabel">教育AI研究者・起業家</span>
             <div class="hero-photo__caption"><span>DENG XINCHENG</span><span>2026</span></div>
           </div>
         </div>
       </div>
       <div class="hero__scroll hero-enter" aria-hidden="true">
-        <span>スクロール</span>
+        <span data-i18n="ui.scroll">スクロール</span>
         <div class="scroll-indicator"></div>
       </div>
     </section>
@@ -123,30 +166,30 @@
       <div class="jp-sec-head" id="numbers-heading">
         <span class="jp-sec-head__num">01</span>
         <div>
-          <h2>実績を数字で見る</h2>
-          <p>研究から事業まで、積み重ねてきた確かな成果。</p>
+          <h2 data-i18n="home.stats.title">実績を数字で見る</h2>
+          <p data-i18n="home.stats.sub">研究から事業まで、積み重ねてきた確かな成果。</p>
         </div>
       </div>
       <div class="editorial-stats reveal">
         <div class="editorial-stat">
           <div class="editorial-stat__idx">01</div>
           <div class="editorial-stat__num grad-text"><span data-count="15">15</span></div>
-          <div class="editorial-stat__label">学術論文</div>
+          <div class="editorial-stat__label" data-i18n="home.stats.items.0.label">学術論文</div>
         </div>
         <div class="editorial-stat">
           <div class="editorial-stat__idx">02</div>
           <div class="editorial-stat__num grad-text"><span data-count="6">6</span></div>
-          <div class="editorial-stat__label">研究課題（国家級4・省級2）</div>
+          <div class="editorial-stat__label" data-i18n="home.stats.items.1.label">研究課題（国家級4・省級2）</div>
         </div>
         <div class="editorial-stat">
           <div class="editorial-stat__idx">03</div>
           <div class="editorial-stat__num grad-text"><span data-count="26">26</span></div>
-          <div class="editorial-stat__label">ソフトウェア著作権</div>
+          <div class="editorial-stat__label" data-i18n="home.stats.items.2.label">ソフトウェア著作権</div>
         </div>
         <div class="editorial-stat">
           <div class="editorial-stat__idx">04</div>
           <div class="editorial-stat__num grad-text"><span data-count="3">3</span></div>
-          <div class="editorial-stat__label">創業企業（代表取締役）</div>
+          <div class="editorial-stat__label" data-i18n="home.stats.items.3.label">創業企業（代表取締役）</div>
         </div>
       </div>
     </section>
@@ -157,34 +200,34 @@
         <div class="jp-sec-head" id="focus-heading">
           <span class="jp-sec-head__num">02</span>
           <div>
-            <h2>教育AIを軸にした研究</h2>
-            <p>教育工学と情報技術の学際的視点から、教育現場の課題を解決するシステムと手法を研究しています。</p>
+            <h2 data-i18n="home.focus.title">教育AIを軸にした研究</h2>
+            <p data-i18n="home.focus.sub">教育工学と情報技術の学際的視点から、教育現場の課題を解決するシステムと手法を研究しています。</p>
           </div>
         </div>
         <div class="research-map">
           <div class="map-center reveal">
-            <h3 class="jp-head"><span class="grad-text">教育AI研究</span></h3>
-            <p>教育テクノロジーを核に、個別最適化学習と遠隔教育の質的向上を実現</p>
+            <h3 class="jp-head"><span class="grad-text" data-i18n="home.focus.centerTitle">教育AI研究</span></h3>
+            <p data-i18n="home.focus.centerDesc">教育テクノロジーを核に、個別最適化学習と遠隔教育の質的向上を実現</p>
           </div>
           <div class="map-node reveal" data-reveal="left">
-            <span class="map-node__tag">家庭教育</span>
-            <h4>家庭教育</h4>
-            <p>保護者教育プラットフォームと発達評価を一体化した支援システム</p>
+            <span class="map-node__tag" data-i18n="home.focus.nodes.0.tag">家庭教育</span>
+            <h4 data-i18n="home.focus.nodes.0.title">家庭教育</h4>
+            <p data-i18n="home.focus.nodes.0.desc">保護者教育プラットフォームと発達評価を一体化した支援システム</p>
           </div>
           <div class="map-node reveal" data-reveal="left">
-            <span class="map-node__tag">個別最適化</span>
-            <h4>個別最適化学習</h4>
-            <p>AIによる個別カリキュラム生成と進捗評価のパーソナライズ</p>
+            <span class="map-node__tag" data-i18n="home.focus.nodes.1.tag">個別最適化</span>
+            <h4 data-i18n="home.focus.nodes.1.title">個別最適化学習</h4>
+            <p data-i18n="home.focus.nodes.1.desc">AIによる個別カリキュラム生成と進捗評価のパーソナライズ</p>
           </div>
           <div class="map-node reveal" data-reveal="right">
-            <span class="map-node__tag">遠隔教育</span>
-            <h4>遠隔教育</h4>
-            <p>郷村遠隔教育プラットフォームによる地域格差の是正</p>
+            <span class="map-node__tag" data-i18n="home.focus.nodes.2.tag">遠隔教育</span>
+            <h4 data-i18n="home.focus.nodes.2.title">遠隔教育</h4>
+            <p data-i18n="home.focus.nodes.2.desc">郷村遠隔教育プラットフォームによる地域格差の是正</p>
           </div>
           <div class="map-node reveal" data-reveal="right">
-            <span class="map-node__tag">日本語教育</span>
-            <h4>日本語教育</h4>
-            <p>大学入試教育の標準化と異文化コミュニケーション能力の育成</p>
+            <span class="map-node__tag" data-i18n="home.focus.nodes.3.tag">日本語教育</span>
+            <h4 data-i18n="home.focus.nodes.3.title">日本語教育</h4>
+            <p data-i18n="home.focus.nodes.3.desc">大学入試教育の標準化と異文化コミュニケーション能力の育成</p>
           </div>
         </div>
       </div>
@@ -196,8 +239,8 @@
         <div class="jp-sec-head" id="featured-heading">
           <span class="jp-sec-head__num">03</span>
           <div>
-            <h2>代表的な取り組み</h2>
-            <p>研究と事業をつなぐ、注目のプロジェクトをピックアップ。</p>
+            <h2 data-i18n="home.featured.title">代表的な取り組み</h2>
+            <p data-i18n="home.featured.sub">研究と事業をつなぐ、注目のプロジェクトをピックアップ。</p>
           </div>
         </div>
         <div class="featured-list" data-stagger>
@@ -205,8 +248,8 @@
             <span class="featured-row__num">01</span>
             <div>
               <span class="featured-row__year">2023–</span>
-              <div class="featured-row__cat">国家級研究課題</div>
-              <h3 class="featured-row__title">「時助助」タイムバンク構想</h3>
+              <div class="featured-row__cat" data-i18n="home.featured.rows.0.cat">国家級研究課題</div>
+              <h3 class="featured-row__title" data-i18n="home.featured.rows.0.title">「時助助」タイムバンク構想</h3>
             </div>
             <span class="featured-row__arrow">→</span>
           </a>
@@ -214,8 +257,8 @@
             <span class="featured-row__num">02</span>
             <div>
               <span class="featured-row__year">2024</span>
-              <div class="featured-row__cat">国家級研究課題</div>
-              <h3 class="featured-row__title">「啓蒙導師」保護者教育訓練プラットフォーム</h3>
+              <div class="featured-row__cat" data-i18n="home.featured.rows.1.cat">国家級研究課題</div>
+              <h3 class="featured-row__title" data-i18n="home.featured.rows.1.title">「啓蒙導師」保護者教育訓練プラットフォーム</h3>
             </div>
             <span class="featured-row__arrow">→</span>
           </a>
@@ -223,8 +266,8 @@
             <span class="featured-row__num">03</span>
             <div>
               <span class="featured-row__year">2025</span>
-              <div class="featured-row__cat">省級研究課題</div>
-              <h3 class="featured-row__title">銀齢智社 — スマート介護体系</h3>
+              <div class="featured-row__cat" data-i18n="home.featured.rows.2.cat">省級研究課題</div>
+              <h3 class="featured-row__title" data-i18n="home.featured.rows.2.title">銀齢智社 — スマート介護体系</h3>
             </div>
             <span class="featured-row__arrow">→</span>
           </a>
@@ -232,8 +275,8 @@
             <span class="featured-row__num">04</span>
             <div>
               <span class="featured-row__year">2024</span>
-              <div class="featured-row__cat">創業企業</div>
-              <h3 class="featured-row__title">四川宜星辰教育科技有限公司</h3>
+              <div class="featured-row__cat" data-i18n="home.featured.rows.3.cat">創業企業</div>
+              <h3 class="featured-row__title" data-i18n="home.featured.rows.3.title">四川宜星辰教育科技有限公司</h3>
             </div>
             <span class="featured-row__arrow">→</span>
           </a>
@@ -241,14 +284,14 @@
             <span class="featured-row__num">05</span>
             <div>
               <span class="featured-row__year">2025</span>
-              <div class="featured-row__cat">文化伝承DX</div>
-              <h3 class="featured-row__title">伝統人形芝居演技教育ソフトウェア</h3>
+              <div class="featured-row__cat" data-i18n="home.featured.rows.4.cat">文化伝承DX</div>
+              <h3 class="featured-row__title" data-i18n="home.featured.rows.4.title">伝統人形芝居演技教育ソフトウェア</h3>
             </div>
             <span class="featured-row__arrow">→</span>
           </a>
         </div>
         <div class="reveal" style="margin-top: 2rem;">
-          <a href="portfolio.html" class="btn btn--text">すべての実績を見る <span class="btn__arrow">→</span></a>
+          <a href="portfolio.html" class="btn btn--text" data-i18n="home.featured.more">すべての実績を見る <span class="btn__arrow">→</span></a>
         </div>
         <div class="project-preview" aria-hidden="true"><img src="images/research1.png" alt="" /></div>
       </div>
@@ -258,41 +301,41 @@
     <section class="section section--invert" id="story" aria-labelledby="story-heading">
       <div class="container invert-split">
         <div>
-          <span class="jp-label" style="font-family:var(--font-mono);font-size:.78rem;letter-spacing:.16em;color:var(--primary);">Brand Story</span>
-          <h2 class="h2 jp-light-title" style="margin-block:.5rem 1rem;">研究から社会実装へ</h2>
-          <p class="jp-muted" style="line-height:1.9;">研究室の知を、現場の課題解決につなげる。<br />それが私の使命です。</p>
+          <span class="jp-label" style="font-family:var(--font-mono);font-size:.78rem;letter-spacing:.16em;color:var(--primary);" data-i18n="home.story.label">Brand Story</span>
+          <h2 class="h2 jp-light-title" style="margin-block:.5rem 1rem;" data-i18n="home.story.title">研究から社会実装へ</h2>
+          <p class="jp-muted" style="line-height:1.9;" data-i18n-html="home.story.desc">研究室の知を、現場の課題解決につなげる。<br />それが私の使命です。</p>
         </div>
         <div class="process">
           <div class="process-step reveal" data-reveal="right">
             <div class="process-step__idx">01</div>
             <div class="process-step__body">
-              <span class="process-step__en">研究</span>
-              <h3>学術的知見の蓄積</h3>
-              <p>教育工学を基盤とした実証研究。国家級・省級課題を横断的に主導。</p>
+              <span class="process-step__en" data-i18n="home.story.steps.0.en">研究</span>
+              <h3 data-i18n="home.story.steps.0.title">学術的知見の蓄積</h3>
+              <p data-i18n="home.story.steps.0.desc">教育工学を基盤とした実証研究。国家級・省級課題を横断的に主導。</p>
             </div>
           </div>
           <div class="process-step reveal" data-reveal="right">
             <div class="process-step__idx">02</div>
             <div class="process-step__body">
-              <span class="process-step__en">技術</span>
-              <h3>研究をプロダクトへ</h3>
-              <p>AI・画像認識・IoTを応用したシステムを開発し、26件のソフトウェア著作権を取得。</p>
+              <span class="process-step__en" data-i18n="home.story.steps.1.en">技術</span>
+              <h3 data-i18n="home.story.steps.1.title">研究をプロダクトへ</h3>
+              <p data-i18n="home.story.steps.1.desc">AI・画像認識・IoTを応用したシステムを開発し、26件のソフトウェア著作権を取得。</p>
             </div>
           </div>
           <div class="process-step reveal" data-reveal="right">
             <div class="process-step__idx">03</div>
             <div class="process-step__body">
-              <span class="process-step__en">事業</span>
-              <h3>企業として実装</h3>
-              <p>教育・農業・福祉の分野で3社を創業し、製品を現場に届ける。</p>
+              <span class="process-step__en" data-i18n="home.story.steps.2.en">事業</span>
+              <h3 data-i18n="home.story.steps.2.title">企業として実装</h3>
+              <p data-i18n="home.story.steps.2.desc">教育・農業・福祉の分野で3社を創業し、製品を現場に届ける。</p>
             </div>
           </div>
           <div class="process-step reveal" data-reveal="right">
             <div class="process-step__idx">04</div>
             <div class="process-step__body">
-              <span class="process-step__en">社会実装</span>
-              <h3>持続可能な価値</h3>
-              <p>地域共同体の活性化、教育格差の是正、文化の次世代伝承に貢献。</p>
+              <span class="process-step__en" data-i18n="home.story.steps.3.en">社会実装</span>
+              <h3 data-i18n="home.story.steps.3.title">持続可能な価値</h3>
+              <p data-i18n="home.story.steps.3.desc">地域共同体の活性化、教育格差の是正、文化の次世代伝承に貢献。</p>
             </div>
           </div>
         </div>
@@ -304,30 +347,30 @@
       <div class="jp-sec-head" id="career-heading">
         <span class="jp-sec-head__num">04</span>
         <div>
-          <h2>これまでの歩み</h2>
-          <p>研究と起業を重ねながら、着実に領域を拡大。</p>
+          <h2 data-i18n="home.career.title">これまでの歩み</h2>
+          <p data-i18n="home.career.sub">研究と起業を重ねながら、着実に領域を拡大。</p>
         </div>
       </div>
       <div class="career-line" data-stagger>
         <div class="career-item reveal">
           <div class="career-item__year">2023</div>
-          <h4>初の起業・科研システム開発</h4>
-          <p>宜賓拓科学研究科技有限公司を設立。国家科技型企業に認定。</p>
+          <h4 data-i18n="home.career.items.0.title">初の起業・科研システム開発</h4>
+          <p data-i18n="home.career.items.0.desc">宜賓拓科学研究科技有限公司を設立。国家科技型企業に認定。</p>
         </div>
         <div class="career-item reveal">
           <div class="career-item__year">2024</div>
-          <h4>教育テック企業設立</h4>
-          <p>四川宜星辰教育科技を設立。国家級課題2件を完了。</p>
+          <h4 data-i18n="home.career.items.1.title">教育テック企業設立</h4>
+          <p data-i18n="home.career.items.1.desc">四川宜星辰教育科技を設立。国家級課題2件を完了。</p>
         </div>
         <div class="career-item reveal">
           <div class="career-item__year">2025</div>
-          <h4>農業事業を新規展開</h4>
-          <p>四川禾芯田農業を設立。国際学術誌に論文発表。</p>
+          <h4 data-i18n="home.career.items.2.title">農業事業を新規展開</h4>
+          <p data-i18n="home.career.items.2.desc">四川禾芯田農業を設立。国際学術誌に論文発表。</p>
         </div>
         <div class="career-item reveal">
           <div class="career-item__year">2026</div>
-          <h4>日本での事業活動開始</h4>
-          <p>教育と福祉の分野で日本での事業基盤を強化、文化伝承DXを加速。</p>
+          <h4 data-i18n="home.career.items.3.title">日本での事業活動開始</h4>
+          <p data-i18n="home.career.items.3.desc">教育と福祉の分野で日本での事業基盤を強化、文化伝承DXを加速。</p>
         </div>
       </div>
     </section>
@@ -335,10 +378,10 @@
     <!-- CTA -->
     <section class="section container">
       <div class="cta-band--hero reveal">
-        <h2>共同研究・事業連携について</h2>
-        <p>共同研究・事業提携・教育AI・講演・メディア取材に関するお問い合わせを、随時受け付けています。</p>
+        <h2 data-i18n="home.cta.title">共同研究・事業連携について</h2>
+        <p data-i18n="home.cta.desc">共同研究・事業提携・教育AI・講演・メディア取材に関するお問い合わせを、随時受け付けています。</p>
         <div style="margin-top:1.4rem;">
-          <a href="contact.html" class="btn btn--light">お問い合わせはこちら →</a>
+          <a href="contact.html" class="btn btn--light" data-i18n="home.cta.button">お問い合わせはこちら →</a>
         </div>
       </div>
     </section>
@@ -349,36 +392,37 @@
     <div class="container">
       <div class="footer__inner">
         <div>
-          <div class="brand"><span class="brand__name">鄧信成</span><span class="brand__sub">教育AI研究者・起業家</span></div>
-          <p class="footer__desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
+          <div class="brand"><span class="brand__name" data-i18n="brand">鄧信成</span><span class="brand__sub" data-i18n="brandSub">教育AI研究者・起業家</span></div>
+          <p class="footer__desc" data-i18n-html="footer.desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
         </div>
         <div>
-          <h4>ナビゲーション</h4>
-          <a class="footer__link" href="index.html">ホーム</a>
-          <a class="footer__link" href="about.html">私について</a>
-          <a class="footer__link" href="portfolio.html">実績・プロジェクト</a>
-          <a class="footer__link" href="resume.html">経歴</a>
-          <a class="footer__link" href="contact.html">お問い合わせ</a>
+          <h4 data-i18n="footer.navTitle">ナビゲーション</h4>
+          <a class="footer__link" href="index.html" data-i18n="nav.home">ホーム</a>
+          <a class="footer__link" href="about.html" data-i18n="nav.about">私について</a>
+          <a class="footer__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a>
+          <a class="footer__link" href="resume.html" data-i18n="nav.resume">経歴</a>
+          <a class="footer__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
         </div>
         <div>
-          <h4>お問い合わせ</h4>
+          <h4 data-i18n="footer.contactTitle">お問い合わせ</h4>
           <a class="footer__link" href="mailto:tousinnsei@gmail.com">tousinnsei@gmail.com</a>
           <a class="footer__link" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer">www.ybhtkj.cn</a>
           <a class="footer__link" href="tel:+819088526444">090-8852-6444</a>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>© 2026 鄧信成</span>
+        <span data-i18n="footer.copyright">© 2026 鄧信成</span>
         <div class="footer__social">
-          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール">✉</a>
-          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト">🌐</a>
+          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール" data-i18n-attr="ui.emailTitle|title">✉</a>
+          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト" data-i18n-attr="ui.siteTitle|title">🌐</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+  <button class="back-to-top" aria-label="トップへ戻る" data-i18n-attr="ui.backToTop|aria-label">↑</button>
 
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function () {

@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja" data-theme="light">
 <head>
+  <script>
+    (function () {
+      try {
+        function norm(s) { if (!s) return null; s = String(s).toLowerCase();
+          if (s.indexOf('zh') === 0) return 'zh'; if (s.indexOf('ja') === 0) return 'ja';
+          if (s.indexOf('ko') === 0) return 'ko'; if (s.indexOf('en') === 0) return 'en'; return null; }
+        var m = /[?&]lang=([^&]+)/.exec(location.search);
+        var lang = null;
+        if (m) lang = norm(decodeURIComponent(m[1]));
+        if (!lang) { try { lang = norm(localStorage.getItem('preferredLanguage')); } catch (e) {} }
+        if (!lang) { try { lang = norm((navigator.language || '').split('-')[0]); } catch (e) {} }
+        if (!lang) lang = 'ja';
+        window.__AILANG__ = lang;
+        document.documentElement.setAttribute('data-lang', lang);
+      } catch (e) {}
+      document.documentElement.classList.add('pre-i18n');
+    })();
+  </script>
+  <script src="i18n/ja.js"></script>
+  <script src="i18n/zh.js"></script>
+  <script src="i18n/en.js"></script>
+  <script src="i18n/ko.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ページが見つかりません | 鄧信成</title>
@@ -20,20 +42,32 @@
 <body data-page="404">
   <header class="page-header">
     <div class="container header__inner">
-      <a href="index.html" class="brand" aria-label="ホームへ">
-        <span class="brand__name">鄧信成</span>
-        <span class="brand__sub">教育AI研究者・起業家</span>
+      <a href="index.html" class="brand" aria-label="ホームへ" data-i18n-attr="ui.homeAria|aria-label">
+        <span class="brand__name" data-i18n="brand">鄧信成</span>
+        <span class="brand__sub" data-i18n="brandSub">教育AI研究者・起業家</span>
       </a>
-      <nav class="nav" aria-label="メインナビゲーション">
+      <nav class="nav" aria-label="メインナビゲーション" data-i18n-attr="ui.navAria|aria-label">
         <ul class="nav__list">
-          <li><a class="nav__link" href="index.html">ホーム</a></li>
-          <li><a class="nav__link" href="about.html">私について</a></li>
-          <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
-          <li><a class="nav__link" href="resume.html">経歴</a></li>
-          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+          <li><a class="nav__link" href="index.html" data-i18n="nav.home">ホーム</a></li>
+          <li><a class="nav__link" href="about.html" data-i18n="nav.about">私について</a></li>
+          <li><a class="nav__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a></li>
+          <li><a class="nav__link" href="resume.html" data-i18n="nav.resume">経歴</a></li>
+          <li><a class="nav__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
         </ul>
-        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
-        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
+        <div class="lang-switch" role="group">
+          <button type="button" class="lang-switch__btn" aria-haspopup="true" aria-expanded="false" data-i18n-attr="ui.langAria|aria-label">
+            <span class="lang-switch__current">日本語</span>
+            <span class="lang-switch__arrow" aria-hidden="true">▾</span>
+          </button>
+          <ul class="lang-switch__menu" role="menu">
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ja">日本語</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="zh">简体中文</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="en">English</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ko">한국어</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" aria-label="テーマ切替" data-i18n-attr="ui.theme|aria-label">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く" data-i18n-attr="ui.openMenu|aria-label">☰</button>
       </nav>
     </div>
   </header>
@@ -43,14 +77,23 @@
     <div class="mobile-menu__overlay"></div>
     <div class="mobile-menu__panel">
       <div class="mobile-menu__head">
-        <span class="brand__name">メニュー</span>
-        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+        <span class="brand__name" data-i18n="ui.menu">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる" data-i18n-attr="ui.close|aria-label">×</button>
       </div>
-      <a class="mobile-menu__link" href="index.html">ホーム</a>
-      <a class="mobile-menu__link" href="about.html">私について</a>
-      <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
-      <a class="mobile-menu__link" href="resume.html">経歴</a>
-      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+      <a class="mobile-menu__link" href="index.html" data-i18n="nav.home">ホーム</a>
+      <a class="mobile-menu__link" href="about.html" data-i18n="nav.about">私について</a>
+      <a class="mobile-menu__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a>
+      <a class="mobile-menu__link" href="resume.html" data-i18n="nav.resume">経歴</a>
+      <a class="mobile-menu__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
+      <div class="lang-switch lang-switch--mobile" role="group">
+        <p class="lang-switch__label" data-i18n="ui.langName">言語</p>
+        <div class="lang-switch__mobile-list">
+          <button type="button" class="lang-switch__link" data-lang="ja">日本語</button>
+          <button type="button" class="lang-switch__link" data-lang="zh">简体中文</button>
+          <button type="button" class="lang-switch__link" data-lang="en">English</button>
+          <button type="button" class="lang-switch__link" data-lang="ko">한국어</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -58,18 +101,19 @@
     <section class="error-wrap">
       <div>
         <div class="error-code grad-text">404</div>
-        <h1 class="error-title">ページが見つかりません</h1>
-        <p class="error-desc">お探しのページは移動したか、存在しない可能性があります。以下のリンクから目的のページにお進みください。</p>
+        <h1 class="error-title" data-i18n="notfound.title">ページが見つかりません</h1>
+        <p class="error-desc" data-i18n="notfound.desc">お探しのページは移動したか、存在しない可能性があります。以下のリンクから目的のページにお進みください。</p>
         <div class="error-actions">
-          <a class="btn btn--primary" href="index.html">ホームへ戻る</a>
-          <a class="btn btn--ghost" href="portfolio.html">実績を見る</a>
-          <a class="btn btn--ghost" href="contact.html">お問い合わせ</a>
+          <a class="btn btn--primary" href="index.html" data-i18n="notfound.homeBtn">ホームへ戻る</a>
+          <a class="btn btn--ghost" href="portfolio.html" data-i18n="notfound.workBtn">実績を見る</a>
+          <a class="btn btn--ghost" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
         </div>
       </div>
     </section>
   </main>
 
-  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+  <button class="back-to-top" aria-label="トップへ戻る" data-i18n-attr="ui.backToTop|aria-label">↑</button>
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

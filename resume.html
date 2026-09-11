@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja" data-theme="light">
 <head>
+  <script>
+    (function () {
+      try {
+        function norm(s) { if (!s) return null; s = String(s).toLowerCase();
+          if (s.indexOf('zh') === 0) return 'zh'; if (s.indexOf('ja') === 0) return 'ja';
+          if (s.indexOf('ko') === 0) return 'ko'; if (s.indexOf('en') === 0) return 'en'; return null; }
+        var m = /[?&]lang=([^&]+)/.exec(location.search);
+        var lang = null;
+        if (m) lang = norm(decodeURIComponent(m[1]));
+        if (!lang) { try { lang = norm(localStorage.getItem('preferredLanguage')); } catch (e) {} }
+        if (!lang) { try { lang = norm((navigator.language || '').split('-')[0]); } catch (e) {} }
+        if (!lang) lang = 'ja';
+        window.__AILANG__ = lang;
+        document.documentElement.setAttribute('data-lang', lang);
+      } catch (e) {}
+      document.documentElement.classList.add('pre-i18n');
+    })();
+  </script>
+  <script src="i18n/ja.js"></script>
+  <script src="i18n/zh.js"></script>
+  <script src="i18n/en.js"></script>
+  <script src="i18n/ko.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>経歴 | 鄧信成（キャリア・受賞歴・スキル）</title>
@@ -96,20 +118,32 @@
   <!-- Header -->
   <header class="page-header">
     <div class="container header__inner">
-      <a href="index.html" class="brand" aria-label="ホームへ">
-        <span class="brand__name">鄧信成</span>
-        <span class="brand__sub">教育AI研究者・起業家</span>
+      <a href="index.html" class="brand" aria-label="ホームへ" data-i18n-attr="ui.homeAria|aria-label">
+        <span class="brand__name" data-i18n="brand">鄧信成</span>
+        <span class="brand__sub" data-i18n="brandSub">教育AI研究者・起業家</span>
       </a>
-      <nav class="nav" aria-label="メインナビゲーション">
+      <nav class="nav" aria-label="メインナビゲーション" data-i18n-attr="ui.navAria|aria-label">
         <ul class="nav__list">
-          <li><a class="nav__link" href="index.html">ホーム</a></li>
-          <li><a class="nav__link" href="about.html">私について</a></li>
-          <li><a class="nav__link" href="portfolio.html">実績・プロジェクト</a></li>
-          <li><a class="nav__link is-active" href="resume.html">経歴</a></li>
-          <li><a class="nav__link" href="contact.html">お問い合わせ</a></li>
+          <li><a class="nav__link" href="index.html" data-i18n="nav.home">ホーム</a></li>
+          <li><a class="nav__link" href="about.html" data-i18n="nav.about">私について</a></li>
+          <li><a class="nav__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a></li>
+          <li><a class="nav__link is-active" href="resume.html" data-i18n="nav.resume">経歴</a></li>
+          <li><a class="nav__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a></li>
         </ul>
-        <button class="theme-toggle" aria-label="テーマ切替">🌙</button>
-        <button class="nav__toggle" aria-label="メニューを開く">☰</button>
+        <div class="lang-switch" role="group">
+          <button type="button" class="lang-switch__btn" aria-haspopup="true" aria-expanded="false" data-i18n-attr="ui.langAria|aria-label">
+            <span class="lang-switch__current">日本語</span>
+            <span class="lang-switch__arrow" aria-hidden="true">▾</span>
+          </button>
+          <ul class="lang-switch__menu" role="menu">
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ja">日本語</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="zh">简体中文</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="en">English</button></li>
+            <li role="none"><button type="button" role="menuitem" class="lang-switch__link" data-lang="ko">한국어</button></li>
+          </ul>
+        </div>
+        <button class="theme-toggle" aria-label="テーマ切替" data-i18n-attr="ui.theme|aria-label">🌙</button>
+        <button class="nav__toggle" aria-label="メニューを開く" data-i18n-attr="ui.openMenu|aria-label">☰</button>
       </nav>
     </div>
   </header>
@@ -119,14 +153,23 @@
     <div class="mobile-menu__overlay"></div>
     <div class="mobile-menu__panel">
       <div class="mobile-menu__head">
-        <span class="brand__name">メニュー</span>
-        <button class="mobile-menu__close" aria-label="閉じる">×</button>
+        <span class="brand__name" data-i18n="ui.menu">メニュー</span>
+        <button class="mobile-menu__close" aria-label="閉じる" data-i18n-attr="ui.close|aria-label">×</button>
       </div>
-      <a class="mobile-menu__link" href="index.html">ホーム</a>
-      <a class="mobile-menu__link" href="about.html">私について</a>
-      <a class="mobile-menu__link" href="portfolio.html">実績・プロジェクト</a>
-      <a class="mobile-menu__link is-active" href="resume.html">経歴</a>
-      <a class="mobile-menu__link" href="contact.html">お問い合わせ</a>
+      <a class="mobile-menu__link" href="index.html" data-i18n="nav.home">ホーム</a>
+      <a class="mobile-menu__link" href="about.html" data-i18n="nav.about">私について</a>
+      <a class="mobile-menu__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a>
+      <a class="mobile-menu__link is-active" href="resume.html" data-i18n="nav.resume">経歴</a>
+      <a class="mobile-menu__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
+      <div class="lang-switch lang-switch--mobile" role="group">
+        <p class="lang-switch__label" data-i18n="ui.langName">言語</p>
+        <div class="lang-switch__mobile-list">
+          <button type="button" class="lang-switch__link" data-lang="ja">日本語</button>
+          <button type="button" class="lang-switch__link" data-lang="zh">简体中文</button>
+          <button type="button" class="lang-switch__link" data-lang="en">English</button>
+          <button type="button" class="lang-switch__link" data-lang="ko">한국어</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -134,41 +177,41 @@
     <!-- Page hero -->
     <section class="page-hero">
       <div class="container">
-        <span class="page-hero__eyebrow label">経歴</span>
-        <h1 class="h1 display">歩んできた<span class="grad-text">軌跡</span></h1>
-        <p class="page-hero__lead">研究から起業まで、時間軸で紡ぐキャリアの全貌。</p>
+        <span class="page-hero__eyebrow label" data-i18n="resume.hero.eyebrow">経歴</span>
+        <h1 class="h1 display" data-i18n-html="resume.hero.title">歩んできた<span class="grad-text">軌跡</span></h1>
+        <p class="page-hero__lead" data-i18n="resume.hero.lead">研究から起業まで、時間軸で紡ぐキャリアの全貌。</p>
       </div>
     </section>
 
     <section class="section container">
       <!-- Stats summary -->
       <div class="stats-grid">
-        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="6">6</span></div><div class="stat-card__label">研究課題（国家級4・省級2）</div></div>
-        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="3">3</span></div><div class="stat-card__label">起業・代表取締役就任</div></div>
-        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="26">26</span></div><div class="stat-card__label">ソフトウェア著作権</div></div>
-        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="15">15</span></div><div class="stat-card__label">学術論文発表</div></div>
+        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="6">6</span></div><div class="stat-card__label" data-i18n="resume.stats.0.label">研究課題（国家級4・省級2）</div></div>
+        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="3">3</span></div><div class="stat-card__label" data-i18n="resume.stats.1.label">起業・代表取締役就任</div></div>
+        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="26">26</span></div><div class="stat-card__label" data-i18n="resume.stats.2.label">ソフトウェア著作権</div></div>
+        <div class="stat-card reveal"><div class="stat-card__num grad-text"><span data-count="15">15</span></div><div class="stat-card__label" data-i18n="resume.stats.3.label">学術論文発表</div></div>
       </div>
 
       <!-- Main layout -->
       <div class="resume-layout">
         <!-- Left: timeline -->
         <div class="timeline-section">
-          <h2 class="section-title">キャリア軌跡</h2>
+          <h2 class="section-title" data-i18n="resume.timeline.title">キャリア軌跡</h2>
           <div class="timeline" data-stagger>
 
             <article class="timeline-item is-open reveal" data-reveal="left">
               <div class="timeline-item__dot"></div>
               <div class="timeline-item__header" role="button" tabindex="0" aria-expanded="true">
-                <div><p class="timeline-item__year">2026年</p><h3 class="timeline-item__title">教育と社会貢献を深耕</h3></div>
+                <div><p class="timeline-item__year">2026</p><h3 class="timeline-item__title" data-i18n="resume.timeline.items.0.title">教育と社会貢献を深耕</h3></div>
                 <span class="timeline-item__toggle">+</span>
               </div>
               <div class="timeline-item__body">
                 <div class="timeline-item__content">
                   <ul>
-                    <li>中央青年表彰など複数の栄誉を受賞</li>
-                    <li>国家級研究課題「時代に適応した互助システムと地域互助新モデル」に企業指導者として参画</li>
-                    <li>伝統文化・教育分野のシステム開発を推進</li>
-                    <li>中央放送総合「開拓者」番組特別招待ゲストとして出演</li>
+                    <li data-i18n="resume.timeline.items.0.points.0">中央青年表彰など複数の栄誉を受賞</li>
+                    <li data-i18n="resume.timeline.items.0.points.1">国家級研究課題「時代に適応した互助システムと地域互助新モデル」に企業指導者として参画</li>
+                    <li data-i18n="resume.timeline.items.0.points.2">伝統文化・教育分野のシステム開発を推進</li>
+                    <li data-i18n="resume.timeline.items.0.points.3">中央放送総合「開拓者」番組特別招待ゲストとして出演</li>
                   </ul>
                 </div>
               </div>
@@ -177,16 +220,16 @@
             <article class="timeline-item reveal" data-reveal="left">
               <div class="timeline-item__dot"></div>
               <div class="timeline-item__header" role="button" tabindex="0" aria-expanded="false">
-                <div><p class="timeline-item__year">2025年</p><h3 class="timeline-item__title">分野を超えた創業とスマート介護実践</h3></div>
+                <div><p class="timeline-item__year">2025</p><h3 class="timeline-item__title" data-i18n="resume.timeline.items.1.title">分野を超えた創業とスマート介護実践</h3></div>
                 <span class="timeline-item__toggle">+</span>
               </div>
               <div class="timeline-item__body">
                 <div class="timeline-item__content">
                   <ul>
-                    <li>四川禾芯田農業有限公司を設立、代表取締役に就任</li>
-                    <li>農業デジタル化分野で深耕し、情報技術を活用した効率的農業生産を実現</li>
-                    <li>省級課題「高齢知恵社会-AI介護体系」に企業指導者として参画</li>
-                    <li>教育管理・プロジェクト管理分野の著作権を複数取得</li>
+                    <li data-i18n="resume.timeline.items.1.points.0">四川禾芯田農業有限公司を設立、代表取締役に就任</li>
+                    <li data-i18n="resume.timeline.items.1.points.1">農業デジタル化分野で深耕し、情報技術を活用した効率的農業生産を実現</li>
+                    <li data-i18n="resume.timeline.items.1.points.2">省級課題「高齢知恵社会-AI介護体系」に企業指導者として参画</li>
+                    <li data-i18n="resume.timeline.items.1.points.3">教育管理・プロジェクト管理分野の著作権を複数取得</li>
                   </ul>
                 </div>
               </div>
@@ -195,16 +238,16 @@
             <article class="timeline-item reveal" data-reveal="left">
               <div class="timeline-item__dot"></div>
               <div class="timeline-item__header" role="button" tabindex="0" aria-expanded="false">
-                <div><p class="timeline-item__year">2024年</p><h3 class="timeline-item__title">教育と農業の融合発展</h3></div>
+                <div><p class="timeline-item__year">2024</p><h3 class="timeline-item__title" data-i18n="resume.timeline.items.2.title">教育と農業の融合発展</h3></div>
                 <span class="timeline-item__toggle">+</span>
               </div>
               <div class="timeline-item__body">
                 <div class="timeline-item__content">
                   <ul>
-                    <li>四川宜星辰教育科技有限公司を設立、代表取締役に就任</li>
-                    <li>家庭教育体系・教育AI製品の研究開発全般を担当</li>
-                    <li>国家級課題2件に研究代表者・企業指導者として参画、いずれも完了</li>
-                    <li>農業AI知覚分析・家庭教育システム関連の著作権を取得</li>
+                    <li data-i18n="resume.timeline.items.2.points.0">四川宜星辰教育科技有限公司を設立、代表取締役に就任</li>
+                    <li data-i18n="resume.timeline.items.2.points.1">家庭教育体系・教育AI製品の研究開発全般を担当</li>
+                    <li data-i18n="resume.timeline.items.2.points.2">国家級課題2件に研究代表者・企業指導者として参画、いずれも完了</li>
+                    <li data-i18n="resume.timeline.items.2.points.3">農業AI知覚分析・家庭教育システム関連の著作権を取得</li>
                   </ul>
                 </div>
               </div>
@@ -213,17 +256,17 @@
             <article class="timeline-item reveal" data-reveal="left">
               <div class="timeline-item__dot"></div>
               <div class="timeline-item__header" role="button" tabindex="0" aria-expanded="false">
-                <div><p class="timeline-item__year">2023年</p><h3 class="timeline-item__title">革新創業を起点に科研情報化を探求</h3></div>
+                <div><p class="timeline-item__year">2023</p><h3 class="timeline-item__title" data-i18n="resume.timeline.items.3.title">革新創業を起点に科研情報化を探求</h3></div>
                 <span class="timeline-item__toggle">+</span>
               </div>
               <div class="timeline-item__body">
                 <div class="timeline-item__content">
                   <ul>
-                    <li>宜賓拓科学研究科技有限公司を設立、代表取締役に就任</li>
-                    <li>研究に専念し、革新創業の技術基盤とプロジェクト管理ノウハウを蓄積</li>
-                    <li>国家級・省級課題をそれぞれ1件完了、研究代表者を務める</li>
-                    <li>連続で国家科技型中小企業に認定</li>
-                    <li>学術論文2編を発表</li>
+                    <li data-i18n="resume.timeline.items.3.points.0">宜賓拓科学研究科技有限公司を設立、代表取締役に就任</li>
+                    <li data-i18n="resume.timeline.items.3.points.1">研究に専念し、革新創業の技術基盤とプロジェクト管理ノウハウを蓄積</li>
+                    <li data-i18n="resume.timeline.items.3.points.2">国家級・省級課題をそれぞれ1件完了、研究代表者を務める</li>
+                    <li data-i18n="resume.timeline.items.3.points.3">連続で国家科技型中小企業に認定</li>
+                    <li data-i18n="resume.timeline.items.3.points.4">学術論文2編を発表</li>
                   </ul>
                 </div>
               </div>
@@ -236,32 +279,32 @@
         <div class="sidebar">
           <!-- Honors -->
           <div class="sidebar-section reveal">
-            <h3>受賞・栄誉</h3>
+            <h3 data-i18n="resume.honors.title">受賞・栄誉</h3>
             <div class="honor-list">
               <div class="honor-item is-open">
-                <button class="honor-item__header" type="button"><span class="honor-item__title">🏆 中央放送総合「開拓者」番組 特別招待ゲスト</span><span class="honor-item__icon">▾</span></button>
-                <div class="honor-item__body"><p class="honor-item__desc">番組出演により教育・研究成果を広く社会発信し、業界内外での認知度を拡大しました。</p></div>
+                <button class="honor-item__header" type="button"><span class="honor-item__title" data-i18n="resume.honors.items.0.title">🏆 中央放送総合「開拓者」番組 特別招待ゲスト</span><span class="honor-item__icon">▾</span></button>
+                <div class="honor-item__body"><p class="honor-item__desc" data-i18n="resume.honors.items.0.desc">番組出演により教育・研究成果を広く社会発信し、業界内外での認知度を拡大しました。</p></div>
               </div>
               <div class="honor-item">
-                <button class="honor-item__header" type="button"><span class="honor-item__title">🏆 国家科技型中小企業 認定（連続）</span><span class="honor-item__icon">▾</span></button>
-                <div class="honor-item__body"><p class="honor-item__desc">技術開発力と研究型経営モデルが継続的に評価され、複数年にわたり認定を取得しています。</p></div>
+                <button class="honor-item__header" type="button"><span class="honor-item__title" data-i18n="resume.honors.items.1.title">🏆 国家科技型中小企業 認定（連続）</span><span class="honor-item__icon">▾</span></button>
+                <div class="honor-item__body"><p class="honor-item__desc" data-i18n="resume.honors.items.1.desc">技術開発力と研究型経営モデルが継続的に評価され、複数年にわたり認定を取得しています。</p></div>
               </div>
               <div class="honor-item">
-                <button class="honor-item__header" type="button"><span class="honor-item__title">🏆 中央青年表彰</span><span class="honor-item__icon">▾</span></button>
-                <div class="honor-item__body"><p class="honor-item__desc">若手研究者としてのリーダーシップと社会貢献実績が国レベルで評価されました。</p></div>
+                <button class="honor-item__header" type="button"><span class="honor-item__title" data-i18n="resume.honors.items.2.title">🏆 中央青年表彰</span><span class="honor-item__icon">▾</span></button>
+                <div class="honor-item__body"><p class="honor-item__desc" data-i18n="resume.honors.items.2.desc">若手研究者としてのリーダーシップと社会貢献実績が国レベルで評価されました。</p></div>
               </div>
               <div class="honor-item">
-                <button class="honor-item__header" type="button"><span class="honor-item__title">🏆 共産主義青年団口コミ大使</span><span class="honor-item__icon">▾</span></button>
-                <div class="honor-item__body"><p class="honor-item__desc">若世代向けの情報発信と交流促進を担う役割を務め、青少年の成長支援に貢献しました。</p></div>
+                <button class="honor-item__header" type="button"><span class="honor-item__title" data-i18n="resume.honors.items.3.title">🏆 共産主義青年団口コミ大使</span><span class="honor-item__icon">▾</span></button>
+                <div class="honor-item__body"><p class="honor-item__desc" data-i18n="resume.honors.items.3.desc">若世代向けの情報発信と交流促進を担う役割を務め、青少年の成長支援に貢献しました。</p></div>
               </div>
             </div>
           </div>
 
           <!-- Skill radar -->
           <div class="sidebar-section reveal">
-            <h3>スキル・特性</h3>
+            <h3 data-i18n="resume.skills.title">スキル・特性</h3>
             <div class="radar-container">
-              <svg class="radar-chart" viewBox="0 0 300 300" role="img" aria-label="スキルレーダーチャート">
+              <svg class="radar-chart" viewBox="0 0 300 300" role="img" aria-label="スキルレーダーチャート" data-i18n-attr="resume.skills.radarAria|aria-label">
                 <defs>
                   <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#4a6cf7" />
@@ -277,14 +320,14 @@
                   <line x1="45" y1="87" x2="255" y2="213" />
                   <line x1="45" y1="213" x2="255" y2="87" />
                 </g>
-                <text class="radar-label" x="150" y="20" text-anchor="middle">戦略的思考</text>
-                <text class="radar-label" x="260" y="60" text-anchor="middle">課題解決力</text>
-                <text class="radar-label" x="270" y="155" text-anchor="middle">実行力</text>
-                <text class="radar-label" x="240" y="250" text-anchor="middle">データ志向</text>
-                <text class="radar-label" x="150" y="290" text-anchor="middle">教育志向</text>
-                <text class="radar-label" x="40" y="250" text-anchor="middle">柔軟な発想</text>
-                <text class="radar-label" x="20" y="155" text-anchor="middle">グローバル視点</text>
-                <text class="radar-label" x="40" y="60" text-anchor="middle">協調型リーダー</text>
+                <text class="radar-label" x="150" y="20" text-anchor="middle" data-i18n="resume.skills.labels.0">戦略的思考</text>
+                <text class="radar-label" x="260" y="60" text-anchor="middle" data-i18n="resume.skills.labels.1">課題解決力</text>
+                <text class="radar-label" x="270" y="155" text-anchor="middle" data-i18n="resume.skills.labels.2">実行力</text>
+                <text class="radar-label" x="240" y="250" text-anchor="middle" data-i18n="resume.skills.labels.3">データ志向</text>
+                <text class="radar-label" x="150" y="290" text-anchor="middle" data-i18n="resume.skills.labels.4">教育志向</text>
+                <text class="radar-label" x="40" y="250" text-anchor="middle" data-i18n="resume.skills.labels.5">柔軟な発想</text>
+                <text class="radar-label" x="20" y="155" text-anchor="middle" data-i18n="resume.skills.labels.6">グローバル視点</text>
+                <text class="radar-label" x="40" y="60" text-anchor="middle" data-i18n="resume.skills.labels.7">協調型リーダー</text>
                 <polygon class="radar-polygon" data-animate data-scores="95,90,92,88,95,85,82,90" points="150,150 150,150 150,150 150,150 150,150 150,150 150,150 150,150" />
               </svg>
             </div>
@@ -292,9 +335,9 @@
 
           <!-- Download CTA -->
           <div class="cta-card no-print reveal">
-            <h4 class="cta-card__title">フル履歴書をダウンロード</h4>
-            <p class="cta-card__desc">このページを印刷（PDF保存）して、詳細な経歴書としてご利用いただけます。</p>
-            <button class="btn-download" type="button" onclick="window.print()">📄 PDFとして保存</button>
+            <h4 class="cta-card__title" data-i18n="resume.download.title">フル履歴書をダウンロード</h4>
+            <p class="cta-card__desc" data-i18n="resume.download.desc">このページを印刷（PDF保存）して、詳細な経歴書としてご利用いただけます。</p>
+            <button class="btn-download" type="button" onclick="window.print()" data-i18n="resume.download.button">📄 PDFとして保存</button>
           </div>
         </div>
       </div>
@@ -306,36 +349,37 @@
     <div class="container">
       <div class="footer__inner">
         <div>
-          <div class="brand"><span class="brand__name">鄧信成</span><span class="brand__sub">教育AI研究者・起業家</span></div>
-          <p class="footer__desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
+          <div class="brand"><span class="brand__name" data-i18n="brand">鄧信成</span><span class="brand__sub" data-i18n="brandSub">教育AI研究者・起業家</span></div>
+          <p class="footer__desc" data-i18n-html="footer.desc">研究と技術を、社会の実践へ。<br />教育を核にした研究と起業で、社会課題の解決に取り組みます。</p>
         </div>
         <div>
-          <h4>ナビゲーション</h4>
-          <a class="footer__link" href="index.html">ホーム</a>
-          <a class="footer__link" href="about.html">私について</a>
-          <a class="footer__link" href="portfolio.html">実績・プロジェクト</a>
-          <a class="footer__link" href="resume.html">経歴</a>
-          <a class="footer__link" href="contact.html">お問い合わせ</a>
+          <h4 data-i18n="footer.navTitle">ナビゲーション</h4>
+          <a class="footer__link" href="index.html" data-i18n="nav.home">ホーム</a>
+          <a class="footer__link" href="about.html" data-i18n="nav.about">私について</a>
+          <a class="footer__link" href="portfolio.html" data-i18n="nav.portfolio">実績・プロジェクト</a>
+          <a class="footer__link" href="resume.html" data-i18n="nav.resume">経歴</a>
+          <a class="footer__link" href="contact.html" data-i18n="nav.contact">お問い合わせ</a>
         </div>
         <div>
-          <h4>お問い合わせ</h4>
+          <h4 data-i18n="footer.contactTitle">お問い合わせ</h4>
           <a class="footer__link" href="mailto:tousinnsei@gmail.com">tousinnsei@gmail.com</a>
           <a class="footer__link" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer">www.ybhtkj.cn</a>
           <a class="footer__link" href="tel:+819088526444">090-8852-6444</a>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>© 2026 鄧信成</span>
+        <span data-i18n="footer.copyright">© 2026 鄧信成</span>
         <div class="footer__social">
-          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール">✉</a>
-          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト">🌐</a>
+          <a class="social-btn" href="mailto:tousinnsei@gmail.com" title="メール" aria-label="メール" data-i18n-attr="ui.emailTitle|aria-label">✉</a>
+          <a class="social-btn" href="https://www.ybhtkj.cn/" target="_blank" rel="noreferrer" title="公式サイト" aria-label="公式サイト" data-i18n-attr="ui.siteTitle|aria-label">🌐</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <button class="back-to-top" aria-label="トップへ戻る">↑</button>
+  <button class="back-to-top" aria-label="トップへ戻る" data-i18n-attr="ui.backToTop|aria-label">↑</button>
 
+  <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
   <script>
     (function () {

@@ -401,13 +401,13 @@
       const data = new FormData(form);
       const name = data.get('name') || '';
       const email = data.get('email') || '';
-      const subj = data.get('subject') || 'お問い合わせ';
+      const subj = data.get('subject') || (window.I18N && I18N.t('contact.form.subjectDefault')) || 'お問い合わせ';
       const msg = data.get('message') || '';
       const mailto =
         'mailto:tousinnsei@gmail.com' +
         `?subject=${encodeURIComponent(subj)}` +
         `&body=${encodeURIComponent(`${msg}\n\n---\n${name} | ${email}`)}`;
-      showFormStatus('メールアプリを開いています…');
+      showFormStatus((window.I18N && I18N.t('contact.form.statusOpen')) || 'メールアプリを開いています…');
       window.location.href = mailto;
       form.reset();
       setTimeout(hideFormStatus, 4000);
@@ -424,9 +424,10 @@
     const msg = $('.form-control__msg', box);
     let error = '';
     const val = f.value.trim();
-    if (f.required && !val) error = '必須項目です。';
+    if (f.required && !val)
+      error = (window.I18N && I18N.t('contact.val.required')) || '必須項目です。';
     else if (f.type === 'email' && val && !/^\S+@\S+\.\S+$/.test(val))
-      error = '正しいメールアドレスを入力してください。';
+      error = (window.I18N && I18N.t('contact.val.email')) || '正しいメールアドレスを入力してください。';
     const ok = !error;
     box.classList.toggle('has-error', !ok);
     if (msg) msg.textContent = error;
