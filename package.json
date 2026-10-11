@@ -1,0 +1,16 @@
+{
+  "name": "my-profile",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "鄧信成 个人官网 — Git 驱动的内容管理系统（本地服务 + Vercel serverless 发布）",
+  "scripts": {
+    "serve": "node tools/server.mjs",
+    "serve:local": "node tools/server.mjs --port 8080 --branch main",
+    "set-password": "node tools/set-password.mjs",
+    "publish": "node tools/server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

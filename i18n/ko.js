@@ -67,6 +67,7 @@ I18N_DICTS.ko = {
         { "year": "2025", "cat": "문화 전승 DX", "title": "전통 인형극 연기 교육 소프트웨어" }
       ]
     },
+    "news": { "label": "Updates", "title": "최신 소식", "more": "자세히 보기" },
     "story": {
       "label": "Brand Story", "title": "연구에서 사회적 가치로", "desc": "연구실의 지식을 현장의 과제 해결로 이어가는 것.<br />그것이 저의 사명입니다.",
       "steps": [
@@ -97,6 +98,7 @@ I18N_DICTS.ko = {
       "primary": "성과 보기", "secondary": "문의하기",
       "photoAlt": "등신성의 프로필 사진"
     },
+    "awards": { "label": "Awards", "title": "수상 / 명예" },
     "why": {
       "label": "이 길을 걷는 이유", "title": "세 가지 시선이 만든 원동력",
       "sub": "연구자, 경영자, 문화 전승 활동가. 세 가지 시선이 제 활동의 '왜'를 만들어 냅니다.",

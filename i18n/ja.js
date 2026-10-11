@@ -67,6 +67,7 @@ I18N_DICTS.ja = {
         { "year": "2025", "cat": "文化伝承DX", "title": "伝統人形芝居演技教育ソフトウェア" }
       ]
     },
+    "news": { "label": "Updates", "title": "最新のお知らせ", "more": "詳しく見る" },
     "story": {
       "label": "Brand Story", "title": "研究から社会実装へ", "desc": "研究室の知を、現場の課題解決につなげる。<br />それが私の使命です。",
       "steps": [
@@ -97,6 +98,7 @@ I18N_DICTS.ja = {
       "primary": "実績を見る", "secondary": "お問い合わせ",
       "photoAlt": "鄧信成のプロフィール写真"
     },
+    "awards": { "label": "Awards", "title": "受賞・栄誉" },
     "why": {
       "label": "なぜ、この道を歩むのか", "title": "3つの視点がつくる原動力",
       "sub": "研究者・経営者・文化伝承者。3つのまなざしが、私の活動の「なぜ」をつくっています。",

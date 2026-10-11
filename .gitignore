@@ -1,0 +1,19 @@
+﻿# my-profile — 本地 CMS 相关忽略项
+# 管理员密码哈希（绝不能提交）
+tools/cms-config.local.json
+
+# Node 依赖 / 缓存
+node_modules/
+npm-debug.log*
+
+# 本地运行时生成
+local-data/
+*.local.json
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# 备份（若放入仓库子目录则取消注释）
+# backups/
+

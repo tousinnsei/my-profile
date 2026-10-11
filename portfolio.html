@@ -442,6 +442,8 @@
       if (!grid) return;
 
       var all = (window.PROJECTS_DATA && PROJECTS_DATA.items) || [];
+      // CMS 草稿过滤：status==='draft' 的成果不在公开网站展示（无 status 视为已发布，兼容旧数据）
+      all = all.filter(function (it) { return it.status !== 'draft'; });
       var teasers = (window.PROJECTS_DATA && PROJECTS_DATA.teasers) || {};
       if (!all.length) return;
 

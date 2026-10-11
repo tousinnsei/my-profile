@@ -1242,6 +1242,38 @@ ol {
 .featured-row:hover .featured-row__title { color: var(--primary); }
 .featured-row:hover .featured-row__arrow { transform: translateX(0); opacity: 1; color: var(--primary); }
 
+/* ---------- CMS 最新动态 (editorial, 数据驱动) ---------- */
+.section--news { background: var(--bg-soft, #f5f7fa); }
+.news-list { display: flex; flex-direction: column; }
+.news-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 1.4rem;
+  align-items: center;
+  padding: 1.1rem 0.5rem;
+  border-top: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left var(--dur) var(--ease);
+}
+.news-row:last-child { border-bottom: 1px solid var(--border); }
+.news-row__date { font-family: var(--font-mono); font-size: .82rem; color: var(--muted); }
+.news-row__title { font-size: 1.02rem; font-weight: 600; }
+.news-row__arrow { font-size: 1.2rem; color: var(--muted); opacity: 0; transform: translateX(-6px); transition: all var(--dur) var(--ease); }
+.news-row:hover { padding-left: 1rem; }
+.news-row:hover .news-row__title { color: var(--primary); }
+.news-row:hover .news-row__arrow { transform: translateX(0); opacity: 1; color: var(--primary); }
+
+/* ---------- CMS 获奖/荣誉 (editorial, 数据驱动) ---------- */
+.section--awards { background: var(--bg-soft, #fff); }
+.awards-list { display: flex; flex-direction: column; gap: 0; }
+.awards-item { padding: 1.2rem 0.5rem; border-top: 1px solid var(--border); }
+.awards-item:last-child { border-bottom: 1px solid var(--border); }
+.awards-item__meta { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); margin-bottom: .3rem; }
+.awards-item__title { font-size: 1.05rem; font-weight: 700; }
+.awards-item__org { font-size: .9rem; color: var(--primary); margin-top: .2rem; }
+.awards-item__desc { font-size: .92rem; color: var(--muted); margin-top: .4rem; line-height: 1.7; max-width: 68ch; }
+
 /* ---------- Refined nav (Japanese labels fit) ---------- */
 .nav__link { letter-spacing: 0.02em; }
 

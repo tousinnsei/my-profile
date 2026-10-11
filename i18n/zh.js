@@ -67,6 +67,7 @@ I18N_DICTS.zh = {
         { "year": "2025", "cat": "文化传承数字化", "title": "传统木偶戏表演教育软件" }
       ]
     },
+    "news": { "label": "Updates", "title": "最新动态", "more": "了解更多" },
     "story": {
       "label": "Brand Story", "title": "从研究到社会实施", "desc": "把实验室的智慧，与一线课题的解决相连。<br />这正是我的使命。",
       "steps": [
@@ -97,6 +98,7 @@ I18N_DICTS.zh = {
       "primary": "查看成果", "secondary": "联系我们",
       "photoAlt": "邓信成的照片"
     },
+    "awards": { "label": "Awards", "title": "获奖 / 荣誉" },
     "why": {
       "label": "为何走上这条路", "title": "三个视角造就的原动力",
       "sub": "研究者、经营者、文化传承者——三种目光，构成了我行动的「为什么」。",

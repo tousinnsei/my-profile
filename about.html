@@ -310,6 +310,17 @@
         <a href="contact.html" class="btn btn--light" data-i18n="about.cta.button">お問い合わせ →</a>
       </div>
     </section>
+
+    <!-- CMS: 获奖/荣誉（数据驱动；无已发布记录时自动隐藏） -->
+    <section class="section section--awards" id="cms-awards" aria-labelledby="awards-heading" hidden>
+      <div class="container">
+        <div class="jp-sec-head" id="awards-heading">
+          <div class="jp-sec-head__top"><span class="jp-label" data-i18n="about.awards.label">Awards</span></div>
+          <h2 data-i18n="about.awards.title">受賞・栄誉</h2>
+        </div>
+        <div class="awards-list" id="cms-awards-list"></div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -349,5 +360,6 @@
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cms-awards.js"></script>
 </body>
 </html>

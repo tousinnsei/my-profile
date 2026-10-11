@@ -296,6 +296,22 @@
       </div>
     </section>
 
+    <!-- CMS: 最新动态（数据驱动；无已发布动态时自动隐藏） -->
+    <section class="section section--news" id="cms-news" aria-labelledby="news-heading" hidden>
+      <div class="container">
+        <div class="jp-sec-head" id="news-heading">
+          <div class="jp-sec-head__top">
+            <span class="jp-label" data-i18n="home.news.label">Updates</span>
+          </div>
+          <h2 data-i18n="home.news.title">最新のお知らせ</h2>
+        </div>
+        <div class="news-list" id="cms-news-list" data-stagger></div>
+        <div class="reveal" style="margin-top: 1.6rem;" id="cms-news-more" hidden>
+          <a href="contact.html" class="btn btn--text" data-i18n="home.news.more">詳しく見る <span class="btn__arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+
     <!-- Research -> Social Implementation -->
     <section class="section section--invert" id="story" aria-labelledby="story-heading">
       <div class="container invert-split">
@@ -421,8 +437,10 @@
 
   <button class="back-to-top" aria-label="トップへ戻る" data-i18n-attr="ui.backToTop|aria-label">↑</button>
 
+  <script src="data/projects.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cms-home.js"></script>
   <script>
     (function () {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

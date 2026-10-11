@@ -67,6 +67,7 @@ I18N_DICTS.en = {
         { "year": "2025", "cat": "Cultural-heritage DX", "title": "Traditional Puppet Theater Performance Education Software" }
       ]
     },
+    "news": { "label": "Updates", "title": "Latest News", "more": "Learn more" },
     "story": {
       "label": "Brand Story", "title": "From Research to Real-World Impact", "desc": "Connecting knowledge from the laboratory with solutions to on-the-ground problems.<br />That is my mission.",
       "steps": [
@@ -97,6 +98,7 @@ I18N_DICTS.en = {
       "primary": "Explore My Work", "secondary": "Get in Touch",
       "photoAlt": "Portrait of Xin-Cheng Deng"
     },
+    "awards": { "label": "Awards", "title": "Awards & Honors" },
     "why": {
       "label": "Why I Walk This Path", "title": "Three Lenses Behind My Drive",
       "sub": "Researcher, entrepreneur, culture steward — three perspectives that form the \"why\" behind everything I do.",
