@@ -1093,7 +1093,7 @@ window.PROJECTS_DATA = {
         "ko": "학부모 양육 클라우드 관리 소프트"
       },
       "overview": {
-        "ja": "プラットフォーム運営側が使用する保護者教育クラウドの管理ツールです。コンテンツの上架・審査、ユーザー管理、データモニタリングまで、運用に必要な機能を一式備えています。",
+        "ja": "プラットフォ��ム運営側が使用する保護者教育クラウドの管理ツールです。コンテンツの上架・審査、ユーザー管理、データモニタリングまで、運用に必要な機能を一式備えています。",
         "zh": "供平台运营方使用的家长教养云管理工具。从内容上架与审核、用户管理到数据监测，具备运营所需的全套功能。",
         "en": "An admin tool for platform operators of the parent-education cloud—covering content publishing and review, user management, and data monitoring in one suite.",
         "ko": "플랫폼 운영 측에서 사용하는 보호자 교육 클라우드 관리 도구입니다. 콘텐츠 등록·심사, 사용자 관리, 데이터 모니터링까지 운영에 필요한 기능을 갖춥니다."
@@ -2550,6 +2550,63 @@ window.PROJECTS_DATA = {
         "zh": "案例研究、实地访谈调查、经济统计分析、政策分析",
         "en": "Case study, on-site interviews, economic statistical analysis, policy analysis",
         "ko": "사례 연구, 현지 인터뷰 조사, 경제 통계 분석, 정책 분석"
+      }
+    },
+    {
+      "id": "r7",
+      "cat": "research",
+      "status": "draft",
+      "year": 2026,
+      "featured": false,
+      "image": "",
+      "images": [],
+      "label": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "title": {
+        "ja": "【テスト】CMS検証用研究",
+        "zh": "【测试】CMS验证用研究",
+        "en": "",
+        "ko": ""
+      },
+      "short": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "overview": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "content": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "role": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "results": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
+      },
+      "stack": {
+        "ja": "",
+        "zh": "",
+        "en": "",
+        "ko": ""
       }
     }
   ],
