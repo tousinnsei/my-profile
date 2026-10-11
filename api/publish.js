@@ -22,6 +22,17 @@ const REPO = 'tousinnsei/my-profile';
 const BRANCH = 'main';
 const BASE = 'https://api.github.com';
 
+// 简单失败限速：每实例最佳努力
+const attempts = new Map();
+function rateLimited(ip) {
+  const now = Date.now();
+  const rec = attempts.get(ip) || { fails: 0, first: now };
+  if (now - rec.first > 60000) { rec.fails = 0; rec.first = now; }
+  rec.fails += 1;
+  attempts.set(ip, rec);
+  return rec.fails > 10;
+}
+
 const DATA_TARGETS = {
   projects: { path: 'data/projects.json', type: 'json' },
   updates:  { path: 'data/updates.json', type: 'json' },
@@ -118,6 +129,10 @@ export default async function handler(req, res) {
     return diff === 0;
   };
   if (!safe(String(payload.password || ''), adminPassword)) {
+    const ip = (req.headers && (req.headers['x-forwarded-for'] || req.headers['x-real-ip'])) || 'unknown';
+    if (rateLimited(ip)) {
+      return json(res, 429, { ok: false, error: '尝试过于频繁，请稍后再试' });
+    }
     return json(res, 401, { ok: false, error: '密码错误' });
   }
 

@@ -1,6 +1,8 @@
 ﻿# my-profile — 本地 CMS 相关忽略项
 # 管理员密码哈希（绝不能提交）
 tools/cms-config.local.json
+# 一次性明文密码（生成后请自行保管并删除）
+tools/cms-admin-password.txt
 
 # Node 依赖 / 缓存
 node_modules/

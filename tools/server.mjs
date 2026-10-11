@@ -31,7 +31,7 @@ import http from 'node:http';
 import { readFile, writeFile, stat, mkdir } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { createHash } from 'node:crypto';
+import { createHash, scryptSync, timingSafeEqual } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -59,6 +59,21 @@ async function loadConfig() {
   }
 }
 function sha256(s) { return createHash('sha256').update(String(s)).digest('hex'); }
+
+// 常量时间密码校验：支持新格式 { salt, hash }(scrypt) 与旧格式 { passwordHash }(sha256)
+function verifyPassword(cfg, password) {
+  const pw = String(password || '');
+  if (cfg && cfg.salt && cfg.hash) {
+    const got = scryptSync(pw, cfg.salt, 64);
+    const want = Buffer.from(cfg.hash, 'hex');
+    return got.length === want.length && timingSafeEqual(got, want);
+  }
+  const expectedHash = (cfg && cfg.passwordHash) || '';
+  if (!expectedHash) return false;
+  const got = Buffer.from(sha256(pw), 'hex');
+  const want = Buffer.from(expectedHash, 'hex');
+  return got.length === want.length && timingSafeEqual(got, want);
+}
 
 /* ---------- 内容文件路径 ---------- */
 const DATA_FILES = {
@@ -160,9 +175,7 @@ async function handleCheck(req) {
   let payload;
   try { payload = JSON.parse(body || '{}'); } catch { return { status: 400, json: { ok: false, error: '请求体不是有效 JSON' } }; }
   const config = await loadConfig();
-  const expectedHash = config.passwordHash || '';
-  const gotHash = sha256(payload.password || '');
-  if (!expectedHash || gotHash !== expectedHash) {
+  if (!verifyPassword(config, payload.password)) {
     return { status: 401, json: { ok: false, error: '密码错误或未设置管理员密码' } };
   }
   return { status: 200, json: { ok: true } };
@@ -176,9 +189,7 @@ async function handlePublish(req) {
   try { payload = JSON.parse(body || '{}'); } catch { return { status: 400, json: { ok: false, error: '请求体不是有效 JSON' } }; }
 
   const config = await loadConfig();
-  const expectedHash = config.passwordHash || '';
-  const gotHash = sha256(payload.password || '');
-  if (!expectedHash || gotHash !== expectedHash) {
+  if (!verifyPassword(config, payload.password)) {
     return { status: 401, json: { ok: false, error: '密码错误或未设置管理员密码' } };
   }
 
