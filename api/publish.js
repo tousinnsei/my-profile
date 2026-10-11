@@ -1,5 +1,5 @@
 /* ============================================================
-   my-profile — Vercel Serverless 发布函数
+   my-profile — Vercel Serverless 发布函数（经典 (req,res) 风格，兼容全部 Vercel Node 运行时）
    ------------------------------------------------------------
    与 tools/server.mjs 的 /api/publish 使用相同请求/响应契约。
    通过 GitHub API（Git Database）在 main 分支上原子提交多个
@@ -31,7 +31,7 @@ const DATA_TARGETS = {
 
 function serializeProjectsJs(data) {
   // 由规范 JSON 确定性生成 data/projects.js（前端仍以 script 加载）
-  return '/* 全プロジェクトデータ（4言語対応） — my-profile · CMS管理\n   生成文件：由 data/projects.json 生成，请勿手工编辑 */\nwindow.PROJECTS_DATA = ' +
+  return '/* \u5168\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u30c7\u30fc\u30bf\uff084\u8a00\u8a9e\u5bfe\u5fdc\uff09 \u2014 my-profile \u00b7 CMS\u7ba1\u7406\n   \u751f\u6210\u6587\u4ef6\uff1a\u7531 data/projects.json \u751f\u6210\uff0c\u8bf7\u52ff\u624b\u5de5\u7f16\u8f91 */\nwindow.PROJECTS_DATA = ' +
     JSON.stringify(data, null, 2) + ';\n';
 }
 
@@ -73,61 +73,57 @@ function prepareDataFiles(data) {
   return entries;
 }
 
-export default async function handler(req) {
+function json(res, status, obj) {
+  res.status(status).setHeader('Content-Type', 'application/json').json(obj);
+}
+
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ ok: false, error: '仅支持 POST' }), {
-      status: 405, headers: { 'Content-Type': 'application/json' },
-    });
+    return json(res, 405, { ok: false, error: '仅支持 POST' });
   }
 
   const token = process.env.GH_TOKEN || '';
   const adminPassword = process.env.ADMIN_PASSWORD || '';
 
   // /api/check — 登录校验（与发布共用同一密码）
-  if (new URL(req.url, 'http://localhost').pathname === '/api/check') {
-    let c;
-    try { c = await req.json(); } catch { c = {}; }
-    if (!token || !adminPassword) {
-      return new Response(JSON.stringify({ ok: false, error: '服务器尚未配置 GH_TOKEN / ADMIN_PASSWORD' }), {
-        status: 500, headers: { 'Content-Type': 'application/json' },
-      });
+  // （独立 /api/check 函数见 api/check.js；此处保留以兼容本地 server.mjs 单入口路由）
+  const pathname = (req.url || '').split('?')[0];
+  if (pathname === '/api/check') {
+    if (!adminPassword) {
+      return json(res, 500, { ok: false, error: '服务器尚未配置 ADMIN_PASSWORD 环境变量，请先在 Vercel 控制台配置（见交付报告）。' });
     }
+    let c;
+    try { c = typeof req.body === 'object' ? req.body : JSON.parse(req.body || '{}'); } catch { c = {}; }
     const ok = String(c.password || '') === adminPassword;
-    return new Response(JSON.stringify({ ok }), {
-      status: ok ? 200 : 401, headers: { 'Content-Type': 'application/json' },
-    });
+    return json(res, ok ? 200 : 401, { ok });
   }
 
   if (!token || !adminPassword) {
-    return new Response(JSON.stringify({
+    return json(res, 500, {
       ok: false,
       error: '服务器尚未配置 GH_TOKEN / ADMIN_PASSWORD 环境变量，请先在 Vercel 控制台配置（见交付报告）。',
-    }), { status: 500, headers: { 'Content-Type': 'application/json' } });
-  }
-
-  let payload;
-  try { payload = await req.json(); } catch {
-    return new Response(JSON.stringify({ ok: false, error: '请求体不是有效 JSON' }), {
-      status: 400, headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  // 密码校验（服务端，防时序用简单字符串比较即可——hash 比对更好）
-  const safe = (a, b) => { // 常量时间比较
+  let payload;
+  try { payload = typeof req.body === 'object' ? req.body : JSON.parse(req.body || '{}'); } catch {
+    return json(res, 400, { ok: false, error: '请求体不是有效 JSON' });
+  }
+
+  // 密码校验（服务端，常量时间比较）
+  const safe = (a, b) => {
     if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
     let diff = 0;
     for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
     return diff === 0;
   };
   if (!safe(String(payload.password || ''), adminPassword)) {
-    return new Response(JSON.stringify({ ok: false, error: '密码错误' }), {
-      status: 401, headers: { 'Content-Type': 'application/json' },
-    });
+    return json(res, 401, { ok: false, error: '密码错误' });
   }
 
   try {
     const entries = prepareDataFiles(payload.data || {});
-    const message = String(payload.commitMessage || `CMS 内容更新 (${new Date().toISOString()})`);
+    const message = String(payload.commitMessage || `CMS \u5185\u5bb9\u66f4\u65b0 (${new Date().toISOString()})`);
 
     // 1) 取 main 分支当前引用
     const ref = await gh(token, `${BASE}/repos/${REPO}/git/ref/heads/${BRANCH}`);
@@ -163,17 +159,15 @@ export default async function handler(req) {
       body: { sha: commit.sha, force: false },
     });
 
-    return new Response(JSON.stringify({
+    return json(res, 200, {
       ok: true,
       commit: commit.sha,
       branch: BRANCH,
       files: entries.map((e) => e.path),
       deployTriggered: true,
       message,
-    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
-  } catch (e) {
-    return new Response(JSON.stringify({ ok: false, error: String(e && e.message ? e.message : e) }), {
-      status: 500, headers: { 'Content-Type': 'application/json' },
     });
+  } catch (e) {
+    return json(res, 500, { ok: false, error: String(e && e.message ? e.message : e) });
   }
 }
