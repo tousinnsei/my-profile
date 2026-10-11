@@ -2551,63 +2551,6 @@ window.PROJECTS_DATA = {
         "en": "Case study, on-site interviews, economic statistical analysis, policy analysis",
         "ko": "사례 연구, 현지 인터뷰 조사, 경제 통계 분석, 정책 분석"
       }
-    },
-    {
-      "id": "r7",
-      "cat": "research",
-      "status": "draft",
-      "year": 2026,
-      "featured": false,
-      "image": "",
-      "images": [],
-      "label": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "title": {
-        "ja": "【テスト】CMS検証用研究",
-        "zh": "【测试】CMS验证用研究",
-        "en": "",
-        "ko": ""
-      },
-      "short": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "overview": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "content": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "role": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "results": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      },
-      "stack": {
-        "ja": "",
-        "zh": "",
-        "en": "",
-        "ko": ""
-      }
     }
   ],
   "teasers": {
